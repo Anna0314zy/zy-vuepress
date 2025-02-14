@@ -13,7 +13,7 @@ tags:
 
 
 ### 实现单向链表
-![](./../.vuepress/public/images/1.0d533687.png)
+![](../../.vuepress/public/images/1.0d533687.png)
 ```js
 class Node {
     constructor(element, next) {
@@ -84,7 +84,7 @@ class LinkedList {
 ```
 ## 二.链表的反转
 ### (1)递归实现
-![](./../.vuepress/public/images/2.7d91fcef.png)
+![](../../.vuepress/public/images/2.7d91fcef.png)
 ```js
 
 reverseList(){
@@ -101,7 +101,7 @@ reverseList(){
 ```
 ### (2)循环实现
 
-![](./../.vuepress/public/images/3.7b7f7fde.png)
+![](../../.vuepress/public/images/3.7b7f7fde.png)
 ```js
 reverseList(){
     let head = this.head;
@@ -118,7 +118,7 @@ reverseList(){
 }
 ```
 ## 三.单向循环链表
-![](./../.vuepress/public/images/4.e885222e.png)
+![](../../.vuepress/public/images/4.e885222e.png)
 
 ```js
 add(index, element) {
@@ -157,7 +157,7 @@ remove(index) {
 }
 ```
 ## 四.双向链表
-![](./../.vuepress/public/images/5.5e323416.png)
+![](../../.vuepress/public/images/5.5e323416.png)
 
 ```js
 class Node {
@@ -245,7 +245,7 @@ class LinkedList {
 ```
 ## 五.双向循环链表
 
-![](./../.vuepress/public/images/6.29e4fa47.png)
+![](../../.vuepress/public/images/6.29e4fa47.png)
 ```js
 class Node {
     constructor(element, prev, next) {
@@ -314,7 +314,7 @@ class LinkList {
 }
 ```
 ## 六.环形链表
-![](./../.vuepress/public/images/7.eeff2690.png)
+![](../../.vuepress/public/images/7.eeff2690.png)
 
 ```js
 hasCycle() {

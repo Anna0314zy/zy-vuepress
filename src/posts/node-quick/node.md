@@ -28,11 +28,11 @@ javascript 在最初设计时设计成了单线程,为什么不是多线程呢�
 
 ## 四.同步异步和阻塞非阻塞
 
-![](./../.vuepress/public/images/2.1a033437.png)
+![](../../.vuepress/public/images/2.1a033437.png)
 
 ## 五.Node 中的 Event Loop
 
-![](./../.vuepress/public/images/1.4f572942.png)
+![](../../.vuepress/public/images/1.4f572942.png)
 
 - 1.我们写的 js 代码会交给 v8 引擎进行处理
 - 2.代码中可能会调用 nodeApi,node 会交给 libuv 库处理

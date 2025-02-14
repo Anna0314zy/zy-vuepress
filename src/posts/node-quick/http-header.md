@@ -134,7 +134,7 @@ Cache-Control:
 - no-cache 需要使用对比缓存验证数据,强制向源服务器再次验证 (没有强制缓存)
 - no-store 所有内容都不会缓存，强制缓存和对比缓存都不会触发 (不缓存)
 img
-![](./../.vuepress/public/images/cache2.png)
+![](../../.vuepress/public/images/cache2.png)
 对比缓存
 
 ​ Last-Modified & If-Modified-Since
@@ -142,24 +142,24 @@ img
 ​ ETag & If-None-Match
 
 img
-![](./../.vuepress/public/images/cache4.png)
+![](../../.vuepress/public/images/cache4.png)
 #### 1、浏览器缓存
 缓存这东西，第一次必须获取到资源后，然后根据返回的信息来告诉如何缓存资源，可能采用的是强缓存，也可能告诉客户端浏览器是协商缓存，这都需要根据响应的header内容来决定的。下面用两幅图来描述浏览器的缓存是怎么玩的，让大家有个大概的认知。
 
 浏览器第一次请求时：
 
-![](./../.vuepress/public/images/408483-20160525182843100-1556227104.png)
+![](../../.vuepress/public/images/408483-20160525182843100-1556227104.png)
 
 浏览器后续在进行请求时：
 
-![](./../.vuepress/public/images/408483-20160525182943272-204994049.png)
+![](../../.vuepress/public/images/408483-20160525182943272-204994049.png)
 
  
 
  从上图可以知道，浏览器缓存包含两种类型，即强缓存（也叫本地缓存）和协商缓存，浏览器在第一次请求发生后，再次请求时：
 
 浏览器在请求某一资源时，会先获取该资源缓存的header信息，判断是否命中强缓存（cache-control和expires信息），若命中直接从缓存中获取资源信息，包括缓存header信息；本次请求根本就不会与服务器进行通信；在firebug下可以查看某个具有强缓存资源返回的信息，例如本地firebug查看的一个强缓存js文件
-![](./../.vuepress/public/images/408483-20160525185916397-1208157783.png)
+![](../../.vuepress/public/images/408483-20160525185916397-1208157783.png)
 
 
 如果没有命中强缓存，浏览器会发送请求到服务器，请求会携带第一次请求返回的有关缓存的header字段信息（Last-Modified/If-Modified-Since和Etag/If-None-Match），由服务器根据请求中的相关header信息来比对结果是否协商缓存命中；若命中，则服务器返回新的响应header信息更新缓存中的对应header信息，但是并不返回资源内容，它会告知浏览器可以直接从缓存获取；否则返回最新的资源内容
@@ -221,7 +221,7 @@ img
 
 #### 5、用户的行为对缓存的影响
 盗用网上的一张图，基本能描述用户行为对缓存的影响
-![](./../.vuepress/public/images/408483-20160525202949975-1541314356.png)
+![](../../.vuepress/public/images/408483-20160525202949975-1541314356.png)
 
 
 
@@ -232,7 +232,7 @@ img
 
 类似下图所示：
 
-![](./../.vuepress/public/images/8a8676e933478d1a73777d84a5de55f5_b.png)
+![](../../.vuepress/public/images/8a8676e933478d1a73777d84a5de55f5_b.png)
 
 
 这样每次文件改变后就会生成新的query值，这样query值不同，也就是页面引用的资源路径不同了，之前缓存过的资源就被浏览器忽略了，因为资源请求的路径变了。

@@ -183,7 +183,7 @@ js引擎线程 他和页面渲染时互斥
 事件触发线程 独立的线程 EventLoop
 
 事件 click、setTimeout、ajax也是一个独立线程
-![](./../.vuepress/public/images/loop.1db11d95.jpg)
+![](../../.vuepress/public/images/loop.1db11d95.jpg)
 
 
 ### 3.宏任务,微任务

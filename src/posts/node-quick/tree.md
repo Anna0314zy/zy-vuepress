@@ -52,7 +52,7 @@ tags:
 
 ### 3.实现二叉搜索树
 
-![](./../.vuepress/public/images/bst.1d06a9fb.png)
+![](../../.vuepress/public/images/bst.1d06a9fb.png)
 ```js
 class Node {
     constructor(element, parent) {
@@ -158,7 +158,7 @@ console.dir(bst.root);
 
 - 层序遍历 Level Order Traversal (从上到下，从左到右依次访问每一个节点)
 
-![](./../.vuepress/public/images/tree.1548c7cf.png)
+![](../../.vuepress/public/images/tree.1548c7cf.png)
 
 ### 2.前序遍历
 ```js

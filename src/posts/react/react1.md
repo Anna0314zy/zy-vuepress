@@ -61,7 +61,7 @@ tags:
 
 * 列优缺点是列什么？是通过对比调研业界流行的技术方案，去发掘 React 的独特优势，去找出 React 的缺点。
 
-![](./../.vuepress/public/images/react3.png)
+![](../../.vuepress/public/images/react3.png)
 
 知识导图
 
@@ -78,7 +78,7 @@ tags:
 因为无论是从 jQuery 输入端，还是输出端来看，一切都是混沌的。HTML、CSS、JavaScript 就像原料一样送入 jQuery 搅拌机，拌着拌着拌出一个网页。你会发现并没有一个可以称之为模式的方式将这些原料有序地组合在一起，因为这并不是 jQuery 能够解决的问题。
 
 
-![](./../.vuepress/public/images/react4.png)
+![](../../.vuepress/public/images/react4.png)
 
 jQuery 代码组织方式
 
@@ -88,7 +88,7 @@ jQuery 代码组织方式
 
 AngularJS 的分层设计是齐全且优秀的，覆盖了整个 Web 开发的方方面面。MVC 它有，数据绑定它有，前端路由它有，表单校验它有，设计模式它也有，内容多到像一本百科全书。如下图所示。
 
-![](./../.vuepress/public/images/react4.png)
+![](../../.vuepress/public/images/react4.png)
 
 
 AngularJS 分层设计图
@@ -105,7 +105,7 @@ AngularJS 分层设计图
 
 所以对于初学者而言， Backbone.js 非常友好，甚至一度流行。选择 Backbone.js 的最主要原因是它使**前端项目工程化的成本足够低**。这个“低”不光是指开发人员的学习成本低，还有改造成本低，因为大量的 jQuery 存量项目都可以尝试迁移。
 
-![](./../.vuepress/public/images/react1.png)
+![](../../.vuepress/public/images/react1.png)
 
 
 Backbone 的结构图
@@ -244,7 +244,7 @@ const Block = (props) => <div style={{ color: 'red' }}></div>
 
 3. 方案对比。与其他的方案对比，说明 React 选用 JSX 的必要性。
 
-![](./../.vuepress/public/images/react5.png)
+![](../../.vuepress/public/images/react5.png)
 
 
 **入手**
@@ -435,7 +435,7 @@ JXON 非常类似于当下的 JSX，它的结构是这样的：
 
 大家在学完这讲内容后，就可以对照以下知识导图，检验自己的学习成果了。
 
-![](../.vuepress/public/images/react6.png)
+![](../../.vuepress/public/images/react6.png)
 
 **进阶**
 **Babel 插件如何实现 JSX 到 JS 的编译？** 在 React 面试中，这个问题很容易被追问，也经常被要求手写。
@@ -565,7 +565,7 @@ babel hello.jsx
 * 基于职责的梳理，确认生命周期函数的适用范围。
 
 以此建立时机与操作的对应关系。
-![](../.vuepress/public/images/react7.png)
+![](../../.vuepress/public/images/react7.png)
 
 
 **入手**
@@ -788,7 +788,7 @@ componentDidUpdate****中可以使用 setState，会触发重渲染，但一定�
 小结
 依照上面的梳理，你可以建立一个自己的知识导图了。
 
-![](../.vuepress/public/images/react8.png)
+![](../../.vuepress/public/images/react8.png)
 
 现在，你有没有发现，React 生命周期下的东西虽然很多，但是很清晰了。基本上看着前面的函数名字，就可以将整个生命周期的内容理下来了。
 
@@ -922,7 +922,7 @@ class ErrorBoundary extends React.Component {
 * 从组件的使用方式和表达效果来总结相同点；
 
 * 从代码实现、独有特性、具体场景等细分领域描述不同点。
-![](../.vuepress/public/images/react9.png)
+![](../../.vuepress/public/images/react9.png)
 
 
 
@@ -1168,7 +1168,7 @@ React 团队从 Facebook 的实际业务出发，通过探索时间切片与并�
 >类组件在未来时间切片与并发模式中，由于生命周期带来的复杂度，并不易于优化。而函数组件本身轻量简单，且在 Hooks 的基础上提供了比原先更细粒度的逻辑组织与复用，更能适应 React 的未来发展。
 
 
-![](../.vuepress/public/images/react10.png)
+![](../../.vuepress/public/images/react10.png)
 **总结**
 经过本讲的学习，你可以掌握类组件与函数组件的区别，对于组件的方方面面都有了大概的认识。那么组件是通过什么模式来设计的呢？我将会在下一讲与你详细探讨。
 ## 05 | 如何设计 React 组件？
@@ -1202,7 +1202,7 @@ React 团队从 Facebook 的实际业务出发，通过探索时间切片与并�
 
 从分类中可以看出展示组件的复用性更强，灵巧组件则更专注于业务本身。那么基于以上的思路，你可以整理出如下的知识导图：
 
-![](../.vuepress/public/images/react11.png)
+![](../../.vuepress/public/images/react11.png)
 
 
 
@@ -1653,7 +1653,7 @@ src
 
 >还可以通过以下知识导图来检验你的学习成果，看是否能将每部分补充完整。
 
-![](../.vuepress/public/images/react12.png)
+![](../../.vuepress/public/images/react12.png)
 
 **进阶**
 
@@ -1707,7 +1707,7 @@ function withLoading(WrappedComponent) {
 **承题**
 
 回到问题本身上来，其实思路很简单，只要能说清楚什么是同步场景，什么是异步场景，那问题自然而然就解决了。
-![](../.vuepress/public/images/react13.png)
+![](../../.vuepress/public/images/react13.png)
 
 
 **入手**
@@ -1765,13 +1765,13 @@ function withLoading(WrappedComponent) {
 
 - 并按组件树模拟一遍事件冒泡。
 
-![](../.vuepress/public/images/react14.png)
+![](../../.vuepress/public/images/react14.png)
 
 React 17 之前的事件冒泡流程图
 
 所以这就造成了，在一个页面中，只能有一个版本的 React。如果有多个版本，事件就乱套了。值得一提的是，这个问题在 React 17 中得到了解决，事件委托不再挂在 document 上，而是挂在 DOM 容器上，也就是 ReactDom.Render 所调用的节点上。
 
-![](../.vuepress/public/images/react15.png)
+![](../../.vuepress/public/images/react15.png)
 
 React 17 后的事件冒泡流程图
 
@@ -1998,7 +1998,7 @@ class Test extends Component {
 复制代码那这时输出的应该是什么呢？如果你认为是 0,0，那么又错了。
 
 正确的结果是 0,2。因为 setState 并不是真正的异步函数，它实际上是通过队列延迟执行操作实现的，通过 isBatchingUpdates 来判断 setState 是先存进 state 队列还是直接更新。值为 true 则执行异步操作，false 则直接同步更新。
-![](../.vuepress/public/images/react16.png)
+![](../../.vuepress/public/images/react16.png)
 
 在 onClick、onFocus 等事件中，由于合成事件封装了一层，所以可以将 isBatchingUpdates 的状态更新为 true；在 React 的生命周期函数中，同样可以将 isBatchingUpdates 的状态更新为 true。那么在 React 自己的生命周期事件和合成事件中，可以拿到 isBatchingUpdates 的控制权，将状态放进队列，控制执行节奏。而在外部的原生事件中，并没有外层的封装与拦截，无法更新 isBatchingUpdates 的状态为 true。这就造成 isBatchingUpdates 的状态只会为 false，且立即执行。所以在 addEventListener 、setTimeout、setInterval 这些原生事件中都会同步更新。
 
@@ -2022,7 +2022,7 @@ class Test extends Component {
 综上所述，我们可以整理出下面的知识导图。
 
 
-![](../.vuepress/public/images/react17.png)
+![](../../.vuepress/public/images/react17.png)
 
 **进阶**
 
@@ -2095,7 +2095,7 @@ class Test extends React.Component {
 - 无直接关系：两个组件并没有直接的关联关系，处在一棵树中相距甚远的位置，但需要共享、传递数据。
 
 基于以上的分类思路，本讲初步的知识导图就有了：
-![](../.vuepress/public/images/react18.png)
+![](../../.vuepress/public/images/react18.png)
 
 
 接下来就可以结合不同的布局关系进行一一论述。
@@ -2495,7 +2495,7 @@ class ReportPage extends React.Component {
 
 >还可以梳理出一个完整的知识框架。
 
-![](../.vuepress/public/images/react19.png)
+![](../../.vuepress/public/images/react19.png)
 
 
 **总结**
@@ -2524,7 +2524,7 @@ Context 存储的变量难以追溯数据源以及确认变动点。当组件依
 
 这样初步的框架就出来了。
 
-![](../.vuepress/public/images/react20.png)
+![](../../.vuepress/public/images/react20.png)
 
 
 **入手**
@@ -2535,12 +2535,12 @@ Flux 给我的印象就是平地一声雷，有种“天不生 Flux，状态管�
 
 2014 的 Facebook F8 大会上提出了一个观点，MVC 更适用于小型应用，但在面向大型前端项目时，MVC 会使项目足够复杂，即每当添加新的功能，系统复杂度就会疯狂增长。如下图所示，Model 与 View 的关联是错综复杂的，很难理解和调试，尤其是 Model 与 View 之间还存在双向数据流动。
 
-![](../.vuepress/public/images/react21.png)
+![](../../.vuepress/public/images/react21.png)
 这对于接手老代码的人来说是个令人头疼的难题，因为他们害怕承担风险，所以不敢轻易修改代码。这也正是 MVC 模式被 Facebook 抛弃的原因。
 
 所以他们提出了一种基于单向数据流的架构。如下图所示：
 
-![](../.vuepress/public/images/react22.png)
+![](../../.vuepress/public/images/react22.png)
 
 我先解释下上图中涉及的概念。
 
@@ -2559,7 +2559,7 @@ Flux 给我的印象就是平地一声雷，有种“天不生 Flux，状态管�
 **Redux**
 
 这场军备竞赛的佼佼者非 Redux 莫属。当提到 Redux，不得不提 Elm 这样一种传奇的语言。Elm虽然是一种语言，但实际上主要用于网页开发，它设计了一种 Model、View、Message、Update 的更新思路。
-![](../.vuepress/public/images/react23.png)
+![](../../.vuepress/public/images/react23.png)
 
 
 Elm 有着这样独特的设计：
@@ -2582,7 +2582,7 @@ Elm 有着这样独特的设计：
 
 这三大原则使 Redux 的调试工具实现了时间回溯功能，通过录制回放 Action，完整重现了整个应用路径，这在当时引发了不小的轰动。下图中的 Redux DevTools 是开发中常用的 Redux 调试工具，界面中展示的内容就是时间回溯功能，可以查看每个操作对全局 Store 产生的变化。
 
-![](../.vuepress/public/images/react24.png)
+![](../../.vuepress/public/images/react24.png)
 
 Redux 调试工具的时间回溯
 
@@ -2763,7 +2763,7 @@ Redux 的优点很多：结果可预测；代码结构严格易维护；模块�
 最后是 Mobx，Mobx 通过监听数据的属性变化，可以直接在数据上更改触发UI 的渲染。在使用上更接近 Vue，比起 Flux 与 Redux 的手动挡的体验，更像开自动挡的汽车。Mobx 的响应式实现原理与 Vue 相同，以 Mobx 5 为分界点，5 以前采用 Object.defineProperty 的方案，5 及以后使用 Proxy 的方案。它的优点是样板代码少、简单粗暴、用户学习快、响应式自动更新数据让开发者的心智负担更低。
 
 当然利用好知识导图，更有利于知识的学习。
-![](../.vuepress/public/images/react25.png)
+![](../../.vuepress/public/images/react25.png)
 
 
 关于个人观点部分，你可以参考我以下观点。这里务必谨记，表达个人观点时，切忌对技术栈踩一捧一，容易引发面试官反感。
@@ -2799,7 +2799,7 @@ Redux 的优点很多：结果可预测；代码结构严格易维护；模块�
 **承题**
 
 根据以上的分析，初步的答题框架出来了：基础部分仍然是“讲说理列”，除此之外，我希望你能加入这个核心点的回答，即引发流行的原因。
-![](../.vuepress/public/images/react26.png)
+![](../../.vuepress/public/images/react26.png)
 
 
 当然，在面试中，面试官问到的所有知识点，不可能全都是你知道的内容。这里我们就需要学会推理，即编程开发在答题时应该有自己的逻辑性，通过已知的内容推理出未知的内容。
@@ -2919,7 +2919,7 @@ React.createElement 执行后会返回一个 Plain Object，它会描述自己�
 
 整理下答题内容，可以绘制出如下的知识导图。
 
-![](../.vuepress/public/images/react27.png)
+![](../../.vuepress/public/images/react27.png)
 
 **进阶**
 
@@ -2959,7 +2959,7 @@ Vue，因为 React 与 Vue 是国内前端中的主流框架。
 
 横向对比 React、React-like 框架及 Vue 的 diff 算法。
 
-![](../.vuepress/public/images/react28.png)
+![](../../.vuepress/public/images/react28.png)
 
 入手
 
@@ -2969,7 +2969,7 @@ Diff 算法
 而 diff 算法探讨的就是虚拟 DOM 树发生变化后，生成 DOM 树更新补丁的方式。它通过对比新旧两株虚拟 DOM 树的变更差异，将更新补丁作用于真实 DOM，以最小成本完成视图更新。
 
 
-![](../.vuepress/public/images/react29.png)
+![](../../.vuepress/public/images/react29.png)
 具体的流程是这样的：
 
 - 真实 DOM 与虚拟 DOM 之间存在一个映射关系。这个映射关系依靠初始化时的 JSX 建立完成；
@@ -2978,7 +2978,7 @@ Diff 算法
 
 - 最后再根据 patch 去更新真实的 DOM，反馈到用户的界面上。
 
-![](../.vuepress/public/images/react30.png)
+![](../../.vuepress/public/images/react30.png)
 
 
 举一个简单易懂的例子：
@@ -3077,7 +3077,7 @@ Preact
 
 以下 Preact 的 diff 算法的图示，可以看到它将 diff 分为了三个类型：Fragment、Component 及 DOM Node。
 
-![](../.vuepress/public/images/react31.png)
+![](../../.vuepress/public/images/react31.png)
 
 Fragment 对应 React 的树比较；
 
@@ -3116,7 +3116,7 @@ Preact 可以在一些对性能要求不高，仅需要渲染框架的简单场�
 
 Vue 的整体 diff 策略与 React 对齐，虽然缺乏时间切片能力，但这并不意味着 Vue 的性能更差，因为在 Vue 3 初期引入过，后期因为收益不高移除掉了。除了高帧率动画，在 Vue 中其他的场景几乎都可以使用防抖和节流去提高响应性能。
 
-![](../.vuepress/public/images/react32.png)
+![](../../.vuepress/public/images/react32.png)
 这里需要注意的是：对比过程中切忌踩一捧一，容易引发面试官反感。
 
 进阶
@@ -3165,7 +3165,7 @@ diff 算法一直在 React 中处于核心的位置，所以本讲讲到的内�
 
 初步的答题框架就形成了。
 
-![](../.vuepress/public/images/react33.png)
+![](../../.vuepress/public/images/react33.png)
 
 
 入门
@@ -3234,7 +3234,7 @@ App 组件会被标记为 type function，作为用户自定义的组件，被 R
 div 标签作为 React 内部的已知 DOM 类型，会实例化为 ReactDOMComponent；
 
 "Hello World" 会被直接判断是否为字符串，实例化为 ReactDOMComponent。
-![](../.vuepress/public/images/react34.png)
+![](../../.vuepress/public/images/react34.png)
 
 
 
@@ -3371,7 +3371,7 @@ effect 是指在协调过程中必须执行计算的活动。
 React 团队的 Dan Abramov 画了一张基于 Fiber Reconciler 生命周期阶段图，其中协调过程被分为了两部分：Render 和 commit。
 
 
-![](../.vuepress/public/images/react35.png)
+![](../../.vuepress/public/images/react35.png)
 图片来自 React 官网
 
 Render
@@ -3411,7 +3411,7 @@ React 的渲染过程大致一致，但协调并不相同，以 React 16 为分�
 
 如果只是一般的应用场景，比如管理后台、H5 展示页等，两者性能差距并不大，但在动画、画布及手势等场景下，Stack Reconciler 的设计会占用占主线程，造成卡顿，而 fiber reconciler 的设计则能带来高性能的表现。
 
-![](../.vuepress/public/images/react36.png)
+![](../../.vuepress/public/images/react36.png)
 
 进阶
 在面试中，在你回答完以上讲到的内容后，面试官还会补充提问一个类似脑筋急转弯的小问题：
@@ -3469,7 +3469,7 @@ React 的渲染过程大致一致，但协调并不相同，以 React 16 为分�
 
 “怎么解决”，即从工程化的角度展开，拿出通用化方案，并能量化结果，给出数据与指标。
 
-![](../.vuepress/public/images/react37.png)
+![](../../.vuepress/public/images/react37.png)
 
 入手
 是什么
@@ -3509,17 +3509,17 @@ export default class App extends React.Component  {
 
 整段代码运行之后，展示的内容如下图所示。
 
-![](../.vuepress/public/images/react38.png)
+![](../../.vuepress/public/images/react38.png)
 
 
 这时如果点击按钮，就会看到熟悉的 React 报错。这是因为在开发模式下 react-error-overlay，所以在代码抛出异常后，能够在页面上直接看见。
 
-![](../.vuepress/public/images/react39.png)
+![](../../.vuepress/public/images/react39.png)
 
 
 如果是生产模式呢？即直接把代码打包上线，运行在线上会怎么样呢？就像下面动图所展示的一样，你能看到整个界面会直接消失。
 
-![](../.vuepress/public/images/react40.gif)
+![](../../.vuepress/public/images/react40.gif)
 
 
 
@@ -3669,7 +3669,7 @@ React 渲染异常的时候，在没有做任何拦截的情况下，会出现�
 
 从最终的数据来看，预防与治理方案覆盖了团队内 100% 的 React 项目，头三个月兜底组件统计到了日均 10 次的报警信息，其中有 10% 是公司关键业务。那么经过分析与统计，首先是为关键的 UI 组件添加兜底组件进行拦截，然后就是做内部培训，对易错点的代码进行指导，加强 Code Review。后续到现在，线上只收到过 1 次报警。
 
-![](../.vuepress/public/images/react41.png)
+![](../../.vuepress/public/images/react41.png)
 
 总结
 本讲中的问题与方案都不复杂，但着重强调了工程思维。你会发现在有基本数据支撑下，去描述一件事，会更立体，让人更容易理解这件事的价值，也更加让人信服。
@@ -3706,7 +3706,7 @@ React 渲染异常的时候，在没有做任何拦截的情况下，会出现�
 
 计算收益：在优化方案实施后，需要通过数据描述收益效果。
 
-![](../.vuepress/public/images/react42.png)
+![](../../.vuepress/public/images/react42.png)
 
 
 那接下来我们就将“衡量、排查、实施、收益”四个过程展开聊一聊。
@@ -3739,12 +3739,12 @@ RAIL 指响应（Response）、动画（Animation）、浏览器空闲时间（I
 
 Lighthouse 内置在 Chrome 中，开启开发者工具就可以找到它。如下图所示：
 
-![](../.vuepress/public/images/react43.png)
+![](../../.vuepress/public/images/react43.png)
 
 
 这个工具用起来也很简单，点击generate report，就可以直接生成一份网站性能报告。如下图所示：
 
-![](../.vuepress/public/images/react44.png)
+![](../../.vuepress/public/images/react44.png)
 
 
 在报告中会对诸如初次内容渲染、可交互时间、加载等进行具体的数值量化并打分，最后还会为整体性能给出一个总体的分数，如下图所示，这里是 79 分。
@@ -3753,11 +3753,11 @@ Lighthouse 内置在 Chrome 中，开启开发者工具就可以找到它。如�
 
 绿色就代表了表现优异。
 
-![](../.vuepress/public/images/react45.png)
+![](../../.vuepress/public/images/react45.png)
 
 
 那么拉到最底部会有如何优化当前性能指标的指导意见。整份报告不仅包含了当前页面的性能数据，还囊括了最佳实践指南，对于前端开发是非常有指导意义的。如下图所示：
-![](../.vuepress/public/images/react46.png)
+![](../../.vuepress/public/images/react46.png)
 
 
 
@@ -3801,7 +3801,7 @@ with(b)with(body)with(insertBefore(createElement("script"),firstChild))setAttrib
 
 FCP（First Contentful Paint），首次绘制内容的耗时。首屏统计的方式一直在变，起初是通过记录 window.performance.timing 中的 domComplete 与 domLoading 的时间差来完成，但这并不具备交互意义，现在通常是记录初次加载并绘制内容的时间。
 
-![](../.vuepress/public/images/react47.png)
+![](../../.vuepress/public/images/react47.png)
 
 
 TTI（Time to Interact），是页面可交互的时间。通常通过记录 window.performance.timing 中的 domInteractive 与 fetchStart 的时间差来完成。
@@ -3829,7 +3829,7 @@ const loop = (time) => {
 }
 ```
 静态资源及API 请求成功率。通常是通过 window.performance.getEntries( ) 来获取相关信息。
-![](../.vuepress/public/images/react48.png)
+![](../../.vuepress/public/images/react48.png)
 
 
 
@@ -3842,7 +3842,7 @@ const loop = (time) => {
 
 我们不妨假设，现在已经收集到了用户页面的性能数据，比如 FCP 的数据是 1 秒，3 秒，4 秒，6 秒，7 秒，8 秒，65 秒。那提升性能就是去提升他的平均数值吗？平均数约 39 秒，并不能反映整体情况。如下图所示。
 
-![](../.vuepress/public/images/react49.png)
+![](../../.vuepress/public/images/react49.png)
 
 
 在性能监控中有一个概念叫TP（Top Percentile），比如 TP50、TP90、TP99 和 TP999 等指标，指高于 50%、90%、99% 等百分线的情况。如 TP50 就意味着，50% 的用户打开页面绘制内容的时间不超过 6 秒，90%的用户不超过 8 秒。如果要提升 FCP，那么就需要提升 TP 50、TP90、TP999 下的数据，这才是有正确方向的目标。
@@ -3861,7 +3861,7 @@ FCP
 最早的优化方案是绘制一个Loading图标，写死在 HTML 的 CSS 里，等 JS 开始执行的时候再移除它。
 
 后来有了骨架屏的概念，如下面 Facebook 的网页显示。在内容还没有就绪的时候，先通过渲染骨架填充页面，给予用户反馈。
-![](../.vuepress/public/images/react50.png)
+![](../../.vuepress/public/images/react50.png)
 
 
 
@@ -3915,7 +3915,7 @@ FPS 主要代表了卡顿的情况，在 React 中引起卡顿的主要原因有
 
 前期管理后台的基础性能数据是没有的，我接手后接入了一套 APM 工具，才有了基础的性能数据。然后我对指标观察了一周多，思考了业务形态，发现其实用户对后台系统的加载速度要求并不高，但对系统的稳定性要求比较高。我也发现静态资源的加载成功率并不高，TP99 的成功率大约在 91%，这是因为静态资源直接从服务器拉取，服务器带宽形成了瓶颈，导致加载失败。我对 Webpack 的构建工作流做了改造，支持发布到 CDN，改造后 TP99 提升到了 99.9%。
 
-![](../.vuepress/public/images/react51.png)
+![](../../.vuepress/public/images/react51.png)
 
 
 总结
@@ -3953,7 +3953,7 @@ FPS 主要代表了卡顿的情况，在 React 中引起卡顿的主要原因有
 常见的坑，明确哪些常见的问题会被我们忽略，从而导致重渲染；
 
 处理方案，有哪些方案可以帮助我们解决这个问题。
-![](../.vuepress/public/images/react52.png)
+![](../../.vuepress/public/images/react52.png)
 
 
 这里需要强调一个问题，通常我们认为制定处理方案是整个过程的重点，但对于大厂而言，更重要的是先证明这件事是否有做的必要性。这就要求我们具备洞察力，能辨别矛盾的主次关系，合理安排人力与资源，往要害处下手。所以这就需要我们先想清楚为什么要优化，以及什么时候做优化。
@@ -4008,7 +4008,7 @@ React 会构建并维护一套内部的虚拟 DOM 树，因为操作 DOM 相对�
 通过 React Developer Tools 中的 Profiler 分析组件渲染次数、开始时间及耗时。
 
 如果需要查看页面上的组件是否有重新渲染，可以在配置项里直接开启Highlight updates when components render。此时，有组件渲染了，就会直接高亮。
-![](../.vuepress/public/images/react53.png)
+![](../../.vuepress/public/images/react53.png)
 
 
 
@@ -4020,7 +4020,7 @@ React 会构建并维护一套内部的虚拟 DOM 树，因为操作 DOM 相对�
 
 如下图所示：
 
-![](../.vuepress/public/images/react54.png)
+![](../../.vuepress/public/images/react54.png)
 
 
 React Profiler 的详细使用方式建议阅读官方文档，在排查重复渲染上没有比这更好的工具了。
@@ -4217,7 +4217,7 @@ ImmutableJS 常见的一个错误使用方式就是下面这样的，即在传�
 手动控制，自己实现 shouldComponentUpdate 函数，但这类方案一般不推荐，因为容易带来意想不到的 Bug，可以作为保底手段使用。
 
 通过以上的手段就可以避免无效渲染带来的性能问题了。
-![](../.vuepress/public/images/react55.png)
+![](../../.vuepress/public/images/react55.png)
 
 
 
@@ -4255,7 +4255,7 @@ ImmutableJS 常见的一个错误使用方式就是下面这样的，即在传�
 
 方案，从每个单一维度出发阐述 React 项目的差异与可使用的规范、工具等。
 
-![](../.vuepress/public/images/react56.png)
+![](../../.vuepress/public/images/react56.png)
 
 特征可以帮助我们建立一个基本的答题轮廓，再根据实际经验逐步填充完整，你的答案才会呈现出层次感。
 
@@ -4491,7 +4491,7 @@ describe('todos reducer', () => {
 
 最后是可维护性的依从性，目标在于建立团队规范，遵循代码约定，提升代码可读性。这方面的工作就是引入工具，减少人为犯错的概率。其中主要有检查 JavaScript 的 ESLint，检查样式的 stylelint，检查提交内容的 commitlint，配置编辑器的 editorconfig，配置样式的 prettier。总体而言，工具的效果优于文档，团队内的项目整体可保持一致的风格，阅读代码时的切入成本相对较低。
 
-![](../.vuepress/public/images/react57.png)
+![](../../.vuepress/public/images/react57.png)
 
 总结
 
@@ -4519,7 +4519,7 @@ React 在 2013 ~ 2018 年走过了它的第一个阶段。毋庸置疑，React �
 
 怎么做：讲述如何规避使用限制会引起的问题。
 
-![](../.vuepress/public/images/react58.png)
+![](../../.vuepress/public/images/react58.png)
 
 
 入手
@@ -4617,7 +4617,7 @@ function RenderFunctionComponent() {
 ```
 当初次渲染时，就会有两对 state 与 setter 被放入数组中，其中第 0 个就是 FirstName 那组，第 1 个就是 LastName 那组。如下图所示：
 
-![](../.vuepress/public/images/react59.png)
+![](../../.vuepress/public/images/react59.png)
 
 
 那么在后续渲染中，也会保持这样一个规律获取对应的组。那这里就会产生一个问题：如果在 if 条件中调用 useState 会怎样呢？就会造成数组的取值错位，所以不能在 React 的循环、条件或嵌套函数中调用 Hook。
@@ -4658,7 +4658,7 @@ React Hooks 的限制主要有两条：
 
 这些限制会在编码上造成一定程度的心智负担，新手可能会写错，为了避免这样的情况，可以引入 ESLint 的 Hooks 检查插件进行预防。
 
-![](../.vuepress/public/images/react60.png)
+![](../../.vuepress/public/images/react60.png)
 
 
 总结
@@ -4695,7 +4695,7 @@ React Hooks 的限制主要有两条：
 设计原理，即从内部设计挖掘本质的原因；
 
 未来趋势，两者在未来的发展趋势上有什么区别，是否存在一方可能在使用频率上胜出或者淡出的情况。
-![](../.vuepress/public/images/react61.png)
+![](../../.vuepress/public/images/react61.png)
 
 
 破题
@@ -4837,7 +4837,7 @@ export default () => {
 }
 ```
 然后执行代码， 你就会发现红圈在渲染后出现了肉眼可见的瞬移，一下飘到了中间。
-![](../.vuepress/public/images/react62.gif)
+![](../../.vuepress/public/images/react62.gif)
 
 
 
@@ -4863,7 +4863,7 @@ export default () => {
 ```
 接下来再看执行的效果，你会发现红圈是静止在页面中央，仿佛并没有使用代码强制调整样式的过程。
 
-![](../.vuepress/public/images/react63.gif)
+![](../../.vuepress/public/images/react63.gif)
 
 
 虽然在实际的项目中，我们并不会这么粗暴地去调整组件样式，但这个案例足以说明两者的区别与使用场景。在 React 社区中最佳的实践是这样推荐的，大多数场景下可以直接使用useEffect，但是如果你的代码引起了页面闪烁，也就是引起了组件突然改变位置、颜色及其他效果等的情况下，就推荐使用useLayoutEffect来处理。那么总结起来就是如果有直接操作 DOM 样式或者引起 DOM 样式更新的场景更推荐使用 useLayoutEffect。
@@ -4874,7 +4874,7 @@ export default () => {
 
 首先可以看下这个图：
 
-![](../.vuepress/public/images/react64.png)
+![](../../.vuepress/public/images/react64.png)
 
 
 这个图表达了什么意思呢？首先所有的 Hooks，也就是 useState、useEffect、useLayoutEffect 等，都是导入到了 Dispatcher 对象中。在调用 Hook 时，会通过 Dispatcher 调用对应的 Hook 函数。所有的 Hooks 会按顺序存入对应 Fiber 的状态队列中，这样 React 就能知道当前的 Hook 属于哪个 Fiber，这里就是上一讲所提到的Hooks 链表。但 Effect Hooks 会有些不同，它涉及了一些额外的处理逻辑。每个 Fiber 的 Hooks 队列中保存了 effect 节点，而每个 effect 的类型都有可能不同，需要在合适的阶段去执行。
@@ -4922,7 +4922,7 @@ useEffect 与 useLayoutEffect 的区别在哪里？这个问题可以分为两�
 
 在未来的趋势上，两个 API 是会长期共存的，暂时没有删减合并的计划，需要开发者根据场景去自行选择。React 团队的建议非常实用，如果实在分不清，先用 useEffect，一般问题不大；如果页面有异常，再直接替换为 useLayoutEffect 即可。
 
-![](../.vuepress/public/images/react65.png)
+![](../../.vuepress/public/images/react65.png)
 
 
 总结
@@ -4980,7 +4980,7 @@ function Counter() {
 
 承题
 我们就可以根据上文分析到的“道、术、势”来答题了：道就是认知基础；术就是常规操作与个人实践；势就是工程实践上的运用。
-![](../.vuepress/public/images/react66.png)
+![](../../.vuepress/public/images/react66.png)
 
 
 破题
@@ -5218,7 +5218,7 @@ React Hooks 并没有权威的设计模式，很多工作还在建设中，在�
 
 以上就是我在设计上的一些思考。
 
-![](../.vuepress/public/images/react67.png)
+![](../../.vuepress/public/images/react67.png)
 总结
 React Hook 是未来仍然需要关注的一个技术点，由于与类组件不同的心智模型，也希望你在开发中能更多地去使用它。你在使用 Hooks 时遇到过什么问题？有什么独特的解决方案？不妨在留言区留言，我将和你一起探讨。
 
@@ -5242,7 +5242,7 @@ React Hook 是未来仍然需要关注的一个技术点，由于与类组件不
 实现原理，包含基础原理与 React Router 内部的实践方案。
 
 工作方式，包含整体设计模式与关键模块的实现方案。那如何定义关键模块呢？最简单的方案莫过于打开官方文档扫一眼提到过的模块，那就是最常用且最容易被提问的知识点。当然你也许会想，这样去准备会不会太简单了，面试官不会拿更冷门儿的内容来提问吗？要知道，生僻冷门的知识点在面试中就算考倒了应聘者也没有什么意义。面试是为了甄别应聘者的技能熟练度，所以只要抓住常用内容就好了。
-![](../.vuepress/public/images/react68.png)
+![](../../.vuepress/public/images/react68.png)
 
 
 破题
@@ -5284,7 +5284,7 @@ replaceState 则是替换网址路径。
 
 翻开 React Router 的代码，你会发现 React Router 提供了三个库，分别是 react-router、react-router-dom 及 react-router-native。但如果细看，你会发现 react-router 是没有 UI 层的，react-router-dom = react-router + Dom UI，而 react-router-native = react-router + native UI。DOM 版本与 Native 版本最大限度地复用了同一个底层路由逻辑，如下图所示。
 
-![](../.vuepress/public/images/react69.png)
+![](../../.vuepress/public/images/react69.png)
 
 在 DOM 版本中提供的基础路由是 BrowserRouter，它的源码是这样的：
 
@@ -5310,11 +5310,11 @@ Monorepo
 
 要理解 React Router 的设计模式，我们不妨先看一下代码目录结构。如下图所示，整个代码被分割成了四个文件夹，这四个文件夹又各自是一个库，那这四个库如何联动的呢？这里用到了Monorepo的设计。
 
-![](../.vuepress/public/images/react70.png)
+![](../../.vuepress/public/images/react70.png)
 
 与 Monorepo 相对的概念是Multirepo。Multirepo 就是我们常用的开发模式，一个仓库对应一个工程，子团队自行维护。如果这几个工程存在强协同，需要在一个迭代周期中完成新功能上线，那沟通协调成本就非常大了，你需要等别的工程发布更新后才能开发。所以在这里 React Router 使用了 Monorepo 的工程架构，使工程代码对团队中的每一个人都具备透明度。在同一次迭代中，库之间互相引用代码也更为容易。关于 Multirepo 和 Monorepo 的区别如下图所示：
 
-![](../.vuepress/public/images/react71.png)
+![](../../.vuepress/public/images/react71.png)
 
 通常会使用 Lerna 作为开发管理 Monorepo 的开发工具，它的主要用户包括 Babel、React、umi、React Router 等。个人感觉最有意思的点是 Lerna 这个名字非常贴切。Lerna 是希腊神话中的九头蛇，赫拉克勒斯的十二功绩之一就是猎杀九头蛇。看着九头蛇这个形象，像不像一个仓库里面存放了多个可用的库呢？
 
@@ -5348,7 +5348,7 @@ React Router 的工作方式可以分为设计模式与关键模块两个部分�
 在关键模块上，主要分为三类组件：第一类是 Context 容器，比如 Router 与 MemoryRouter；第二类是消费者组件，用以匹配路由，主要有 Route、Redirect、Switch 等；第三类是与平台关联的功能组件，比如 Link、NavLink、DeepLinking 等。
 
 
-![](../.vuepress/public/images/react72.png)
+![](../../.vuepress/public/images/react72.png)
 总结
 本讲我们聊了 React Router 的相关内容。但我希望你掌握的不只是 React Router 的内容，而是一套对于开源库的学习方法，通过这个方法再举一反三到其他的开源库中完成学习并掌握。
 
@@ -5373,7 +5373,7 @@ React Router 的工作方式可以分为设计模式与关键模块两个部分�
 
 列举。除了名字外，还需要阐述适用场景与主要功能。如果准备充分的话，可以再描述下核心原理。
 
-![](../.vuepress/public/images/react73.png)
+![](../../.vuepress/public/images/react73.png)
 
 
 入手
@@ -5395,7 +5395,7 @@ React Router 的工作方式可以分为设计模式与关键模块两个部分�
 二分法比较简单，就是将事物分成两类，正如上面的案例，人类分为男人与女人。
 
 矩阵法，如果我们把二分法的结果再次二分，就可以得到矩阵法。矩阵法有一个非常经典的案例，就是将工作按重要程度与紧急程度划分为四类，分别是：重要紧急、重要不紧急、不重要但紧急、不重要也不紧急。这样可以形成如下图的时间管理矩阵。
-![](../.vuepress/public/images/react74.png)
+![](../../.vuepress/public/images/react74.png)
 
 
 
@@ -5403,7 +5403,7 @@ React Router 的工作方式可以分为设计模式与关键模块两个部分�
 
 过程法是通过梳理流程的方式完成分类。比如前端的开发流程包含了初始化、开发、构建、检查、发布等。
 
-![](../.vuepress/public/images/react75.png)
+![](../../.vuepress/public/images/react75.png)
 
 
 最后是要素法，要素法需要对事物进行高屋建瓴的抽象，比如营销包含产品、品牌、价格、渠道、推广、促销六大要素。总结要素往往是最难的，对认知水平的要求非常高。
@@ -5490,7 +5490,7 @@ react-hooks-testing-library 则是针对 hooks 的。
 
 最后是发布，我所管理的工程静态资源主要托管在 CDN 上，所以需要在 webpack 中引入上传插件。这里我使用的是 s3-plugin-webpack，主要是识别构建后的静态文件进行上传。
 
-![](../.vuepress/public/images/react76.png)
+![](../../.vuepress/public/images/react76.png)
 
 
 总结

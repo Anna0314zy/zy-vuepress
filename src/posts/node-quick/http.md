@@ -34,7 +34,7 @@ tags:
 - 网络层 IP 选择传输路线 (通过ip地址和mac地址)(使用ARP协议凭借mac地址进行通信)
 
 - 链路层 网络连接的硬件部分
-![](./../.vuepress/public/images/tpchttp.png)
+![](../../.vuepress/public/images/tpchttp.png)
 
 
 ### 4) HTTP特点
@@ -86,8 +86,8 @@ curl命令行工具 postman
 
 ### 8) http客户端和服务端通信
 Http报文，http交互的信息称之为http报文
-![](./../.vuepress/public/images/requestheader.png)
-![](./../.vuepress/public/images/responseheader.png)
+![](../../.vuepress/public/images/requestheader.png)
+![](../../.vuepress/public/images/responseheader.png)
 
 
 
@@ -95,8 +95,8 @@ Http报文，http交互的信息称之为http报文
 通用首部字段：请求和响应报文都有的首部
 
 实体首部字段：描述实体部分的字段
-![](./../.vuepress/public/images/request.png)
-![](./../.vuepress/public/images/response.png)
+![](../../.vuepress/public/images/request.png)
+![](../../.vuepress/public/images/response.png)
 
 
 
@@ -115,7 +115,7 @@ URI(Uniform Resource Identifier)是统一资源标识符,在某个规则下能�
 - Resource 可以标识的任何东西
 - Location 定位
 
-![](./../.vuepress/public/images/urlformat.png)
+![](../../.vuepress/public/images/urlformat.png)
 ### 10) 报文应用
 - Content-Encoding : gzip压缩 form-data: 多部分对象集合 上传文件
 

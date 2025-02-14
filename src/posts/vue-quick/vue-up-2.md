@@ -56,7 +56,7 @@ vue create vue-online-edit
 
 通过 props、events 实现父子组件通信
 通过 ref 属性获取组件实例
-![](./../.vuepress/public/images/WX20210112-180247@2x.png)
+![](../../.vuepress/public/images/WX20210112-180247@2x.png)
 
 ### 掌握组件的基本概念
 

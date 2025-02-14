@@ -153,7 +153,7 @@ let r1 = VueTemplateCompiler.compile(`<div v-if="false" v-for="i in 3">hello</di
 ```
 ### v-for为什么要加key
 为了在比对过程中进行复用 
-![](./../.vuepress/public/images/WX20210112-163437@2x.png)
+![](../../.vuepress/public/images/WX20210112-163437@2x.png)
 ### v-model原理
 内部会根据标签的不同解析出，不同的语法
 

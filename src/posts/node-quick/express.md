@@ -7,7 +7,7 @@ tags:
 
 # Express应用+原理
 原理图片
-![](./../.vuepress/public/images/WX20210127-181121@2x.png)
+![](../../.vuepress/public/images/WX20210127-181121@2x.png)
 ## 一.创建express服务
 ```js
 let express = require('./express');

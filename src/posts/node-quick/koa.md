@@ -7,6 +7,6 @@ tags:
 
 # Express应用+原理
 原理图片
-![](./../.vuepress/public/images/WechatIMG173.png)
+![](../../.vuepress/public/images/WechatIMG173.png)
 
 
