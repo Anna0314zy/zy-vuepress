@@ -3,7 +3,7 @@ import { defineUserConfig } from "vuepress";
 import theme from "./theme.js";
 import { searchPlugin } from '@vuepress/plugin-search'
 export default defineUserConfig({
-  base: "/",
+  base: "/zy-vuepress/",
 
   locales: {
     "/": {

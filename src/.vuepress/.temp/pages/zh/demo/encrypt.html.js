@@ -1,16 +1,3 @@
-import comp from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress-theme-hope/src/.vuepress/.temp/pages/zh/demo/encrypt.html.vue"
-const data = JSON.parse("{\"path\":\"/zh/demo/encrypt.html\",\"title\":\"密码加密的文章\",\"lang\":\"zh-CN\",\"frontmatter\":{\"icon\":\"lock\",\"category\":[\"使用指南\"],\"tag\":[\"加密\"],\"feed\":false,\"seo\":false,\"gitInclude\":[],\"head\":[[\"link\",{\"rel\":\"alternate\",\"hreflang\":\"en-us\",\"href\":\"https://mister-hope.github.io/demo/encrypt.html\"}]]},\"headers\":[],\"readingTime\":{\"minutes\":0.51,\"words\":154},\"filePathRelative\":\"zh/demo/encrypt.md\"}")
+import comp from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/src/.vuepress/.temp/pages/zh/demo/encrypt.html.vue"
+const data = JSON.parse("{\"path\":\"/zh/demo/encrypt.html\",\"title\":\"密码加密的文章\",\"lang\":\"zh-CN\",\"frontmatter\":{\"icon\":\"lock\",\"category\":[\"使用指南\"],\"tag\":[\"加密\"],\"feed\":false,\"seo\":false,\"head\":[[\"link\",{\"rel\":\"alternate\",\"hreflang\":\"en-us\",\"href\":\"https://mister-hope.github.io/zy-vuepress/demo/encrypt.html\"}]]},\"headers\":[],\"git\":{\"createdTime\":1739501346000,\"updatedTime\":1739501346000,\"contributors\":[{\"name\":\"zy\",\"username\":\"zy\",\"email\":\"891374900@qq.com\",\"commits\":1,\"url\":\"https://github.com/zy\"}]},\"readingTime\":{\"minutes\":0.51,\"words\":154},\"filePathRelative\":\"zh/demo/encrypt.md\",\"localizedDate\":\"2025年2月14日\"}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}
