@@ -88,7 +88,7 @@ export default hopeTheme({
       // sidebar
       sidebar: zhSidebar,
 
-      footer: "每天前进一点都是进步",
+      footer: "积跬步以至千里",
 
       displayFooter: true,
 
