@@ -1,232 +1,1023 @@
 ---
-title: ES6中的Promise
-date: 2019-08-04
+title: 从零开始，手写完整的Promise原理
+date: 2020-12-30
 tags:
-   - ES6
+  - Node.js
 ---
 
-## 为什么出现Promise
-在javascript开发过程中，代码是单线程执行的，同步操作，彼此之间不会等待，这可以说是它的优势，但是也有它的弊端，如一些网络操作，浏览器事件，文件等操作等，都必须异步执行，针对这些情况，起初的操作都是使用回调函数实现。
+# 从零开始，手写完整的 Promise 原理
 
-实现方式如下（伪代码）：
+## 目标
 
-```javascript
-function One(callback) {
-    if (success) {
-        callback(err, result);
+- 掌握高阶函数的使用，使用高阶函数解决异步问题。
+
+- 掌握发布订阅模式和观察者模式
+
+- 掌握 promise 核心应用，使用 promise 解决异步编程问题
+
+- 实现一个完整的 promise 库
+
+- 扩展 promise 中常见方法 all,race,finally...
+- async await 实现原理
+
+
+promise完整代码仓库路径 Anna0314zy/node-zy/2.promise/promise
+## 高阶函数
+
+什么是高阶函数： 把函数作为参数或者返回值的一类函数。
+
+### before 函数
+
+```js
+Function.prototype.before = function(beforeFn) {
+  return () => {
+    beforeFn();
+    this();
+  };
+};
+function fn() {
+  console.log("source");
+}
+const newFn = fn.before(say => {
+  console.log("say");
+});
+newFn();
+```
+
+AOP(面向切面编程)的主要作用是把一些跟核心业务逻辑模块无关的功能抽离出来，其实就是给原函数增加一层，不用管原函数内部实现
+
+### 类型检测
+
+这种写法耦合性大 不建议 容易出错
+
+```js
+function isType(typing, params) {
+  return Object.prototype.toString.call(params) === `[object ${typing}]`;
+}
+console.log(isType("Number", 1));
+```
+
+高阶函数 解耦
+
+```js
+function isType(typing) {
+  return function(params) {
+    return Object.prototype.toString.call(params) === `[object ${typing}]`;
+  };
+}
+let uilts = {};
+["Number", "String", "Boolean"].forEach(key => {
+  uilts[`is${key}`] = isType(key);
+});
+```
+
+```js
+调用 用起来不易出错
+console.log(uilts.isNumber(9));
+```
+
+### 柯里化函数
+
+> 科里化简化传参，参数只有一个，返回的是一个高阶函数, 函数的主要作用收集参数,参数够了执行回调函数
+
+通用的柯里化函数
+
+```js
+const curring = (fn, arr = []) => {
+  let len = fn.length;
+  return function(...args) {
+    const newArgs = [...arr, ...args];
+    if (newArgs.length === len) {
+      return fn(...newArgs);
     } else {
-        callback(err, null);
+      return curring(fn, newArgs);
     }
+  };
+};
+```
+
+使用
+
+```js
+function sum(a, b, c, d, e) {
+  return a + b + c + d + e;
+}
+let newSum = curring(sum);
+console.log(newSum(1, 3, 3)(4, 5));
+console.log(newSum(1)(2)(3)(4)(4));
+```
+
+```js
+类型检测;
+function isType(typing) {
+  return function(params) {
+    return Object.prototype.toString.call(params) === `[object ${typing}]`;
+  };
+}
+//拿到类型
+let isNumber = isType("String");
+//执行
+console.log(isNumber(12));
+```
+
+### 发布订阅模式
+
+> 其实也是为解决异步回调问题
+> 发布订阅有个中介管理 订阅事件 然后用户可以选择发布
+
+实现效果 -- 文件都读取完毕了 打印 obj
+
+```js
+let eventObj = {
+  arr: [], //中介
+  on(fn) {
+    this.arr.push(fn);
+  },
+  emit() {
+    this.arr.forEach(fn => fn());
+  }
+};
+fs.readFile("./a.text", "utf8", function(err, data) {
+  if (err) return console.log(err);
+  obj.name = data;
+  eventObj.emit();
+});
+fs.readFile("./b.text", "utf8", function(err, data) {
+  if (err) return console.log(err);
+  obj.age = data;
+  console.log(err, data);
+  eventObj.emit();
+});
+//注册
+eventObj.on(() => {
+  if (Reflect.ownKeys(obj).length === 2) {
+    console.log(obj);
+  }
+});
+```
+
+### 观察者模式
+
+解决异步回调
+
+> 把观察者集中到被观察者内部 一旦状态发生改变 通知观察者
+
+```js
+class Subject {
+  constructor(name) {
+    this.name = name;
+    this.state = "在玩呢";
+    this.observers = [];
+  }
+  attach(o) {
+    this.observers.push(o);
+  }
+  setState(newState) {
+    this.state = newState;
+    this.observers.forEach(o => o.update(this));
+  }
+}
+class Observer {
+  constructor(name) {
+    this.name = name;
+  }
+  update(baby) {
+    console.log(`${baby.name}跟${this.name} 说 ${baby.state}`);
+  }
+}
+let baby = new Subject("baby");
+let o1 = new Observer("mama");
+let o2 = new Observer("baba");
+baby.attach(o1);
+baby.attach(o2);
+baby.setState("有人打我");
+```
+
+# 手写 Promise
+
+## promise 解决了哪些问题
+
+- 解决了哪些问题 异步并发 异步串行
+- 解决回调地狱 上一个输出是下一个输入
+- 错误处理非常方便 catch 方法
+- 缺陷 依旧基于回调函数
+
+## promise 详解 写作思路
+
+### 基础 promise
+
+- promse 是一个类 类需要传入 executor 执行器 两个参数 resolve reject 默认会立即执行
+- 3 个状态（PENDING，RESOLVED，REJECTED） 一旦成功能就不能失败 一旦失败就不能成功
+- 内部有个 then 函数 返回的是一个新的 promise 实例 有两个回调 (resolve, reject)
+  1.  传入 executor 立马执行 executor throw Error 走到 then 的 reject 中
+  2.  记录 成功参数 resolve(value) 失败参数 reject(reject)
+      当状态改变 传递给 then 的参数 onfulfilled onrejected
+  3.  executor 写一个异步回调 then 中 一秒后打印出结果 把回调存起来 等状态改变了 执行
+      promise 源码模拟
+  ```js
+  const STATUS = {
+    PENDING: "PENDING", //等待
+    RESOLVED: "RESOLVED", //成功
+    REJECTED: "REJECTED" //失败
+  };
+  class Promise {
+    constructor(executor) {
+      this.status = STATUS.PENDING; //默认是等待它
+      this.value = undefined;
+      this.reason = undefined;
+      //专门存放成功的回调函数 等状态变了 执行对应的函数
+      this.onResolevedCallbacks = [];
+      this.onRejectedCallbacks = [];
+      //专门存放失败的回调函数
+      const resolve = value => {
+        if (this.status === STATUS.PENDING) {
+          this.status = STATUS.RESOLVED;
+          this.value = value;
+          //需要将成功的方法依次执行
+          this.onResolevedCallbacks.forEach(fn => fn());
+        }
+      };
+      const reject = reason => {
+        if (this.status === STATUS.PENDING) {
+          this.status = STATUS.REJECTED;
+          this.reason = reason;
+          //需要将成功的方法依次执行
+          this.onRejectedCallbacks.forEach(fn => fn());
+        }
+      };
+      try {
+        executor(resolve, reject);
+      } catch (e) {
+        reject(e);
+      }
+    }
+    then(onfulfilled, onrejected) {
+      if (this.status === STATUS.RESOLVED) {
+        onfulfilled(this.value);
+      }
+      if (this.status === STATUS.REJECTED) {
+        onrejected(this.reason);
+      }
+      //如果executor 中是一个异步函数 此时还是pending状态 收集起来 等时间到了执行
+      if (this.status === STATUS.PENDING) {
+        this.onResolevedCallbacks.push(() => {
+          onfulfilled(this.value);
+        });
+        this.onRejectedCallbacks.push(() => {
+          onrejected(this.reason);
+        });
+      }
+    }
+  }
+  module.exports = Promise;
+  ```
+
+测试示例
+
+```js
+const p = new Promise((reslove, reject) => {
+  console.time("cost");
+  // throw Error('抛出一个错误')
+  setTimeout(() => {
+    reject("ok");
+  }, 1000);
+}).then(
+  data => {
+    console.timeEnd("cost");
+    console.log("data:", data);
+    return 12;
+  },
+  err => {
+    console.log("err:", err);
+  }
+);
+```
+
+### 实现链式调用
+
+链式调用 每次调用返回一个新的 promise
+
+- 不管成功或者失败 都会走到下一次的 then 方法中
+- 如果 then 方法中（成功或者失败）返回的不是一个 promise 会将这个值传递给外层下一次 then 的成功结果
+- 如果执行 then 方法中的方法出错了 抛出异常 走到下一个 then 的失败中
+- 返回的是一个 promise 会用这个 promise 的结果作为下一次 then 的成功或者失败
+- 如果没有处理错误 会继续向下找 错误会就近找 如果上一个 then 中的 err 捕获错误了 catch 捕获不到 没有中断
+
+::: tip 走失败只有两种可能
+
+1.发生了错误 2.返回了一个失败的 promise
+:::
+分批解决
+
+> - 如果执行 then 方法中的方法出错了 抛出异常 走到下一个 then 的失败中
+> - 如果 then 方法中（成功或者失败）返回的不是一个 promise 会将这个值传递给外层下一次 then 的成功结果
+
+```js
+ then(onfulfilled, onrejected) {
+     let promise2;
+     promise2 = new Promise((resolve, reject) => {
+        if (this.status === STATUS.RESOLVED) {
+            try {
+                let x = onfulfilled(this.value);
+                resolve(x);
+            }catch(e) {
+                reject(e);
+            }
+
+          }
+          if (this.status === STATUS.REJECTED) {
+
+            try {
+               let x =  onrejected(this.reason);
+               resolve(x);
+            }catch(e) {
+                reject(e);
+            }
+          }
+          //如果executor 中是一个异步函数 此时还是pending状态 收集起来 等时间到了执行
+          if (this.status === STATUS.PENDING) {
+            this.onResolevedCallbacks.push(() => {
+                try {
+                    let x = onfulfilled(this.value);
+                    resolve(x);
+                }catch(e) {
+                    reject(e);
+                }
+
+            });
+            this.onRejectedCallbacks.push(() => {
+                try {
+                   let x =  onrejected(this.reason);
+                   resolve(x);
+                }catch(e) {
+                    reject(e);
+                }
+
+            });
+          }
+     })
+     return promise2;
+
+  }
+```
+
+测试代码
+
+```js
+const fs = require("fs");
+let read = (...args) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(...args, function(err, data) {
+      if (err) reject();
+      resolve(data);
+    });
+  });
+};
+
+read("./a.text", "utf8")
+  .then(
+    data => {
+      throw new Error("我错了");
+      // return 100;
+    },
+    err => {
+      return 200;
+    }
+  )
+  .then(
+    data => {
+      console.log("success" + data);
+    },
+    err => {
+      console.log("err:" + err);
+    }
+  );
+```
+
+> 返回的是一个 promise 会用这个 promise 的结果作为下一次 then 的成功或者失败
+>
+> - 难点 如何拿到 promise2 用异步获取
+> - 递归解析 x resolvePromise(promise2, x, resolve, reject)
+
+    -目的判断x 是不是一个promise 还要考虑到resolve有可能还是一个promise 递归解析x
+    - 引用的promise 可能调用别人的promise 防止又掉成功 又掉失败
+
+如何拿到 promise 2
+
+```js
+if (this.status === STATUS.RESOLVED) {
+  setTimeout(() => {
+    try {
+      let x = onfulfilled(this.value);
+      resolvePromise(promise2, x, resolve, reject);
+    } catch (e) {
+      reject(e);
+    }
+  }, 0);
+}
+```
+
+- 对 x 的类型判断 常量可以直接跑出来 但是如果是 promise 需要采取当前的 promise 的状态
+- 所有人写的 promise 都必须遵循规范 尽可能考虑别人的 promise 出错的地方
+
+```js
+function resolvePromise(promise2, x, resolve, reject) {
+  if (promise2 === x) {
+    //a+规范  返回相同一个promise promise循环引用了
+    return reject(
+      new TypeError("Chaining cycle detected for promise #<Promise>")
+    );
+  }
+  if ((typeof x === "object" && x !== null) || typeof x === "function") {
+    //尝试取then 方法 官网这么说的  （取then的时候 别人setter 定义 抛出异常）
+    let called;
+    try {
+      let then = x.then;
+      //可能别人如下定义 所以取then的时候取一次就行了
+      //   Object.defineProperty('then', {
+      //       set() {
+      //           if (index++) {
+      //               throw new Error('')
+      //           }
+      //       }
+      //   })
+      if (typeof then === "function") {
+        //就认为他是一个promise
+
+        then.call(
+          x,
+          y => {
+            if (called) return;
+            called = true;
+            //可能reslove(里面还有可能是一个promise) 递归解析
+            resolvePromise(promise2, y, resolve, reject);
+          },
+          r => {
+            if (called) return;
+            called = true;
+            reject(r); //让当前的失败即可
+          }
+        );
+      } else {
+        //x就是一个普通对象
+        resolve(x);
+      }
+    } catch (e) {
+      if (called) return;
+      called = true;
+      reject(e);
+    }
+  } else {
+    //x是一个普通值
+    resolve(x);
+  }
+}
+```
+
+### onfulfilled, onrejected 不是必填
+
+实现效果
+
+```js
+let p1 = new Promise((resolve, reject) => {
+  resolve(200);
+});
+p1.then()
+  .then()
+  .then(data => {
+    console.log(data); // 还能拿到200
+  });
+```
+
+实现
+
+```js
+class Promise {
+  then(onfulfilled, onrejected) {
+    onfulfilled = typeof onfulfilled === "function" ? onfulfilled : v => v;
+    onrejected =
+      typeof onrejected === "function"
+        ? onrejected
+        : err => {
+            throw err;
+          };
+  }
+}
+```
+
+### 测试 promise
+
+源码中写上
+
+```js
+Promise.defer = Promise.deferred = function() {
+  let dfd = {};
+  dfd.promise = new Promise((resolve, reject) => {
+    dfd.resolve = resolve;
+    dfd.reject = reject;
+  });
+  return dfd;
+};
+```
+
+延迟对象还能这样用
+
+```js
+read = (...args) => {
+  let dfd = Promise.defer();
+  fs.readFile(...args, function(err, data) {
+    if (err) dfd.reject();
+    dfd.resolve(data);
+  });
+  return dfd.promise;
+};
+read("./a.text", "utf8").then(
+  data => {
+    // throw new Error('我错了');
+    console.log(data, "daya--");
+  },
+  err => {
+    return 200;
+  }
+);
+```
+
+```markdown
+npm i promises-aplus-tests
+
+> promises-aplus-tests 需要测试的文件
+```
+
+### catch
+
+```js
+class Promise {
+  //...
+  catch(err) {
+    this.then(null, err);
+  }
+}
+```
+
+### Promise.resolve()
+
+静态方法 通过 Promise.resolve 调用
+里面的方法是异步执行的 有等待效果
+
+```js
+class Promise {
+  constructor() {
+    //...递归解析val 可能是一个promise 是的话 val.then 保证了代码异步执行
+    const resolve = val => {
+      if (val instanceof Promise) {
+        return val.then(resolve, reject);
+      }
+    };
+  }
+  static resolve(val) {
+    return new Promise((resolve, reject) => {
+      resolve(val); //返回的可能是一个promise
+    });
+  }
+}
+```
+
+### Promise.reject
+
+直接改变 promise 的状态 没有等待效果
+
+```js
+class Promise {
+  constructor() {
+    // const reject =() => {} ...
+  }
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason);
+    });
+  }
+}
+```
+
+### Promise.all
+
+> 异步串行并发 都成功了 才成功 如果有失败的立马失败
+
+```js
+static all(prmosies) {
+    function isPromise(val) {
+        return val && typeof val.then === "function";
+    }
+
+    return new Promise((resolve, reject) => {
+      let results = [];
+      let times = 0;
+      function processData(val, index) {
+        results[index] = val;
+        if (++times === prmosies.length) {
+          resolve(results);
+        }
+      }
+      for (let i = 0; i < prmosies.length; i++) {
+        let p = prmosies[i];
+        if (isPromise(p)) {
+          p.then((data) => {
+              console.log(data, 'data');
+            processData(data, i);
+          }, reject);
+        } else {
+          processData(p, i);
+        }
+      }
+    });
+  }
+```
+
+用法
+
+```js
+let fs = require("fs").promises;
+
+let getName = fs.readFile("./a.text", "utf8");
+let getAge = fs.readFile("./b.text", "utf8");
+Promise.all([1, getName, getAge, 2])
+  .then(data => {
+    console.log(data); //拿到返回的所有结果
+  })
+  .catch(err => {
+    console.log(err, "err"); //一旦有一个失败 只返回失败的那个结果
+  });
+```
+
+### promise.finally
+
+- 原型上的方法 无论如何都执行 没有参数 其实就是执行 then 方法
+- 内部可以返回一个 promise 成功或者失败的结果将作为 then 的参数
+
+```js
+Promise.prototype.finally = function(callback) {
+  return this.then(
+    data => {
+      return Promise.resolve(callback()).then(() => data); //让本次的返回值作为下一次的参数
+    },
+    err => {
+      return Promise.resolve(callback()).then(() => {
+        throw err;
+      }); //让本次的返回值作为下一次的参数
+    }
+  );
+};
+```
+
+用法
+
+```js
+Promise.resolve(123)
+  .finally(data => {
+    //这里传入的函数 无论如何都执行
+    console.log("finally", data); //没有任何参数
+    //可以返回一个promise 等待效果
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("ok");
+      }, 1000);
+    });
+  })
+  .then(
+    data => {
+      console.log(data); //会拿到上一次的结果
+    },
+    err => {
+      console.log(err, "err");
+    }
+  );
+```
+
+### promise.race
+
+比的是谁先结束 谁先结束 把结果返给下层的 then
+
+```js
+Promise.race = function(promises) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; i++) {
+      let current = promises[i];
+      if (current && typeof current.then === "function") {
+        // current.then((data) => resolve(data), (err) => reject(err));
+        current.then(resolve, reject);
+      } else {
+        resolve(current);
+      }
+    }
+  });
+};
+```
+
+用法
+
+```js
+const Promise = require("./promiseyu");
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("ok");
+  }, 2000);
+});
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject("ok-p2");
+  }, 1000);
+});
+Promise.race([p1, p2, 3])
+  .then(values => {
+    console.log(values);
+  })
+  .catch(err => {
+    console.log(err, "err");
+  });
+```
+
+### Promise 链条如何中断-超时中断
+
+fetch 无法中断，但是可以丢弃本次请求 依然是基于回调的方式，好处可以扁平化处理我们的逻辑，处理错误比较方便
+
+> 实现中断 跟一个新的 promise 组合 新的 promise 中断了 promise 就失败了
+
+```js
+function wrap(promise) {
+  let abort;
+  let p2 = new Promise((reslove, reject) => {
+    abort = reject;
+  });
+  let newP = Promise.race([promise, p2]);
+  newP.abort = abort;
+  return newP;
+}
+```
+
+使用
+
+```js
+let p1 = new Promise((reslove, reject) => {
+  setTimeout(() => {
+    reslove("成功");
+  }, 3000);
+});
+let p2 = wrap(p1);
+setTimeout(() => {
+  p2.abort("失败了");
+}, 2000);
+p2.then(data => {
+  console.log("s" + data);
+}).catch(err => {
+  console.log("err" + err);
+});
+```
+
+## Promise 在 node 里的运用
+
+node 解决异步的方法基本都是基于回调的
+
+### promisify
+
+常用方式- fs 模块运用
+
+let fs = require("fs").promises; 也可以.then 调用
+
+> let {promisify } = require('util') 模拟这个方法
+
+```js
+function promisify(fn) {
+  return function(...args) {
+    return new Promise((resolve, reject) => {
+      fn(...args, function(err, data) {
+        if (err) reject(err);
+        resolve(data);
+      });
+    });
+  };
+}
+```
+
+使用效果
+
+```js
+const readFile = promisify(fs.readFile);
+readFile("./a.text", "utf8").then(data => {
+  console.log(data);
+});
+```
+
+### promisifyAll
+
+```js
+function promisifyAll(target) {
+  //Object.keys
+  Reflect.ownKeys(target).forEach(key => {
+    if (typeof target[key] === "function") {
+      target[key + "Async"] = promisify(target[key]);
+    }
+  });
+  return target;
+}
+```
+
+## async await
+
+异步回调的终结解决方案
+
+> 实现方式 generator + co + promise
+> promise 还是要写回调 不友好
+
+async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。当函数执行的时候，
+一旦遇到 await 就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
+
+async 函数的实现原理
+async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。
+
+```markdown
+async function fn(args) {
+// ...
 }
 
-One(function (err, result) {
-    //执行完One函数内的内容，成功的结果回调回来向下执行
-})
-```
+// 等同于
 
-上述代码只是一层级回调，如果代码复杂后，会出现多层级的回调，代码可读性也会很差，那有没有一种方式，不用考虑里面的内容，直接根据结果成功还是失败执行下面的代码呢？有的，Promise（承诺），在ES6中对Promise进行了统一的规范。
-
-## Promise的含义
-- 书上这么说：
-
-  Promise 是异步编程的一种解决方案，比传统的解决方案–回调函数和事件－－更合理和更强大。它由社区最早提出和实现，ES6将其写进了语言标准，统一了语法，原生提供了Promise
-
-  所谓Promise ，简单说就是一个容器，里面保存着某个未来才会结束的事件 (通常是一个异步操作）的结果。从语法上说，Promise是一个对象，从它可以获取异步操作的消息。
-  Promise 对象的状态不受外界影响
-  
-- Promise/a+ 官方网站给出的定义
-  A promise represents the eventual result of an asyncchronous operation
-
-  翻译:表示一个异步操作的最终结果。
-
-- 我的理解：
-
-  Promise是**回调函数**可以**规范**的**链式**调用
-  
-## Promise原理与讲解
-##### 原理
-1.  Promise的三种状态
-    - pending：进行中
-    - fulfilled :执行成功
-    - rejected ：执行失败
-
-注意Promise在某一时刻只能处于一种状态
-
-2. Promise的状态改变
-    - pending------》fulfilled（resolved）
-    - pending------》rejected
-
-Promise的状态改变，状态只能由pending转换为fulfilled（resolved）或者rejected，一旦状态改变完成后将无法改变（不可逆性）
-
-##### 用代码讲原理
-1. 创建一个Promise
-
-创建Promise需要用到Promise的构造函数来实现，代码如下：
-
-```javascript
-var promise=new Promise(function(resolve,reject){
-   // ...some async code 
-   
-   if(/* 一些异步操作成功*/)
-   {
-       resolve(value);
-   }else
-   {
-       reject(error);
-   }
-
-})
-```
-代码分析：
-- 在异步操作完成之后，会针对不同的返回结果调用resolve和reject。
-- resolve和reject是两个函数，resolve是异步操作成功时候被调用，将异步操作的返回值作为参数传递到外部；reject是异步操作出异常时候被调用，将错误信息作为参数传递出去。
-- <font color="red">Promise其实没有做任何实质的代码操作，它只是对异步操作回调函数的不同结果定义了不同状态。</font>
-- resolve函数和reject函数只是把异步结果传递出去
-
-2. 异步结果传递出去后，then来接
-Promise对象将结果传递出来后，使用then方法来获取异步操作的值：
-代码如下：
-
-```javascript
-promise.then(function(value){
-   //success
-   
-},function(error){
-
+function fn(args) {
+return spawn(function\* () {
+// ...
 });
+}
 ```
-代码分析：
-- then方法将两个匿名函数作为参数，接收resolve和reject这两个函数的值。
-- value是执行成功的值，error是执行出错时的错误信息。
-- 对于error错误异常结果出现的时候，可以不单独写匿名错误的函数，可以直接用catch抛出
 
-```javascript
-promise.then(function (data){
-    //success
-})
-.catch(function(error){
-    //error  
-})
+所有的 async 函数都可以写成上面的第二种形式，其中的 spawn 函数就是自动执行器。
+
+下面给出 spawn 函数的实现，基本就是前文自动执行器的翻版。
+
+基于 generator 的特性 可以扁平化代码 基于同步的方式写代码
+
+> 关于 generator <https://es6.ruanyifeng.com/#docs/generator>
+如下调用 等同于async await
+```js
+let fs = require("fs").promises;
+async function* read() {
+  let name = yield fs.readFile("./a.text", "utf8"); //可以try catch 捕获异常 基于的是generator的特性
+  let age = yield fs.readFile(name, "utf8");
+  return age;
+}
+co(read)
+  .then((data) => {
+    console.log(data, "data----");
+  })
+  .catch((err) => {
+    console.log(err, "err");
+  });
 ```
-- 注意then方法<font color="red">只是</font>用来获取异步操作的值。
-
-3. then的返回值又是怎样呢？
-先看一段调用两次then的代码：
-
-```javascript
-//之前创建promise操作后
-promise.then(function(value){
-    conlose.log(value);  //有值
-}).then(function(value)
-{
-   conlose.log(value);   //未定义
-});
+co库的模拟
+```js
+function co(genf) {
+  const gen = genf(); //生成器
+  return new Promise((resolve, reject) => {
+    function step(genF) {
+      let next;
+      try {
+        next = genF();
+      } catch (e) {
+        reject(e);////这个能捕获整个promise的错误---让promise  reject了而已 传递给下一个then的错误回调中
+      }
+      if (next.done) {
+        return resolve(next.value);
+      }
+      Promise.resolve(next.value).then(
+        (v) => {
+          return step(() => gen.next(v));
+        },
+        (err) => {
+          return step(() => gen.throw(err));
+        }
+      );
+    }
+    step(() => gen.next(undefined));
+  });
+}
 ```
-代码分析：
-- 上面的第二个then方法中的值虽然是未定义，但是每一个then一定会<font color="red">返回一个新的promise对象</font>，但是默认是一个空对象。
-- 对于这个空对象我们如果想继续做一些什么，需要进行处理，可以用非空Promise对这个空的进行赋值覆盖，然后继续then的链式调用。
-- then 中的<font color="red">return</font>关键字很重要，联系着下一个then的调用。
+> 使用
 
-##### 几个常用api
-
-- Promise.resolve  
-resolve方法用来将一个非Promise对象转化为Promise对象
-
-转换的对象是一个常量或者不具备状态的语句，转换后的对象自动处于resolve状态。
-转换的后的结果和原来一样
-
-
-```javascript
-var promise =Promise.resolve("hello world");
-promise.then(function(result){
-  console.log(result);   //输出结果 hello world
-})
+```markdown
+let foo = await getFoo();
+let bar = await getBar();
 ```
-转换的对象如果直接是一个异步方法，不可以这么使用。
-- Promise.all(常用api)  
-多个promise需要执行的时候，可以使用promise.all方法统一声明，该方法可以将多个Promise对象包装成一个Promise。
 
-代码如下
+上面代码中，getFoo 和 getBar 是两个独立的异步操作（即互不依赖），被写成继发关系。
+这样比较耗时，因为只有 getFoo 完成以后，才会执行 getBar，完全可以让它们同时触发。
 
+```markdown
+// 写法一
+let [foo, bar] = await Promise.all([getFoo(), getBar()]);
 
-```javascript
-promise.all(
-//一系列promise操作
-).then(function(results){
-    
-    
-}).catch(function(error){
-    
-});
+// 写法二
+let fooPromise = getFoo();
+let barPromise = getBar();
+let foo = await fooPromise;
+let bar = await barPromise;
 ```
-代码分析：
-- promise.all对多个执行结果做一个包装传给了then
-- promise.all中的执行顺序是怎么样的，Promise的执行顺序是从被创建开始的，也就是在调用all的时候，<font color="red">所有的promise都已经开始执行</font>了，all方法只是等到<font color="red">所有的对象都执行完成</font>，才会把结果<font color="red">传递给then</font>。
-- all中的promise，如果有一个状态变成了reject那么转换后的Promise字节变成reject，错误信息传递给catch，不会传递给then。（但是并不是说all这里面刚开始执行成功的操作就不算数了）
+await命令后面的 Promise 对象如果变为reject状态，则reject的参数会被catch方法的回调函数接收到。
+```js
+async function f() {
+  await Promise.reject('出错了');
+}
 
-## Promise在开发中的应用
-项目开发中promise的应用代码：
-
-
-
-```javascript
-Promise.all([
-            self.count({phoneNumber: mobile, createdOn: {$gt: hour}}),
-            self.count({ip: ip, createdOn: {$gt: hour}})
-        ]).then(function (results) {
-            if (results[0] >= 5) {
-                return callback({code: -1, message: '短信发送频率过快，每手机号1小时内只能发送5次'});
-            }
-            if (results[1] >= 5) {
-                return callback({code: -1, message: '短信发送频率过快，每IP1小时内只能发送5次'});
-            }
-            let code = {
-                phoneNumber: mobile,
-                code: tool.makeRandomStr(4, 1).toLowerCase(),
-                createdOn: new Date(),
-                expiredOn: new Date(new Date().getTime() + (20 * 60 * 1000)),			//20分钟失效
-                ip: ip,
-                isUsed: false
-            };
-            self.create(code, function (err, newCode) {
-                if (newCode) {
-                    sms.sendSMS(mobile, newCode.code, 'ali', function (err, body) {
-                        console.log(body);
-                        if (err)
-                            console.log("短信验证码发送失败：", err);
-                    });
-                    callback({code: 0, message: "验证码已经发送"});
-                } else {
-                    callback({code: -1, message: "验证码发送失败，请重试"});
-                }
-            })
-        })
+f()
+.then(v => console.log(v))
+.catch(e => console.log(e))
+// 出错了
 ```
-项目开发过程中使用promise.all的代码，当时是为了实现短信验证码发送前的校验功能。
-all中的两个promise，第一个是统计时间内该手机号发送验证码数量;第二个是统计时间内该ip发送验证码的数量。
+注意，上面代码中，await语句前面没有return，但是reject方法的参数依然传入了catch方法的回调函数。这里如果在await前面加上return，效果是一样的。
 
-
-## Promise使用过程中注意事项与误区
-注意事项在上面原理讲解过程中，基本都提到过，只是重要的事情多说两遍。
-- 状态不可逆性
-- resolve函数和reject函数只是传递异步结果
-- then进行层级调用的时候，每次的返回值都是一个空promise对象，如果想继续使用，赋值替换掉空promise对象，但是返回的时候return关键字很重要，不要忘了。
-- promise.all中的执行顺序是并行的，但是会等全部完成的结果传递给then
-- <font color="red">执行顺序</font>，promise是then方法调用之后才会执行吗？还是从创建那一刻就开始执行？
-  promise从创建那一刻就开始执行，只是把结果传递给了then，then与promise的执行无关。
-
-
-## Promise的反思
-   Promise的讲解就到这里，但是大家在开发过程中，会发现有些时候多次操作异步会出现很多层级的调用，也就是
-   
-
-```javascript
-promise.then(...)
-
-.then(...)
-
-.then(...)
+任何一个await语句后面的 Promise 对象变为reject状态，那么整个async函数都会中断执行。
+```js
+async function f() {
+  await Promise.reject('出错了');
+  await Promise.resolve('hello world'); // 不会执行
+}
 ```
-这种情况，代码虽然看起来会比callback的回调简介和规范了很多，但是还是感觉一些复杂，有没有更好的解决办法呢?请看下一篇博客
+上面代码中，第二个await语句是不会执行的，因为第一个await语句状态变成了reject。
 
-回调的终极使用--[async和await的讲解](/webframe/es6/async-await.md)
+有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个await放在try...catch结构里面，
+这样不管这个异步操作是否成功，第二个await都会执行。
+```js
+async function f() {
+  try {
+    await Promise.reject('出错了');
+  } catch(e) {
+  }
+  return await Promise.resolve('hello world');
+}
+
+f()
+.then(v => console.log(v))
+// hello world
+```
+另一种方法是await后面的 Promise 对象再跟一个catch方法，处理前面可能出现的错误。
+```js
+async function f() {
+       await Promise.reject('出错了')
+         .catch(e => console.log(e));
+       return await Promise.resolve('hello world');
+     }
+     
+     f()
+     .then(v => console.log(v))
+     // 出错了
+     // hello world
+```
+## 类数组
+
+类数组能够迭代的原因是因为内置了迭代器
+
+```js
+function arg() {
+  let arr = [
+    ...{
+      0: 1,
+      1: 2,
+      2: 3,
+      length: 3,
+      [Symbol.iterator]: function() {
+        let index = 0;
+        return {
+          next: () => {
+            return { done: index === this.length, value: this[index++] };
+          }
+        };
+      }
+    }
+  ];
+  return arr;
+}
+console.log(arg());
+```
+
+简化
+
+```js
+function arg() {
+  let arr = [
+    ...{
+      0: 1,
+      1: 2,
+      2: 3,
+      length: 3,
+      [Symbol.iterator]: function*() {
+        let index = 0;
+        while (index !== this.length) {
+          yield this[index++];
+        }
+      }
+    }
+  ];
+  return arr;
+}
+```
+### 关于promsie的面试题
+```js
+
+```

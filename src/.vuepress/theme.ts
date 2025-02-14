@@ -24,7 +24,7 @@ export default hopeTheme({
   sidebar,
 
   // 页脚
-  footer: "默认页脚",
+  footer: "不积跬步，无以至千里；不积小流，无以成江海",
   displayFooter: true,
 
   // 博客相关
