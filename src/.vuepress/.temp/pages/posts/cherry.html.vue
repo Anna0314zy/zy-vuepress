@@ -1,8 +1,8 @@
-<template><div><h1 id="cherry" tabindex="-1"><a class="header-anchor" href="#cherry"><span>Cherry</span></a></h1>
-<h2 id="heading-2" tabindex="-1"><a class="header-anchor" href="#heading-2"><span>Heading 2</span></a></h2>
-<p>Here is the content.</p>
-<h3 id="heading-3" tabindex="-1"><a class="header-anchor" href="#heading-3"><span>Heading 3</span></a></h3>
-<p>Here is the content.</p>
+<template><div><h1 id="樱桃" tabindex="-1"><a class="header-anchor" href="#樱桃"><span>樱桃</span></a></h1>
+<h2 id="标题-2" tabindex="-1"><a class="header-anchor" href="#标题-2"><span>标题 2</span></a></h2>
+<p>这里是内容。</p>
+<h3 id="标题-3" tabindex="-1"><a class="header-anchor" href="#标题-3"><span>标题 3</span></a></h3>
+<p>这里是内容。</p>
 </div></template>
 
 

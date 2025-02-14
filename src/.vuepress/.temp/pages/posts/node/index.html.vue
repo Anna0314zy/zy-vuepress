@@ -1,4 +1,5 @@
-<template><div><h2 id="node必知必会系列" tabindex="-1"><a class="header-anchor" href="#node必知必会系列"><span>node必知必会系列</span></a></h2>
+<template><div><h1 id="node" tabindex="-1"><a class="header-anchor" href="#node"><span>node</span></a></h1>
+<h2 id="node必知必会系列" tabindex="-1"><a class="header-anchor" href="#node必知必会系列"><span>node必知必会系列</span></a></h2>
 <ul>
 <li><RouteLink to="/posts/webframe/javascript/promise.html">深度了解promise</RouteLink></li>
 <li><RouteLink to="/posts/node/what.html">node.js究竟是什么</RouteLink></li>

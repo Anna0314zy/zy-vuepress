@@ -1,0 +1,16 @@
+import comp from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/blog/src/.vuepress/.temp/pages/posts/posts copy/tool/vuepressBlog.html.vue"
+const data = JSON.parse("{\"path\":\"/posts/posts%20copy/tool/vuepressBlog.html\",\"title\":\"使用Vuepress搭建博客\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"使用Vuepress搭建博客\",\"date\":\"2020-05-20T00:00:00.000Z\",\"tags\":[\"工具\",\"Vue\",\"Vuepress\"],\"gitInclude\":[],\"description\":\"为什么选择vuepress 之前使用docsify部署过个人博客, 在此之前也使用过gitbook, 这次使用vuepress来改版, 根据自己的体验, 将这三者做一个对比 从阅读体验来说(个人感觉): gitbook > docsify =vuepress 从配置上来说, docsify相比于vuepress和gitbook都要简单一些. 从性能上来...\"},\"headers\":[{\"level\":2,\"title\":\"为什么选择vuepress\",\"slug\":\"为什么选择vuepress\",\"link\":\"#为什么选择vuepress\",\"children\":[{\"level\":3,\"title\":\"vuepress特性\",\"slug\":\"vuepress特性\",\"link\":\"#vuepress特性\",\"children\":[]}]},{\"level\":2,\"title\":\"项目搭建\",\"slug\":\"项目搭建\",\"link\":\"#项目搭建\",\"children\":[{\"level\":3,\"title\":\"安装vuepress\",\"slug\":\"安装vuepress\",\"link\":\"#安装vuepress\",\"children\":[]},{\"level\":3,\"title\":\"初始化项目\",\"slug\":\"初始化项目\",\"link\":\"#初始化项目\",\"children\":[]}]},{\"level\":2,\"title\":\"页面具体内容配置\",\"slug\":\"页面具体内容配置\",\"link\":\"#页面具体内容配置\",\"children\":[{\"level\":3,\"title\":\"基本配置\",\"slug\":\"基本配置\",\"link\":\"#基本配置\",\"children\":[]},{\"level\":3,\"title\":\"设置封面页\",\"slug\":\"设置封面页\",\"link\":\"#设置封面页\",\"children\":[]},{\"level\":3,\"title\":\"配置导航栏nav\",\"slug\":\"配置导航栏nav\",\"link\":\"#配置导航栏nav\",\"children\":[]},{\"level\":3,\"title\":\"配置侧边栏slider\",\"slug\":\"配置侧边栏slider\",\"link\":\"#配置侧边栏slider\",\"children\":[]}]},{\"level\":2,\"title\":\"自定义布局内容\",\"slug\":\"自定义布局内容\",\"link\":\"#自定义布局内容\",\"children\":[{\"level\":3,\"title\":\"配置插件\",\"slug\":\"配置插件\",\"link\":\"#配置插件\",\"children\":[]},{\"level\":3,\"title\":\"UI插件\",\"slug\":\"ui插件\",\"link\":\"#ui插件\",\"children\":[]},{\"level\":3,\"title\":\"支持PWA\",\"slug\":\"支持pwa\",\"link\":\"#支持pwa\",\"children\":[]},{\"level\":3,\"title\":\"配置评论\",\"slug\":\"配置评论\",\"link\":\"#配置评论\",\"children\":[]},{\"level\":3,\"title\":\"主题样式修改\",\"slug\":\"主题样式修改\",\"link\":\"#主题样式修改\",\"children\":[]}]},{\"level\":2,\"title\":\"部署\",\"slug\":\"部署\",\"link\":\"#部署\",\"children\":[{\"level\":3,\"title\":\"nginx部署\",\"slug\":\"nginx部署\",\"link\":\"#nginx部署\",\"children\":[]},{\"level\":3,\"title\":\"github部署\",\"slug\":\"github部署\",\"link\":\"#github部署\",\"children\":[]}]}],\"readingTime\":{\"minutes\":11.86,\"words\":3559},\"filePathRelative\":\"posts/posts copy/tool/vuepressBlog.md\",\"localizedDate\":\"2020年5月20日\",\"excerpt\":\"\\n<h2>为什么选择vuepress</h2>\\n<p>之前使用docsify部署过个人博客, 在此之前也使用过gitbook, 这次使用vuepress来改版, 根据自己的体验, 将这三者做一个对比</p>\\n<ul>\\n<li>\\n<p>从阅读体验来说(个人感觉): gitbook &gt; docsify =vuepress</p>\\n</li>\\n<li>\\n<p>从配置上来说, docsify相比于vuepress和gitbook都要简单一些.</p>\\n</li>\\n<li>\\n<p>从性能上来说: vuepress &gt; docsify</p>\\n<p>虽然docsify也是基于vue的, docsify是运行时解析, vuepress是预先渲染HTML</p>\\n</li>\\n<li>\\n<p>灵活性上, vuepress也是相当占优势的, 对vue熟悉的朋友可以编写vue组件实现你想要的功能样式</p>\\n</li>\\n</ul>\",\"autoDesc\":true}")
+export { comp, data }
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+  if (__VUE_HMR_RUNTIME__.updatePageData) {
+    __VUE_HMR_RUNTIME__.updatePageData(data)
+  }
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(({ data }) => {
+    __VUE_HMR_RUNTIME__.updatePageData(data)
+  })
+}

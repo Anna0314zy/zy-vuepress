@@ -2,6 +2,7 @@
 <p>原文：Building an API Gateway using Node.js</p>
 <p>地址：<a href="https://blog.risingstack.com/building-an-api-gateway-using-nodejs/" target="_blank" rel="noopener noreferrer">https://blog.risingstack.com/building-an-api-gateway-using-nodejs/</a></p>
 </blockquote>
+<h1 id="node-学习笔记" tabindex="-1"><a class="header-anchor" href="#node-学习笔记"><span>node 学习笔记</span></a></h1>
 <p>外部客户端访问微服务架构中的服务时，服务端会对认证和传输有一些常见的要求。API 网关提供共享层来处理服务协议之间的差异，并满足特定客户端（如桌面浏览器、移动设备和老系统）的要求。</p>
 <h2 id="微服务和消费者" tabindex="-1"><a class="header-anchor" href="#微服务和消费者"><span>微服务和消费者</span></a></h2>
 <p>微服务是面向服务的架构，团队可以独立设计、开发和发布应用程序。它允许在系统各个层面上的技术多样性，团队可以在给定的技术难题中使用最佳语言、数据库、协议和传输层，从而受益。例如，一个团队可以使用 <code v-pre>HTTP REST</code> 上的 JSON，而另一个团队可以使用 <code v-pre>HTTP/2</code> 上的 gRPC 或 RabbitMQ 等消息代理。</p>

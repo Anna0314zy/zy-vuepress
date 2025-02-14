@@ -73,7 +73,7 @@ Web 主要场景就是接收客户端的请求读取静态资源和渲染界面,
 </ul>
 <h3 id="宏任务微任务" tabindex="-1"><a class="header-anchor" href="#宏任务微任务"><span>宏任务微任务</span></a></h3>
 <div class="hint-container tip">
-<p class="hint-container-title">Tips</p>
+<p class="hint-container-title">提示</p>
 <p>执行一个宏任务 就会清空微任务 .... 可以理解为宏任务会先放到宏任务队列 但是微任务先执行</p>
 </div>
 <ul>
@@ -117,7 +117,7 @@ Web 主要场景就是接收客户端的请求读取静态资源和渲染界面,
 <blockquote>
 <p>process.nextTick() 当前同步代码执行完毕后立即调用从技术上讲不是事件循环的一部分.</p>
 <div class="hint-container tip">
-<p class="hint-container-title">Tips</p>
+<p class="hint-container-title">提示</p>
 <p>node 先执行栈中代码 然后再执行宏任务 执行一个宏任务（s） 清空微任务 然后再执行宏任务 。。。。</p>
 </div>
 <p>全局属性 -- 能在文件夹里的文件直接直接访问的<br>

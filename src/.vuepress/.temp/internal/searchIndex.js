@@ -1,389 +1,37 @@
 export const SEARCH_INDEX = [
   {
-    "title": "Blog Home",
+    "title": "博客主页",
     "headers": [],
     "path": "/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "Intro Page",
+    "title": "介绍页",
     "headers": [],
     "path": "/intro.html",
     "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "Features demo",
+    "title": "主要功能与配置演示",
     "headers": [],
     "path": "/demo/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "Disabling layout and features",
+    "title": "布局与功能禁用",
     "headers": [],
     "path": "/demo/disable.html",
     "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "Layout",
+    "title": "布局",
     "headers": [],
     "path": "/demo/layout.html",
     "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Markdown Enhance",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Markdown Introduction",
-        "slug": "markdown-introduction",
-        "link": "#markdown-introduction",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Markdown Config",
-        "slug": "markdown-config",
-        "link": "#markdown-config",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Markdown Extension",
-        "slug": "markdown-extension",
-        "link": "#markdown-extension",
-        "children": [
-          {
-            "level": 3,
-            "title": "VuePress Enhancement",
-            "slug": "vuepress-enhancement",
-            "link": "#vuepress-enhancement",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Theme Enhancement",
-            "slug": "theme-enhancement",
-            "link": "#theme-enhancement",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/demo/markdown.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Page Config",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Page Title",
-        "slug": "page-title",
-        "link": "#page-title",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Page Information",
-        "slug": "page-information",
-        "link": "#page-information",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Page Content",
-        "slug": "page-content",
-        "link": "#page-content",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Components",
-        "slug": "components",
-        "link": "#components",
-        "children": []
-      }
-    ],
-    "path": "/demo/page.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "博客主页",
-    "headers": [],
-    "path": "/zh/",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "介绍页",
-    "headers": [],
-    "path": "/zh/intro.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "Cherry",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/cherry.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Dragon Fruit",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/dragonfruit.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Strawberry",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/strawberry.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tomato",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/tomato.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "你会成为你想成为的那个人 | 考拉的年终总结",
-    "headers": [
-      {
-        "level": 2,
-        "title": "为什么选择考拉作为我的 IP ？",
-        "slug": "为什么选择考拉作为我的-ip",
-        "link": "#为什么选择考拉作为我的-ip",
-        "children": [
-          {
-            "level": 3,
-            "title": "考拉的样子",
-            "slug": "考拉的样子",
-            "link": "#考拉的样子",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "考拉的习性",
-            "slug": "考拉的习性",
-            "link": "#考拉的习性",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "考拉的寿命",
-            "slug": "考拉的寿命",
-            "link": "#考拉的寿命",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "这一年我究竟做了什么？",
-        "slug": "这一年我究竟做了什么",
-        "link": "#这一年我究竟做了什么",
-        "children": [
-          {
-            "level": 3,
-            "title": "工作转变",
-            "slug": "工作转变",
-            "link": "#工作转变",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "学习成长",
-            "slug": "学习成长",
-            "link": "#学习成长",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "掘金写文",
-            "slug": "掘金写文",
-            "link": "#掘金写文",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "公众号",
-            "slug": "公众号",
-            "link": "#公众号",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "部分原创文章汇总",
-            "slug": "部分原创文章汇总",
-            "link": "#部分原创文章汇总",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "生活",
-            "slug": "生活",
-            "link": "#生活",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "一点建议(送给大家，也送给自己)",
-        "slug": "一点建议-送给大家-也送给自己",
-        "link": "#一点建议-送给大家-也送给自己",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "展望2020",
-        "slug": "展望2020",
-        "link": "#展望2020",
-        "children": [
-          {
-            "level": 3,
-            "title": "技术提升",
-            "slug": "技术提升",
-            "link": "#技术提升",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "生活",
-            "slug": "生活-1",
-            "link": "#生活-1",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "要坚持的事",
-            "slug": "要坚持的事",
-            "link": "#要坚持的事",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "最后",
-        "slug": "最后",
-        "link": "#最后",
-        "children": []
-      }
-    ],
-    "path": "/zh/about/2019_year_end.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "",
-    "headers": [
-      {
-        "level": 3,
-        "title": "目录",
-        "slug": "目录",
-        "link": "#目录",
-        "children": []
-      }
-    ],
-    "path": "/zh/about/",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "主要功能与配置演示",
-    "headers": [],
-    "path": "/zh/demo/",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "布局与功能禁用",
-    "headers": [],
-    "path": "/zh/demo/disable.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "布局",
-    "headers": [],
-    "path": "/zh/demo/layout.html",
-    "pathLocale": "/zh/",
     "extraFields": []
   },
   {
@@ -433,8 +81,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/demo/markdown.html",
-    "pathLocale": "/zh/",
+    "path": "/demo/markdown.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -469,99 +117,7 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/demo/page.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "Apple 1",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/apple/1.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Apple 2",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/apple/2.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Apple 3",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/apple/3.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Apple 4",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/apple/4.html",
+    "path": "/demo/page.html",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -597,8 +153,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/book.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/book.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -626,99 +182,7 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/project.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "Banana 1",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/banana/1.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Banana 2",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/banana/2.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Banana 3",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/banana/3.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Banana 4",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Heading 2",
-        "slug": "heading-2",
-        "link": "#heading-2",
-        "children": [
-          {
-            "level": 3,
-            "title": "Heading 3",
-            "slug": "heading-3",
-            "link": "#heading-3",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/posts/banana/4.html",
+    "path": "/posts/project.html",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -747,8 +211,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/1.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/1.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -783,8 +247,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/async-await.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/async-await.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -840,8 +304,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/class.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/class.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -897,8 +361,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/classInherit.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/classInherit.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -933,8 +397,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/decorator.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/decorator.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -948,8 +412,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/ejs.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/ejs.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -998,8 +462,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/promise.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/promise.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1027,87 +491,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/questions.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "渲染树的形成原理",
-    "headers": [
-      {
-        "level": 2,
-        "title": "什么是DOM",
-        "slug": "什么是dom",
-        "link": "#什么是dom",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "渲染树最终形成经历了哪些",
-        "slug": "渲染树最终形成经历了哪些",
-        "link": "#渲染树最终形成经历了哪些",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "HTML解析器",
-        "slug": "html解析器",
-        "link": "#html解析器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "CSS解析器",
-        "slug": "css解析器",
-        "link": "#css解析器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "javascript对DOM树与CSSOM树创建的影响",
-        "slug": "javascript对dom树与cssom树创建的影响",
-        "link": "#javascript对dom树与cssom树创建的影响",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "构建渲染树",
-        "slug": "构建渲染树",
-        "link": "#构建渲染树",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "本文渲染树形成过程可以做哪些优化",
-        "slug": "本文渲染树形成过程可以做哪些优化",
-        "link": "#本文渲染树形成过程可以做哪些优化",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "总结",
-        "slug": "总结",
-        "link": "#总结",
-        "children": [
-          {
-            "level": 3,
-            "title": "参考资料:",
-            "slug": "参考资料",
-            "link": "#参考资料",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "关注我",
-            "slug": "关注我",
-            "link": "#关注我",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/zh/posts/brower/renderTree.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/questions.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1220,8 +605,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/css/1.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/css/1.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1473,8 +858,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/css/css.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/css/css.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1502,8 +887,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/css/",
-    "pathLocale": "/zh/",
+    "path": "/posts/css/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1588,8 +973,666 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/css/render.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/css/render.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "渲染树的形成原理",
+    "headers": [
+      {
+        "level": 2,
+        "title": "什么是DOM",
+        "slug": "什么是dom",
+        "link": "#什么是dom",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "渲染树最终形成经历了哪些",
+        "slug": "渲染树最终形成经历了哪些",
+        "link": "#渲染树最终形成经历了哪些",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "HTML解析器",
+        "slug": "html解析器",
+        "link": "#html解析器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "CSS解析器",
+        "slug": "css解析器",
+        "link": "#css解析器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "javascript对DOM树与CSSOM树创建的影响",
+        "slug": "javascript对dom树与cssom树创建的影响",
+        "link": "#javascript对dom树与cssom树创建的影响",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "构建渲染树",
+        "slug": "构建渲染树",
+        "link": "#构建渲染树",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "本文渲染树形成过程可以做哪些优化",
+        "slug": "本文渲染树形成过程可以做哪些优化",
+        "link": "#本文渲染树形成过程可以做哪些优化",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "总结",
+        "slug": "总结",
+        "link": "#总结",
+        "children": [
+          {
+            "level": 3,
+            "title": "参考资料:",
+            "slug": "参考资料",
+            "link": "#参考资料",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "关注我",
+            "slug": "关注我",
+            "link": "#关注我",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/posts/brower/renderTree.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "主要功能与配置演示",
+    "headers": [],
+    "path": "/posts/demo/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "布局与功能禁用",
+    "headers": [],
+    "path": "/posts/demo/disable.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "密码加密的文章",
+    "headers": [],
+    "path": "/posts/demo/encrypt.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "布局",
+    "headers": [],
+    "path": "/posts/demo/layout.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Markdown 展示",
+    "headers": [
+      {
+        "level": 2,
+        "title": "Markdown 介绍",
+        "slug": "markdown-介绍",
+        "link": "#markdown-介绍",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Markdown 配置",
+        "slug": "markdown-配置",
+        "link": "#markdown-配置",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Markdown 扩展",
+        "slug": "markdown-扩展",
+        "link": "#markdown-扩展",
+        "children": [
+          {
+            "level": 3,
+            "title": "VuePress 扩展",
+            "slug": "vuepress-扩展",
+            "link": "#vuepress-扩展",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "主题扩展",
+            "slug": "主题扩展",
+            "link": "#主题扩展",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "图片增强",
+            "slug": "图片增强",
+            "link": "#图片增强",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/posts/demo/markdown.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "页面配置",
+    "headers": [
+      {
+        "level": 2,
+        "title": "页面标题",
+        "slug": "页面标题",
+        "link": "#页面标题",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "页面信息",
+        "slug": "页面信息",
+        "link": "#页面信息",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "页面内容",
+        "slug": "页面内容",
+        "link": "#页面内容",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "组件",
+        "slug": "组件",
+        "link": "#组件",
+        "children": []
+      }
+    ],
+    "path": "/posts/demo/page.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "MySQL 基础架构你不知道的那些事！",
+    "headers": [
+      {
+        "level": 2,
+        "title": "提出问题：",
+        "slug": "提出问题",
+        "link": "#提出问题",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "mysql的基础架构",
+        "slug": "mysql的基础架构",
+        "link": "#mysql的基础架构",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Mysql基本架构示意图",
+        "slug": "mysql基本架构示意图",
+        "link": "#mysql基本架构示意图",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "连接器",
+        "slug": "连接器",
+        "link": "#连接器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "查询缓存",
+        "slug": "查询缓存",
+        "link": "#查询缓存",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "分析器",
+        "slug": "分析器",
+        "link": "#分析器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "优化器",
+        "slug": "优化器",
+        "link": "#优化器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "执行器",
+        "slug": "执行器",
+        "link": "#执行器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "存储引擎",
+        "slug": "存储引擎",
+        "link": "#存储引擎",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "总结",
+        "slug": "总结",
+        "link": "#总结",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/baseFrame.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "SQL 和 NoSQL 的区别与选择",
+    "headers": [
+      {
+        "level": 2,
+        "title": "概念",
+        "slug": "概念",
+        "link": "#概念",
+        "children": [
+          {
+            "level": 3,
+            "title": "关系型数据库",
+            "slug": "关系型数据库",
+            "link": "#关系型数据库",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "非关系型数据库",
+            "slug": "非关系型数据库",
+            "link": "#非关系型数据库",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "二者对比",
+        "slug": "二者对比",
+        "link": "#二者对比",
+        "children": [
+          {
+            "level": 3,
+            "title": "存储方式：",
+            "slug": "存储方式",
+            "link": "#存储方式",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "表/数据集合的数据的关系",
+            "slug": "表-数据集合的数据的关系",
+            "link": "#表-数据集合的数据的关系",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "外部数据存储",
+            "slug": "外部数据存储",
+            "link": "#外部数据存储",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "SQL中的JOIN查询",
+            "slug": "sql中的join查询",
+            "link": "#sql中的join查询",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "数据耦合性",
+            "slug": "数据耦合性",
+            "link": "#数据耦合性",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "事务",
+            "slug": "事务",
+            "link": "#事务",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "增删改查语法",
+            "slug": "增删改查语法",
+            "link": "#增删改查语法",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "数据完整性",
+            "slug": "数据完整性",
+            "link": "#数据完整性",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "查询性能",
+            "slug": "查询性能",
+            "link": "#查询性能",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "如何选择",
+        "slug": "如何选择",
+        "link": "#如何选择",
+        "children": [
+          {
+            "level": 3,
+            "title": "适合使用SQL开发的项目：",
+            "slug": "适合使用sql开发的项目",
+            "link": "#适合使用sql开发的项目",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "适合使用NoSQL开发的项目：",
+            "slug": "适合使用nosql开发的项目",
+            "link": "#适合使用nosql开发的项目",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "读完本文后的思考",
+        "slug": "读完本文后的思考",
+        "link": "#读完本文后的思考",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/choice.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Redis详细学习 入门篇",
+    "headers": [
+      {
+        "level": 2,
+        "title": "什么是Redis",
+        "slug": "什么是redis",
+        "link": "#什么是redis",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "redis的应用场景",
+        "slug": "redis的应用场景",
+        "link": "#redis的应用场景",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "redis安装与启动",
+        "slug": "redis安装与启动",
+        "link": "#redis安装与启动",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "redis的基本数据类型",
+        "slug": "redis的基本数据类型",
+        "link": "#redis的基本数据类型",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/detail-redis1.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Redis详细学习 进阶篇",
+    "headers": [
+      {
+        "level": 2,
+        "title": "redis多数据库",
+        "slug": "redis多数据库",
+        "link": "#redis多数据库",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "redis事务的概念",
+        "slug": "redis事务的概念",
+        "link": "#redis事务的概念",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "redis数据持久化",
+        "slug": "redis数据持久化",
+        "link": "#redis数据持久化",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/detail-redis2.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Redis详细学习 实战篇",
+    "headers": [
+      {
+        "level": 2,
+        "title": "前言:",
+        "slug": "前言",
+        "link": "#前言",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "应用场景",
+        "slug": "应用场景",
+        "link": "#应用场景",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/detail-redis3.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "删库跑路后真的没有办法弥补了吗？！",
+    "headers": [
+      {
+        "level": 2,
+        "title": "redo日志(重做日志)",
+        "slug": "redo日志-重做日志",
+        "link": "#redo日志-重做日志",
+        "children": [
+          {
+            "level": 3,
+            "title": "redo中的环状结构",
+            "slug": "redo中的环状结构",
+            "link": "#redo中的环状结构",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "redo日志作用(回答提出问题1)",
+            "slug": "redo日志作用-回答提出问题1",
+            "link": "#redo日志作用-回答提出问题1",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "binlog日志(归档日志)",
+        "slug": "binlog日志-归档日志",
+        "link": "#binlog日志-归档日志",
+        "children": [
+          {
+            "level": 3,
+            "title": "binlog日志作用(回答提出问题2)",
+            "slug": "binlog日志作用-回答提出问题2",
+            "link": "#binlog日志作用-回答提出问题2",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "redo日志与binlog日志对比",
+        "slug": "redo日志与binlog日志对比",
+        "link": "#redo日志与binlog日志对比",
+        "children": [
+          {
+            "level": 3,
+            "title": "更新语句执行流程(与日志关系)",
+            "slug": "更新语句执行流程-与日志关系",
+            "link": "#更新语句执行流程-与日志关系",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "开发过程中如何为mysql设置这两种保存日志的配置",
+        "slug": "开发过程中如何为mysql设置这两种保存日志的配置",
+        "link": "#开发过程中如何为mysql设置这两种保存日志的配置",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "如何查看这两种日志",
+        "slug": "如何查看这两种日志",
+        "link": "#如何查看这两种日志",
+        "children": [
+          {
+            "level": 3,
+            "title": "关于日志系统的一些误区和疑问",
+            "slug": "关于日志系统的一些误区和疑问",
+            "link": "#关于日志系统的一些误区和疑问",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "总结与宣传",
+        "slug": "总结与宣传",
+        "link": "#总结与宣传",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/logSystem.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "常用的数据库语句",
+    "headers": [
+      {
+        "level": 2,
+        "title": "直接看语句",
+        "slug": "直接看语句",
+        "link": "#直接看语句",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "DATE_FORMAT函数说明",
+        "slug": "date-format函数说明",
+        "link": "#date-format函数说明",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "> 需求2: 查询结果单位换算后保留两位小数",
+        "slug": "需求2-查询结果单位换算后保留两位小数",
+        "link": "#需求2-查询结果单位换算后保留两位小数",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/optimize.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "如何写优雅的SQL原生语句？",
+    "headers": [
+      {
+        "level": 2,
+        "title": "前言：",
+        "slug": "前言",
+        "link": "#前言",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "语句中各子句完整执行顺序概括（按照顺序号执行）",
+        "slug": "语句中各子句完整执行顺序概括-按照顺序号执行",
+        "link": "#语句中各子句完整执行顺序概括-按照顺序号执行",
+        "children": [
+          {
+            "level": 3,
+            "title": "每个子句执行顺序分析",
+            "slug": "每个子句执行顺序分析",
+            "link": "#每个子句执行顺序分析",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "开发某需求写的一段sql",
+        "slug": "开发某需求写的一段sql",
+        "link": "#开发某需求写的一段sql",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "sql语句中的别名",
+        "slug": "sql语句中的别名",
+        "link": "#sql语句中的别名",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "书写sql语句的注意事项",
+        "slug": "书写sql语句的注意事项",
+        "link": "#书写sql语句的注意事项",
+        "children": []
+      }
+    ],
+    "path": "/posts/database/writeSql.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1639,8 +1682,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/interview/1.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/1.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1719,8 +1762,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/JS3.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/JS3.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1748,8 +1791,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/api.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/api.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -1826,8 +1869,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/css-others.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/css-others.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -2079,8 +2122,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/css.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/css.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -2414,8 +2457,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/js10.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/js10.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -2920,8 +2963,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/myself.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/myself.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -2984,8 +3027,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/notes.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/notes.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3034,15 +3077,15 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/project.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/project.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "Promise",
     "headers": [],
-    "path": "/zh/posts/interview/promise.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/promise.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3070,8 +3113,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/questions.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/questions.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3099,8 +3142,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3142,8 +3185,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/rewriteJs.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/rewriteJs.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3272,365 +3315,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/interview/vue.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "JS 的数据类型",
-    "headers": [
-      {
-        "level": 2,
-        "title": "代码基本功测试（上）：JS 的数据类型你了解多少？",
-        "slug": "代码基本功测试-上-js-的数据类型你了解多少",
-        "link": "#代码基本功测试-上-js-的数据类型你了解多少",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "数据类型概念",
-        "slug": "数据类型概念",
-        "link": "#数据类型概念",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "数据类型检测",
-        "slug": "数据类型检测",
-        "link": "#数据类型检测",
-        "children": [
-          {
-            "level": 3,
-            "title": "第一种判断方法：typeof",
-            "slug": "第一种判断方法-typeof",
-            "link": "#第一种判断方法-typeof",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "第二种判断方法：instanceof",
-            "slug": "第二种判断方法-instanceof",
-            "link": "#第二种判断方法-instanceof",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "第三种判断方法：Object.prototype.toString",
-            "slug": "第三种判断方法-object-prototype-tostring",
-            "link": "#第三种判断方法-object-prototype-tostring",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "数据类型转换",
-        "slug": "数据类型转换",
-        "link": "#数据类型转换",
-        "children": [
-          {
-            "level": 3,
-            "title": "强制类型转换",
-            "slug": "强制类型转换",
-            "link": "#强制类型转换",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "隐式类型转换",
-            "slug": "隐式类型转换",
-            "link": "#隐式类型转换",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/zh/posts/js/JS2.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "JS 底层原理的实现",
-    "headers": [
-      {
-        "level": 2,
-        "title": "1.apply、call、bind",
-        "slug": "_1-apply、call、bind",
-        "link": "#_1-apply、call、bind",
-        "children": [
-          {
-            "level": 3,
-            "title": "apply 和 call 的实现",
-            "slug": "apply-和-call-的实现",
-            "link": "#apply-和-call-的实现",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "bind 的实现",
-            "slug": "bind-的实现",
-            "link": "#bind-的实现",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "2.new 的实现",
-        "slug": "_2-new-的实现",
-        "link": "#_2-new-的实现",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "3.JSON.stringify",
-        "slug": "_3-json-stringify",
-        "link": "#_3-json-stringify",
-        "children": [
-          {
-            "level": 3,
-            "title": "JSON.parse",
-            "slug": "json-parse",
-            "link": "#json-parse",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "JSON.stringify",
-            "slug": "json-stringify",
-            "link": "#json-stringify",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "4.0.1 + 0.2 != 0.3",
-        "slug": "_4-0-1-0-2-0-3",
-        "link": "#_4-0-1-0-2-0-3",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "5.for in",
-        "slug": "_5-for-in",
-        "link": "#_5-for-in",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "instanceof",
-        "slug": "instanceof",
-        "link": "#instanceof",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/js/JS3.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "算法",
-    "headers": [
-      {
-        "level": 2,
-        "title": "排序",
-        "slug": "排序",
-        "link": "#排序",
-        "children": [
-          {
-            "level": 3,
-            "title": "1.冒泡排序",
-            "slug": "_1-冒泡排序",
-            "link": "#_1-冒泡排序",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "2.插入排序",
-            "slug": "_2-插入排序",
-            "link": "#_2-插入排序",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "3.快速排序",
-            "slug": "_3-快速排序",
-            "link": "#_3-快速排序",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "二分查找",
-        "slug": "二分查找",
-        "link": "#二分查找",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "如何实现一个回文字符串",
-        "slug": "如何实现一个回文字符串",
-        "link": "#如何实现一个回文字符串",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "tree 找id",
-        "slug": "tree-找id",
-        "link": "#tree-找id",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "匹配扩号",
-        "slug": "匹配扩号",
-        "link": "#匹配扩号",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/js/math.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "设计模式",
-    "headers": [
-      {
-        "level": 2,
-        "title": "其他参考资料",
-        "slug": "其他参考资料",
-        "link": "#其他参考资料",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/js/modules.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "正则",
-    "headers": [
-      {
-        "level": 2,
-        "title": "编写正则表达式",
-        "slug": "编写正则表达式",
-        "link": "#编写正则表达式",
-        "children": [
-          {
-            "level": 3,
-            "title": "创建方式",
-            "slug": "创建方式",
-            "link": "#创建方式",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "正则表达式两部分",
-            "slug": "正则表达式两部分",
-            "link": "#正则表达式两部分",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "元字符详细解析",
-        "slug": "元字符详细解析",
-        "link": "#元字符详细解析",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "常用的正则表达式",
-        "slug": "常用的正则表达式",
-        "link": "#常用的正则表达式",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "构造函数创建正则 可以拼接变量 两个斜杠之间的都是元字符",
-        "slug": "构造函数创建正则-可以拼接变量-两个斜杠之间的都是元字符",
-        "link": "#构造函数创建正则-可以拼接变量-两个斜杠之间的都是元字符",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "正则捕获",
-        "slug": "正则捕获",
-        "link": "#正则捕获",
-        "children": [
-          {
-            "level": 3,
-            "title": "正则捕获的懒惰性",
-            "slug": "正则捕获的懒惰性",
-            "link": "#正则捕获的懒惰性",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "全部捕获 可用字符串的方法",
-            "slug": "全部捕获-可用字符串的方法",
-            "link": "#全部捕获-可用字符串的方法",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "正则捕获的贪婪性",
-        "slug": "正则捕获的贪婪性",
-        "link": "#正则捕获的贪婪性",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "其他正则捕获的方法",
-        "slug": "其他正则捕获的方法",
-        "link": "#其他正则捕获的方法",
-        "children": [
-          {
-            "level": 3,
-            "title": "test也能捕获 本意是匹配",
-            "slug": "test也能捕获-本意是匹配",
-            "link": "#test也能捕获-本意是匹配",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "replace 字符串中实现替换的方法 一般都是伴随正则使用的",
-            "slug": "replace-字符串中实现替换的方法-一般都是伴随正则使用的",
-            "link": "#replace-字符串中实现替换的方法-一般都是伴随正则使用的",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "案例 把时间字符串进行处理",
-            "slug": "案例-把时间字符串进行处理",
-            "link": "#案例-把时间字符串进行处理",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "单词首字母大写",
-        "slug": "单词首字母大写",
-        "link": "#单词首字母大写",
-        "children": [
-          {
-            "level": 3,
-            "title": "常用案例",
-            "slug": "常用案例",
-            "link": "#常用案例",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/zh/posts/js/regexp.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/interview/vue.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3686,8 +3372,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/closure.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/closure.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3774,8 +3460,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/copy.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/copy.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -3931,8 +3617,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/javascript/datatype.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/datatype.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4011,8 +3697,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/javascript/exports.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/exports.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4069,8 +3755,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/javascript/highFunc.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/highFunc.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4251,8 +3937,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/higherFunc.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/higherFunc.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4586,8 +4272,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/js10.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/js10.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4780,8 +4466,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/javascript/promise.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/promise.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4846,8 +4532,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/javascript/prototype.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/prototype.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -4968,8 +4654,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/recircleFun.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/recircleFun.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5048,8 +4734,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/javascript/scoped.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/scoped.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5178,8 +4864,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/this.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/this.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5258,8 +4944,365 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/javascript/unique.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/javascript/unique.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "JS 的数据类型",
+    "headers": [
+      {
+        "level": 2,
+        "title": "代码基本功测试（上）：JS 的数据类型你了解多少？",
+        "slug": "代码基本功测试-上-js-的数据类型你了解多少",
+        "link": "#代码基本功测试-上-js-的数据类型你了解多少",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "数据类型概念",
+        "slug": "数据类型概念",
+        "link": "#数据类型概念",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "数据类型检测",
+        "slug": "数据类型检测",
+        "link": "#数据类型检测",
+        "children": [
+          {
+            "level": 3,
+            "title": "第一种判断方法：typeof",
+            "slug": "第一种判断方法-typeof",
+            "link": "#第一种判断方法-typeof",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "第二种判断方法：instanceof",
+            "slug": "第二种判断方法-instanceof",
+            "link": "#第二种判断方法-instanceof",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "第三种判断方法：Object.prototype.toString",
+            "slug": "第三种判断方法-object-prototype-tostring",
+            "link": "#第三种判断方法-object-prototype-tostring",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "数据类型转换",
+        "slug": "数据类型转换",
+        "link": "#数据类型转换",
+        "children": [
+          {
+            "level": 3,
+            "title": "强制类型转换",
+            "slug": "强制类型转换",
+            "link": "#强制类型转换",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "隐式类型转换",
+            "slug": "隐式类型转换",
+            "link": "#隐式类型转换",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/posts/js/JS2.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "JS 底层原理的实现",
+    "headers": [
+      {
+        "level": 2,
+        "title": "1.apply、call、bind",
+        "slug": "_1-apply、call、bind",
+        "link": "#_1-apply、call、bind",
+        "children": [
+          {
+            "level": 3,
+            "title": "apply 和 call 的实现",
+            "slug": "apply-和-call-的实现",
+            "link": "#apply-和-call-的实现",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "bind 的实现",
+            "slug": "bind-的实现",
+            "link": "#bind-的实现",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "2.new 的实现",
+        "slug": "_2-new-的实现",
+        "link": "#_2-new-的实现",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "3.JSON.stringify",
+        "slug": "_3-json-stringify",
+        "link": "#_3-json-stringify",
+        "children": [
+          {
+            "level": 3,
+            "title": "JSON.parse",
+            "slug": "json-parse",
+            "link": "#json-parse",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "JSON.stringify",
+            "slug": "json-stringify",
+            "link": "#json-stringify",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "4.0.1 + 0.2 != 0.3",
+        "slug": "_4-0-1-0-2-0-3",
+        "link": "#_4-0-1-0-2-0-3",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "5.for in",
+        "slug": "_5-for-in",
+        "link": "#_5-for-in",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "instanceof",
+        "slug": "instanceof",
+        "link": "#instanceof",
+        "children": []
+      }
+    ],
+    "path": "/posts/js/JS3.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "算法",
+    "headers": [
+      {
+        "level": 2,
+        "title": "排序",
+        "slug": "排序",
+        "link": "#排序",
+        "children": [
+          {
+            "level": 3,
+            "title": "1.冒泡排序",
+            "slug": "_1-冒泡排序",
+            "link": "#_1-冒泡排序",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "2.插入排序",
+            "slug": "_2-插入排序",
+            "link": "#_2-插入排序",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "3.快速排序",
+            "slug": "_3-快速排序",
+            "link": "#_3-快速排序",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "二分查找",
+        "slug": "二分查找",
+        "link": "#二分查找",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "如何实现一个回文字符串",
+        "slug": "如何实现一个回文字符串",
+        "link": "#如何实现一个回文字符串",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "tree 找id",
+        "slug": "tree-找id",
+        "link": "#tree-找id",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "匹配扩号",
+        "slug": "匹配扩号",
+        "link": "#匹配扩号",
+        "children": []
+      }
+    ],
+    "path": "/posts/js/math.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "设计模式",
+    "headers": [
+      {
+        "level": 2,
+        "title": "其他参考资料",
+        "slug": "其他参考资料",
+        "link": "#其他参考资料",
+        "children": []
+      }
+    ],
+    "path": "/posts/js/modules.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "正则",
+    "headers": [
+      {
+        "level": 2,
+        "title": "编写正则表达式",
+        "slug": "编写正则表达式",
+        "link": "#编写正则表达式",
+        "children": [
+          {
+            "level": 3,
+            "title": "创建方式",
+            "slug": "创建方式",
+            "link": "#创建方式",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "正则表达式两部分",
+            "slug": "正则表达式两部分",
+            "link": "#正则表达式两部分",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "元字符详细解析",
+        "slug": "元字符详细解析",
+        "link": "#元字符详细解析",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "常用的正则表达式",
+        "slug": "常用的正则表达式",
+        "link": "#常用的正则表达式",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "构造函数创建正则 可以拼接变量 两个斜杠之间的都是元字符",
+        "slug": "构造函数创建正则-可以拼接变量-两个斜杠之间的都是元字符",
+        "link": "#构造函数创建正则-可以拼接变量-两个斜杠之间的都是元字符",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "正则捕获",
+        "slug": "正则捕获",
+        "link": "#正则捕获",
+        "children": [
+          {
+            "level": 3,
+            "title": "正则捕获的懒惰性",
+            "slug": "正则捕获的懒惰性",
+            "link": "#正则捕获的懒惰性",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "全部捕获 可用字符串的方法",
+            "slug": "全部捕获-可用字符串的方法",
+            "link": "#全部捕获-可用字符串的方法",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "正则捕获的贪婪性",
+        "slug": "正则捕获的贪婪性",
+        "link": "#正则捕获的贪婪性",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "其他正则捕获的方法",
+        "slug": "其他正则捕获的方法",
+        "link": "#其他正则捕获的方法",
+        "children": [
+          {
+            "level": 3,
+            "title": "test也能捕获 本意是匹配",
+            "slug": "test也能捕获-本意是匹配",
+            "link": "#test也能捕获-本意是匹配",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "replace 字符串中实现替换的方法 一般都是伴随正则使用的",
+            "slug": "replace-字符串中实现替换的方法-一般都是伴随正则使用的",
+            "link": "#replace-字符串中实现替换的方法-一般都是伴随正则使用的",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "案例 把时间字符串进行处理",
+            "slug": "案例-把时间字符串进行处理",
+            "link": "#案例-把时间字符串进行处理",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "单词首字母大写",
+        "slug": "单词首字母大写",
+        "link": "#单词首字母大写",
+        "children": [
+          {
+            "level": 3,
+            "title": "常用案例",
+            "slug": "常用案例",
+            "link": "#常用案例",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/posts/js/regexp.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5367,8 +5410,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node/APIGateway.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/APIGateway.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5447,8 +5490,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/AsyncIO.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/AsyncIO.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5469,8 +5512,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5527,8 +5570,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node/buffer.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/buffer.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5612,8 +5655,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/errors.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/errors.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5655,8 +5698,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/event_loop.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/event_loop.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5778,8 +5821,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/events.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/events.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5836,8 +5879,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node/highFunc.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/highFunc.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -5931,15 +5974,15 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node/module_fs.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/module_fs.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "Node.js 进阶-你应该知道的 npm 知识都在这",
     "headers": [],
-    "path": "/zh/posts/node/npm.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/npm.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6039,8 +6082,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/overflow.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/overflow.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6118,8 +6161,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/path.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/path.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6191,8 +6234,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/processAndThread.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/processAndThread.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6385,8 +6428,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node/promise.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/promise.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6552,8 +6595,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node/queue.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/queue.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6696,8 +6739,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/stream.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/stream.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6753,8 +6796,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/util.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/util.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -6811,472 +6854,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node/what.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "MySQL 基础架构你不知道的那些事！",
-    "headers": [
-      {
-        "level": 2,
-        "title": "提出问题：",
-        "slug": "提出问题",
-        "link": "#提出问题",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "mysql的基础架构",
-        "slug": "mysql的基础架构",
-        "link": "#mysql的基础架构",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Mysql基本架构示意图",
-        "slug": "mysql基本架构示意图",
-        "link": "#mysql基本架构示意图",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "连接器",
-        "slug": "连接器",
-        "link": "#连接器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "查询缓存",
-        "slug": "查询缓存",
-        "link": "#查询缓存",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "分析器",
-        "slug": "分析器",
-        "link": "#分析器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "优化器",
-        "slug": "优化器",
-        "link": "#优化器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "执行器",
-        "slug": "执行器",
-        "link": "#执行器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "存储引擎",
-        "slug": "存储引擎",
-        "link": "#存储引擎",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "总结",
-        "slug": "总结",
-        "link": "#总结",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/baseFrame.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "SQL 和 NoSQL 的区别与选择",
-    "headers": [
-      {
-        "level": 2,
-        "title": "概念",
-        "slug": "概念",
-        "link": "#概念",
-        "children": [
-          {
-            "level": 3,
-            "title": "关系型数据库",
-            "slug": "关系型数据库",
-            "link": "#关系型数据库",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "非关系型数据库",
-            "slug": "非关系型数据库",
-            "link": "#非关系型数据库",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "二者对比",
-        "slug": "二者对比",
-        "link": "#二者对比",
-        "children": [
-          {
-            "level": 3,
-            "title": "存储方式：",
-            "slug": "存储方式",
-            "link": "#存储方式",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "表/数据集合的数据的关系",
-            "slug": "表-数据集合的数据的关系",
-            "link": "#表-数据集合的数据的关系",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "外部数据存储",
-            "slug": "外部数据存储",
-            "link": "#外部数据存储",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "SQL中的JOIN查询",
-            "slug": "sql中的join查询",
-            "link": "#sql中的join查询",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "数据耦合性",
-            "slug": "数据耦合性",
-            "link": "#数据耦合性",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "事务",
-            "slug": "事务",
-            "link": "#事务",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "增删改查语法",
-            "slug": "增删改查语法",
-            "link": "#增删改查语法",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "数据完整性",
-            "slug": "数据完整性",
-            "link": "#数据完整性",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "查询性能",
-            "slug": "查询性能",
-            "link": "#查询性能",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "如何选择",
-        "slug": "如何选择",
-        "link": "#如何选择",
-        "children": [
-          {
-            "level": 3,
-            "title": "适合使用SQL开发的项目：",
-            "slug": "适合使用sql开发的项目",
-            "link": "#适合使用sql开发的项目",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "适合使用NoSQL开发的项目：",
-            "slug": "适合使用nosql开发的项目",
-            "link": "#适合使用nosql开发的项目",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "读完本文后的思考",
-        "slug": "读完本文后的思考",
-        "link": "#读完本文后的思考",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/choice.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "Redis详细学习 入门篇",
-    "headers": [
-      {
-        "level": 2,
-        "title": "什么是Redis",
-        "slug": "什么是redis",
-        "link": "#什么是redis",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "redis的应用场景",
-        "slug": "redis的应用场景",
-        "link": "#redis的应用场景",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "redis安装与启动",
-        "slug": "redis安装与启动",
-        "link": "#redis安装与启动",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "redis的基本数据类型",
-        "slug": "redis的基本数据类型",
-        "link": "#redis的基本数据类型",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/detail-redis1.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "Redis详细学习 进阶篇",
-    "headers": [
-      {
-        "level": 2,
-        "title": "redis多数据库",
-        "slug": "redis多数据库",
-        "link": "#redis多数据库",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "redis事务的概念",
-        "slug": "redis事务的概念",
-        "link": "#redis事务的概念",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "redis数据持久化",
-        "slug": "redis数据持久化",
-        "link": "#redis数据持久化",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/detail-redis2.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "Redis详细学习 实战篇",
-    "headers": [
-      {
-        "level": 2,
-        "title": "前言:",
-        "slug": "前言",
-        "link": "#前言",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "应用场景",
-        "slug": "应用场景",
-        "link": "#应用场景",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/detail-redis3.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "删库跑路后真的没有办法弥补了吗？！",
-    "headers": [
-      {
-        "level": 2,
-        "title": "redo日志(重做日志)",
-        "slug": "redo日志-重做日志",
-        "link": "#redo日志-重做日志",
-        "children": [
-          {
-            "level": 3,
-            "title": "redo中的环状结构",
-            "slug": "redo中的环状结构",
-            "link": "#redo中的环状结构",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "redo日志作用(回答提出问题1)",
-            "slug": "redo日志作用-回答提出问题1",
-            "link": "#redo日志作用-回答提出问题1",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "binlog日志(归档日志)",
-        "slug": "binlog日志-归档日志",
-        "link": "#binlog日志-归档日志",
-        "children": [
-          {
-            "level": 3,
-            "title": "binlog日志作用(回答提出问题2)",
-            "slug": "binlog日志作用-回答提出问题2",
-            "link": "#binlog日志作用-回答提出问题2",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "redo日志与binlog日志对比",
-        "slug": "redo日志与binlog日志对比",
-        "link": "#redo日志与binlog日志对比",
-        "children": [
-          {
-            "level": 3,
-            "title": "更新语句执行流程(与日志关系)",
-            "slug": "更新语句执行流程-与日志关系",
-            "link": "#更新语句执行流程-与日志关系",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "开发过程中如何为mysql设置这两种保存日志的配置",
-        "slug": "开发过程中如何为mysql设置这两种保存日志的配置",
-        "link": "#开发过程中如何为mysql设置这两种保存日志的配置",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "如何查看这两种日志",
-        "slug": "如何查看这两种日志",
-        "link": "#如何查看这两种日志",
-        "children": [
-          {
-            "level": 3,
-            "title": "关于日志系统的一些误区和疑问",
-            "slug": "关于日志系统的一些误区和疑问",
-            "link": "#关于日志系统的一些误区和疑问",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "总结与宣传",
-        "slug": "总结与宣传",
-        "link": "#总结与宣传",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/logSystem.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "常用的数据库语句",
-    "headers": [
-      {
-        "level": 2,
-        "title": "直接看语句",
-        "slug": "直接看语句",
-        "link": "#直接看语句",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "DATE_FORMAT函数说明",
-        "slug": "date-format函数说明",
-        "link": "#date-format函数说明",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "> 需求2: 查询结果单位换算后保留两位小数",
-        "slug": "需求2-查询结果单位换算后保留两位小数",
-        "link": "#需求2-查询结果单位换算后保留两位小数",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/optimize.html",
-    "pathLocale": "/zh/",
-    "extraFields": []
-  },
-  {
-    "title": "如何写优雅的SQL原生语句？",
-    "headers": [
-      {
-        "level": 2,
-        "title": "前言：",
-        "slug": "前言",
-        "link": "#前言",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "语句中各子句完整执行顺序概括（按照顺序号执行）",
-        "slug": "语句中各子句完整执行顺序概括-按照顺序号执行",
-        "link": "#语句中各子句完整执行顺序概括-按照顺序号执行",
-        "children": [
-          {
-            "level": 3,
-            "title": "每个子句执行顺序分析",
-            "slug": "每个子句执行顺序分析",
-            "link": "#每个子句执行顺序分析",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "开发某需求写的一段sql",
-        "slug": "开发某需求写的一段sql",
-        "link": "#开发某需求写的一段sql",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "sql语句中的别名",
-        "slug": "sql语句中的别名",
-        "link": "#sql语句中的别名",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "书写sql语句的注意事项",
-        "slug": "书写sql语句的注意事项",
-        "link": "#书写sql语句的注意事项",
-        "children": []
-      }
-    ],
-    "path": "/zh/posts/database/writeSql.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node/what.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7340,15 +6919,15 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/Cookie.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/Cookie.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "node 学习笔记",
     "headers": [],
-    "path": "/zh/posts/node-quick/",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7441,8 +7020,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/buffer.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/buffer.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7556,8 +7135,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/eventLoop.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/eventLoop.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7677,8 +7256,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/express.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/express.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7772,8 +7351,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/fs.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/fs.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7844,8 +7423,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/http-header.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/http-header.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -7944,15 +7523,15 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/http.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/http.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "koa应用+原理",
     "headers": [],
-    "path": "/zh/posts/node-quick/koa.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/koa.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8024,8 +7603,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/linkedList.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/linkedList.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8104,8 +7683,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/node-loop.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/node-loop.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8162,8 +7741,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/node-modules.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/node-modules.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8249,8 +7828,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/node.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/node.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8379,8 +7958,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/npm.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/npm.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8451,8 +8030,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/path.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/path.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8645,8 +8224,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/promise.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/promise.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8789,8 +8368,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/node-quick/stream.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/stream.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8932,8 +8511,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-quick/tree.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-quick/tree.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -8954,8 +8533,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-zy/",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-zy/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -9033,8 +8612,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-zy/path.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-zy/path.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -9177,15 +8756,15 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/node-zy/stream.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/node-zy/stream.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "react 学习笔记",
     "headers": [],
-    "path": "/zh/posts/react/",
-    "pathLocale": "/zh/",
+    "path": "/posts/react/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -9332,188 +8911,180 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/react/react1.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/react/react1.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "",
+    "title": "react基础用法",
     "headers": [
       {
-        "level": 2,
-        "title": "react基础用法",
-        "slug": "react基础用法",
-        "link": "#react基础用法",
-        "children": [
-          {
-            "level": 3,
-            "title": "ref 的用法",
-            "slug": "ref-的用法",
-            "link": "#ref-的用法",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "forwardRef",
-            "slug": "forwardref",
-            "link": "#forwardref",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "setState",
-            "slug": "setstate",
-            "link": "#setstate",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "关于setState的一些思考",
-            "slug": "关于setstate的一些思考",
-            "link": "#关于setstate的一些思考",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "react.js",
-            "slug": "react-js",
-            "link": "#react-js",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "reactDOM",
-            "slug": "reactdom",
-            "link": "#reactdom",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "生命周期",
-            "slug": "生命周期",
-            "link": "#生命周期",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "getDerivedStateFromProps",
-            "slug": "getderivedstatefromprops",
-            "link": "#getderivedstatefromprops",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "getSnapshotBeforeUpdate",
-            "slug": "getsnapshotbeforeupdate",
-            "link": "#getsnapshotbeforeupdate",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "在更新之前读取DOM属性",
-            "slug": "在更新之前读取dom属性",
-            "link": "#在更新之前读取dom属性",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "context",
-            "slug": "context",
-            "link": "#context",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "pure",
-            "slug": "pure",
-            "link": "#pure",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "高阶函数组件",
-            "slug": "高阶函数组件",
-            "link": "#高阶函数组件",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Render-props",
-            "slug": "render-props",
-            "link": "#render-props",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Portals",
-            "slug": "portals",
-            "link": "#portals",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "错误边界",
-            "slug": "错误边界",
-            "link": "#错误边界",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "redux",
-            "slug": "redux",
-            "link": "#redux",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "使用react-redux/connect",
-            "slug": "使用react-redux-connect",
-            "link": "#使用react-redux-connect",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Redux-middleware",
-            "slug": "redux-middleware",
-            "link": "#redux-middleware",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Redux-thunks.js",
-            "slug": "redux-thunks-js",
-            "link": "#redux-thunks-js",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Redux-promise",
-            "slug": "redux-promise",
-            "link": "#redux-promise",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "React-router-dom",
-            "slug": "react-router-dom",
-            "link": "#react-router-dom",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "ConnectedRouter",
-            "slug": "connectedrouter",
-            "link": "#connectedrouter",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "redux-persist",
-            "slug": "redux-persist",
-            "link": "#redux-persist",
-            "children": []
-          }
-        ]
+        "level": 3,
+        "title": "ref 的用法",
+        "slug": "ref-的用法",
+        "link": "#ref-的用法",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "forwardRef",
+        "slug": "forwardref",
+        "link": "#forwardref",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "setState",
+        "slug": "setstate",
+        "link": "#setstate",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "关于setState的一些思考",
+        "slug": "关于setstate的一些思考",
+        "link": "#关于setstate的一些思考",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "react.js",
+        "slug": "react-js",
+        "link": "#react-js",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "reactDOM",
+        "slug": "reactdom",
+        "link": "#reactdom",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "生命周期",
+        "slug": "生命周期",
+        "link": "#生命周期",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "getDerivedStateFromProps",
+        "slug": "getderivedstatefromprops",
+        "link": "#getderivedstatefromprops",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "getSnapshotBeforeUpdate",
+        "slug": "getsnapshotbeforeupdate",
+        "link": "#getsnapshotbeforeupdate",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "在更新之前读取DOM属性",
+        "slug": "在更新之前读取dom属性",
+        "link": "#在更新之前读取dom属性",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "context",
+        "slug": "context",
+        "link": "#context",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "pure",
+        "slug": "pure",
+        "link": "#pure",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "高阶函数组件",
+        "slug": "高阶函数组件",
+        "link": "#高阶函数组件",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "Render-props",
+        "slug": "render-props",
+        "link": "#render-props",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "Portals",
+        "slug": "portals",
+        "link": "#portals",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "错误边界",
+        "slug": "错误边界",
+        "link": "#错误边界",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "redux",
+        "slug": "redux",
+        "link": "#redux",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "使用react-redux/connect",
+        "slug": "使用react-redux-connect",
+        "link": "#使用react-redux-connect",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "Redux-middleware",
+        "slug": "redux-middleware",
+        "link": "#redux-middleware",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "Redux-thunks.js",
+        "slug": "redux-thunks-js",
+        "link": "#redux-thunks-js",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "Redux-promise",
+        "slug": "redux-promise",
+        "link": "#redux-promise",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "React-router-dom",
+        "slug": "react-router-dom",
+        "link": "#react-router-dom",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "ConnectedRouter",
+        "slug": "connectedrouter",
+        "link": "#connectedrouter",
+        "children": []
+      },
+      {
+        "level": 3,
+        "title": "redux-persist",
+        "slug": "redux-persist",
+        "link": "#redux-persist",
+        "children": []
       },
       {
         "level": 2,
@@ -9759,8 +9330,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/react/react%E5%85%A8%E5%AE%B6%E6%A1%B6.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/react/react%E5%85%A8%E5%AE%B6%E6%A1%B6.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -9781,8 +9352,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/tool/",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -9931,8 +9502,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/tool/chrome.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/chrome.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10097,8 +9668,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/tool/git.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/git.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10161,8 +9732,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/tool/markdown.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/markdown.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10176,8 +9747,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/tool/node-versions.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/node-versions.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10272,8 +9843,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/tool/shell.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/shell.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10418,8 +9989,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/tool/vuepressBlog.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/tool/vuepressBlog.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10549,15 +10120,15 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/typescript/interface.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/typescript/interface.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "vue学习",
     "headers": [],
-    "path": "/zh/posts/vue-quick/",
-    "pathLocale": "/zh/",
+    "path": "/posts/vue-quick/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10627,8 +10198,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/vue-quick/messageWays.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/vue-quick/messageWays.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -10821,8 +10392,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/vue-quick/vue-up-1.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/vue-quick/vue-up-1.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -11022,8 +10593,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/vue-quick/vue-up-2.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/vue-quick/vue-up-2.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -11110,15 +10681,15 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/vue-quick/vue-up-3.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/vue-quick/vue-up-3.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "webpack 学习",
     "headers": [],
-    "path": "/zh/posts/webpack/",
-    "pathLocale": "/zh/",
+    "path": "/posts/webpack/",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -11440,8 +11011,8 @@ export const SEARCH_INDEX = [
         "children": []
       }
     ],
-    "path": "/zh/posts/webpack/base.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/webpack/base.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -11927,8 +11498,8 @@ export const SEARCH_INDEX = [
         ]
       }
     ],
-    "path": "/zh/posts/webpack/webpack%E5%8E%9F%E7%90%86.html",
-    "pathLocale": "/zh/",
+    "path": "/posts/webpack/webpack%E5%8E%9F%E7%90%86.html",
+    "pathLocale": "/",
     "extraFields": []
   },
   {
@@ -11946,590 +11517,380 @@ export const SEARCH_INDEX = [
     "extraFields": []
   },
   {
-    "title": "Apple",
-    "headers": [],
-    "path": "/posts/apple/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Posts",
-    "headers": [],
-    "path": "/zh/posts/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Banana",
-    "headers": [],
-    "path": "/posts/banana/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
     "title": "Es6 系列",
     "headers": [],
-    "path": "/zh/posts/es6_%E7%B3%BB%E5%88%97/",
+    "path": "/posts/es6_%E7%B3%BB%E5%88%97/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "Brower",
     "headers": [],
-    "path": "/zh/posts/brower/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Js",
-    "headers": [],
-    "path": "/zh/posts/js/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Javascript",
-    "headers": [],
-    "path": "/zh/posts/javascript/",
+    "path": "/posts/brower/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "Database",
     "headers": [],
-    "path": "/zh/posts/database/",
+    "path": "/posts/database/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Javascript",
+    "headers": [],
+    "path": "/posts/javascript/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Js",
+    "headers": [],
+    "path": "/posts/js/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "Typescript",
     "headers": [],
-    "path": "/zh/posts/typescript/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Category",
-    "headers": [],
-    "path": "/category/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Guide Category",
-    "headers": [],
-    "path": "/category/guide/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Cherry Category",
-    "headers": [],
-    "path": "/category/cherry/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Dragon Fruit Category",
-    "headers": [],
-    "path": "/category/dragon-fruit/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Fruit Category",
-    "headers": [],
-    "path": "/category/fruit/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Strawberry Category",
-    "headers": [],
-    "path": "/category/strawberry/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Vegetable Category",
-    "headers": [],
-    "path": "/category/vegetable/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Apple Category",
-    "headers": [],
-    "path": "/category/apple/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Banana Category",
-    "headers": [],
-    "path": "/category/banana/",
+    "path": "/posts/typescript/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "分类",
     "headers": [],
-    "path": "/zh/category/",
+    "path": "/category/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "使用指南 分类",
     "headers": [],
-    "path": "/zh/category/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/",
+    "path": "/category/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "指南 分类",
     "headers": [],
-    "path": "/zh/category/%E6%8C%87%E5%8D%97/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag",
-    "headers": [],
-    "path": "/tag/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: disable",
-    "headers": [],
-    "path": "/tag/disable/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: encryption",
-    "headers": [],
-    "path": "/tag/encryption/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: Layout",
-    "headers": [],
-    "path": "/tag/layout/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: Markdown",
-    "headers": [],
-    "path": "/tag/markdown/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: Page config",
-    "headers": [],
-    "path": "/tag/page-config/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: Guide",
-    "headers": [],
-    "path": "/tag/guide/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: red",
-    "headers": [],
-    "path": "/tag/red/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: small",
-    "headers": [],
-    "path": "/tag/small/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: round",
-    "headers": [],
-    "path": "/tag/round/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: big",
-    "headers": [],
-    "path": "/tag/big/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: yellow",
-    "headers": [],
-    "path": "/tag/yellow/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: curly",
-    "headers": [],
-    "path": "/tag/curly/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Tag: long",
-    "headers": [],
-    "path": "/tag/long/",
+    "path": "/category/%E6%8C%87%E5%8D%97/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签",
     "headers": [],
-    "path": "/zh/tag/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 个人",
-    "headers": [],
-    "path": "/zh/tag/%E4%B8%AA%E4%BA%BA/",
+    "path": "/tag/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 禁用",
     "headers": [],
-    "path": "/zh/tag/%E7%A6%81%E7%94%A8/",
+    "path": "/tag/%E7%A6%81%E7%94%A8/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 加密",
     "headers": [],
-    "path": "/zh/tag/%E5%8A%A0%E5%AF%86/",
+    "path": "/tag/%E5%8A%A0%E5%AF%86/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 布局",
     "headers": [],
-    "path": "/zh/tag/%E5%B8%83%E5%B1%80/",
+    "path": "/tag/%E5%B8%83%E5%B1%80/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: Markdown",
     "headers": [],
-    "path": "/zh/tag/markdown/",
+    "path": "/tag/markdown/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 页面配置",
     "headers": [],
-    "path": "/zh/tag/%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE/",
+    "path": "/tag/%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 使用指南",
     "headers": [],
-    "path": "/zh/tag/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/",
+    "path": "/tag/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 电子书",
     "headers": [],
-    "path": "/zh/tag/%E7%94%B5%E5%AD%90%E4%B9%A6/",
+    "path": "/tag/%E7%94%B5%E5%AD%90%E4%B9%A6/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 其他",
     "headers": [],
-    "path": "/zh/tag/%E5%85%B6%E4%BB%96/",
+    "path": "/tag/%E5%85%B6%E4%BB%96/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: ES6",
     "headers": [],
-    "path": "/zh/tag/es6/",
+    "path": "/tag/es6/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: await",
     "headers": [],
-    "path": "/zh/tag/await/",
+    "path": "/tag/await/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: async",
     "headers": [],
-    "path": "/zh/tag/async/",
+    "path": "/tag/async/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: class",
     "headers": [],
-    "path": "/zh/tag/class/",
+    "path": "/tag/class/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: CSS",
     "headers": [],
-    "path": "/zh/tag/css/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 渲染树",
-    "headers": [],
-    "path": "/zh/tag/%E6%B8%B2%E6%9F%93%E6%A0%91/",
+    "path": "/tag/css/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 浏览器",
     "headers": [],
-    "path": "/zh/tag/%E6%B5%8F%E8%A7%88%E5%99%A8/",
+    "path": "/tag/%E6%B5%8F%E8%A7%88%E5%99%A8/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "标签: JS",
+    "title": "标签: 渲染树",
     "headers": [],
-    "path": "/zh/tag/js/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 面试",
-    "headers": [],
-    "path": "/zh/tag/%E9%9D%A2%E8%AF%95/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: Javascript",
-    "headers": [],
-    "path": "/zh/tag/javascript/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: Vue",
-    "headers": [],
-    "path": "/zh/tag/vue/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: Vuex",
-    "headers": [],
-    "path": "/zh/tag/vuex/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: Promise",
-    "headers": [],
-    "path": "/zh/tag/promise/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: Node.js",
-    "headers": [],
-    "path": "/zh/tag/node.js/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: API 网关",
-    "headers": [],
-    "path": "/zh/tag/api-%E7%BD%91%E5%85%B3/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 异步I/O",
-    "headers": [],
-    "path": "/zh/tag/%E5%BC%82%E6%AD%A5io/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: Events",
-    "headers": [],
-    "path": "/zh/tag/events/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: npm",
-    "headers": [],
-    "path": "/zh/tag/npm/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 工具",
-    "headers": [],
-    "path": "/zh/tag/%E5%B7%A5%E5%85%B7/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 进程",
-    "headers": [],
-    "path": "/zh/tag/%E8%BF%9B%E7%A8%8B/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "标签: 线程",
-    "headers": [],
-    "path": "/zh/tag/%E7%BA%BF%E7%A8%8B/",
+    "path": "/tag/%E6%B8%B2%E6%9F%93%E6%A0%91/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: MySQL",
     "headers": [],
-    "path": "/zh/tag/mysql/",
+    "path": "/tag/mysql/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 数据库",
     "headers": [],
-    "path": "/zh/tag/%E6%95%B0%E6%8D%AE%E5%BA%93/",
+    "path": "/tag/%E6%95%B0%E6%8D%AE%E5%BA%93/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: Redis",
     "headers": [],
-    "path": "/zh/tag/redis/",
+    "path": "/tag/redis/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 日志系统",
     "headers": [],
-    "path": "/zh/tag/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/",
+    "path": "/tag/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: JS",
+    "headers": [],
+    "path": "/tag/js/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: 面试",
+    "headers": [],
+    "path": "/tag/%E9%9D%A2%E8%AF%95/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: Javascript",
+    "headers": [],
+    "path": "/tag/javascript/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: Vue",
+    "headers": [],
+    "path": "/tag/vue/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: Vuex",
+    "headers": [],
+    "path": "/tag/vuex/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: Promise",
+    "headers": [],
+    "path": "/tag/promise/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: Node.js",
+    "headers": [],
+    "path": "/tag/node.js/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: API 网关",
+    "headers": [],
+    "path": "/tag/api-%E7%BD%91%E5%85%B3/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: 异步I/O",
+    "headers": [],
+    "path": "/tag/%E5%BC%82%E6%AD%A5io/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: Events",
+    "headers": [],
+    "path": "/tag/events/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: npm",
+    "headers": [],
+    "path": "/tag/npm/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: 工具",
+    "headers": [],
+    "path": "/tag/%E5%B7%A5%E5%85%B7/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: 进程",
+    "headers": [],
+    "path": "/tag/%E8%BF%9B%E7%A8%8B/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "标签: 线程",
+    "headers": [],
+    "path": "/tag/%E7%BA%BF%E7%A8%8B/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: react",
     "headers": [],
-    "path": "/zh/tag/react/",
+    "path": "/tag/react/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: chrome",
     "headers": [],
-    "path": "/zh/tag/chrome/",
+    "path": "/tag/chrome/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: git",
     "headers": [],
-    "path": "/zh/tag/git/",
+    "path": "/tag/git/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: markdown",
     "headers": [],
-    "path": "/zh/tag/markdown/",
+    "path": "/tag/markdown/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: shell",
     "headers": [],
-    "path": "/zh/tag/shell/",
+    "path": "/tag/shell/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: Vuepress",
     "headers": [],
-    "path": "/zh/tag/vuepress/",
+    "path": "/tag/vuepress/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: Typescript",
     "headers": [],
-    "path": "/zh/tag/typescript/",
+    "path": "/tag/typescript/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "标签: 通信方式",
     "headers": [],
-    "path": "/zh/tag/%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Articles",
-    "headers": [],
-    "path": "/article/",
+    "path": "/tag/%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "文章",
     "headers": [],
-    "path": "/zh/article/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Star",
-    "headers": [],
-    "path": "/star/",
+    "path": "/article/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "星标",
     "headers": [],
-    "path": "/zh/star/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Timeline",
-    "headers": [],
-    "path": "/timeline/",
+    "path": "/star/",
     "pathLocale": "/",
     "extraFields": []
   },
   {
     "title": "时间轴",
     "headers": [],
-    "path": "/zh/timeline/",
+    "path": "/timeline/",
     "pathLocale": "/",
     "extraFields": []
   }

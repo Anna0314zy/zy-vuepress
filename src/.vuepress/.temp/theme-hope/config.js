@@ -1,17 +1,17 @@
-import { Layout, NotFound, injectDarkmode, setupDarkmode, setupSidebarItems, scrollPromise } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_enbwz57r74rmwtsse3ies2alna/node_modules/vuepress-theme-hope/lib/bundle/export.js";
+import { Layout, NotFound, injectDarkmode, setupDarkmode, setupSidebarItems, scrollPromise } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_c4ojzqm23aaszfauvd2pw3gnla/node_modules/vuepress-theme-hope/lib/bundle/export.js";
 
 import { defineCatalogInfoGetter } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/@vuepress+plugin-catalog@2.0.0-rc.74_vuepress@2.0.0-rc.19/node_modules/@vuepress/plugin-catalog/lib/client/index.js"
 import { h } from "vue"
 import { resolveComponent } from "vue"
-import { BlogCategory, BlogHome, BlogType, BloggerInfo, SocialMedias, Timeline, setupBlog } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_enbwz57r74rmwtsse3ies2alna/node_modules/vuepress-theme-hope/lib/bundle/modules/blog/export.js";
-import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_enbwz57r74rmwtsse3ies2alna/node_modules/vuepress-theme-hope/lib/bundle/modules/blog/styles/all.scss";
-import { GlobalEncrypt, LocalEncrypt } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_enbwz57r74rmwtsse3ies2alna/node_modules/vuepress-theme-hope/lib/bundle/modules/encrypt/export.js";
-import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_enbwz57r74rmwtsse3ies2alna/node_modules/vuepress-theme-hope/lib/bundle/modules/encrypt/styles/all.scss"
+import { BlogCategory, BlogHome, BlogType, BloggerInfo, SocialMedias, Timeline, setupBlog } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_c4ojzqm23aaszfauvd2pw3gnla/node_modules/vuepress-theme-hope/lib/bundle/modules/blog/export.js";
+import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_c4ojzqm23aaszfauvd2pw3gnla/node_modules/vuepress-theme-hope/lib/bundle/modules/blog/styles/all.scss";
+import { GlobalEncrypt, LocalEncrypt } from "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_c4ojzqm23aaszfauvd2pw3gnla/node_modules/vuepress-theme-hope/lib/bundle/modules/encrypt/export.js";
+import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_c4ojzqm23aaszfauvd2pw3gnla/node_modules/vuepress-theme-hope/lib/bundle/modules/encrypt/styles/all.scss"
 
 import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/@vuepress+helper@2.0.0-rc.74_vuepress@2.0.0-rc.19/node_modules/@vuepress/helper/lib/client/styles/colors.css";
 import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/@vuepress+helper@2.0.0-rc.74_vuepress@2.0.0-rc.19/node_modules/@vuepress/helper/lib/client/styles/normalize.css";
 import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/@vuepress+helper@2.0.0-rc.74_vuepress@2.0.0-rc.19/node_modules/@vuepress/helper/lib/client/styles/sr-only.css";
-import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_enbwz57r74rmwtsse3ies2alna/node_modules/vuepress-theme-hope/lib/bundle/styles/all.scss";
+import "/Users/aimwhy/Desktop/工作文档/zy/vuepress/zy-vuepress/node_modules/.pnpm/vuepress-theme-hope@2.0.0-rc.71_c4ojzqm23aaszfauvd2pw3gnla/node_modules/vuepress-theme-hope/lib/bundle/styles/all.scss";
 
 defineCatalogInfoGetter((meta) => {
   const title = meta.t;

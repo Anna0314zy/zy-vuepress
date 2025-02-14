@@ -1,7 +1,7 @@
 <template><div><h2 id="代码基本功测试-上-js-的数据类型你了解多少" tabindex="-1"><a class="header-anchor" href="#代码基本功测试-上-js-的数据类型你了解多少"><span>代码基本功测试（上）：JS 的数据类型你了解多少？</span></a></h2>
 <h2 id="数据类型概念" tabindex="-1"><a class="header-anchor" href="#数据类型概念"><span>数据类型概念</span></a></h2>
 <p>JavaScript 的数据类型有下图所示的 8 种：</p>
-<figure><img src="@source/posts/.vuepress/public/images/WX20210131-202911@2x.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="@source/.vuepress/public/images/WX20210131-202911@2x.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>其中，前 7 种类型为基础类型，最后 1 种（Object）为引用类型，也是你需要重点关注的，因为它在日常工作中是使用得最频繁，也是需要关注最多技术细节的数据类型。</p>
 <p>而引用数据类型（Object）又分为图上这几种常见的类型：Array - 数组对象、RegExp - 正则对象、Date - 日期对象、Math - 数学函数、Function - 函数对象。</p>
 <p>在这里，我想先请你重点了解下面两点，因为各种 JavaScript 的数据类型最后都会在初始化之后放在不同的内存中，因此上面的数据类型大致可以分成两类来进行存储：</p>
