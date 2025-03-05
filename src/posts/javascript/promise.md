@@ -1,5 +1,5 @@
 ---
-title: 吃透Promise
+title: Promise 原理、代码与应用
 date: 2019-06-19
 tags:
   - Javascript
@@ -203,6 +203,18 @@ class MyPromise {
   catch(onRejected) {
     return this.then(null, onRejected);
   }
+
+    static resolve(value) {
+      return new MyPromise((resolve, reject) => {
+        if (value instanceof MyPromise) {
+          return value;
+        }
+        if (value && typeof value.then === 'function') {
+          return value.then(resolve, reject);
+        }
+        resolve(value);
+      });
+    }
 }
 
 function resolvePromise(promise2, x, resolve, reject) {
@@ -601,12 +613,12 @@ setTimeout(() => source.cancel('Request canceled by user'), 1000);
 
 ## 总结
 
-| 方法                  | 适用场景                           | 优点                                      | 缺点                                      |
-|-----------------------|------------------------------------|-------------------------------------------|-------------------------------------------|
-| `AbortController`     | 现代浏览器环境，支持 `AbortSignal` | 标准化，兼容性好                          | 需要手动检查 `signal.aborted`             |
-| 手动封装              | 简单场景，无外部依赖               | 实现简单，不依赖外部 API                  | 需要手动管理状态                          |
-| `Promise.race`        | 超时中断                           | 实现简单                                  | 只能实现超时中断                          |
-| 第三方库（如 `axios`）| 复杂异步操作（如 HTTP 请求）       | 功能强大，无需手动实现                    | 依赖第三方库                              |
+| 方法                   | 适用场景                           | 优点                     | 缺点                          |
+| ---------------------- | ---------------------------------- | ------------------------ | ----------------------------- |
+| `AbortController`      | 现代浏览器环境，支持 `AbortSignal` | 标准化，兼容性好         | 需要手动检查 `signal.aborted` |
+| 手动封装               | 简单场景，无外部依赖               | 实现简单，不依赖外部 API | 需要手动管理状态              |
+| `Promise.race`         | 超时中断                           | 实现简单                 | 只能实现超时中断              |
+| 第三方库（如 `axios`） | 复杂异步操作（如 HTTP 请求）       | 功能强大，无需手动实现   | 依赖第三方库                  |
 
 根据具体场景选择合适的方法。如果需要兼容性和标准化，推荐使用 `AbortController`；如果只是简单场景，手动封装即可。
 
