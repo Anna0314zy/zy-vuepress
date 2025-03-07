@@ -5,6 +5,16 @@ tags:
     - markdown
     - 工具
 ---
+## 基础语法
+
+ ```js
+  **加粗字体**
+ <font color="blue">这是蓝色文本</font>
+ ```
+ 效果：
+  **加粗字体**
+<font color="blue">这是蓝色文本</font>
+
 ## 无序列表
 ```js
 * 第一项

@@ -5,7 +5,7 @@ order: 4
 category:
   - 使用指南
 tag:
-  - 禁用
+  - 博客demo
 
 navbar: false
 sidebar: false

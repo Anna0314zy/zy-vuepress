@@ -1,0 +1,325 @@
+{
+    "editor.formatOnSave": false,
+    "workbench.iconTheme": "vs-seti",
+    "editor.fontSize": 16,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vsicons.dontShowNewVersionMessage": true,
+    "explorer.confirmDelete": false,
+    "todo-tree.tree.showScanModeButton": false,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "explorer.confirmDragAndDrop": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "git.enableSmartCommit": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "cSpell.enableFiletypes": [
+        "http"
+    ],
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "svg.preview.mode": "img",
+    "cSpell.userWords": [
+        "Aliyun",
+        "btns",
+        "cloze",
+        "contenteditable",
+        "ledu",
+        "pswp",
+        "sortablejs",
+        "subqs",
+        "talqs",
+        "unref",
+        "vuex",
+        "wechat",
+        "xuhongbo"
+    ],
+    "[scss]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "editor.fontFamily": "Fira Code, Source Code Pro",
+    "editor.fontLigatures": true,
+    "guides.enabled": false,
+    "files.autoSave": "afterDelay",
+    "workbench.startupEditor": "newUntitledFile",
+    "turboConsoleLog.quote": "'",
+    "turboConsoleLog.logMessagePrefix": "",
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "switch:command"
+    ],
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "leetcode.workspaceFolder": "/Users/TAL/.leetcode",
+    "leetcode.defaultLanguage": "javascript",
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
+    },
+    "files.associations": {
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
+        "*.ts": "typescript"
+    },
+    "emmet.includeLanguages": {
+        "wxml": "html"
+    },
+    "minapp-vscode.disableAutoConfig": true,
+    "js/ts.implicitProjectConfig.experimentalDecorators": true,
+    "codemetrics.basics.ComplexityLevelExtremeDescription": "代码需要优化",
+    "codemetrics.nodeconfiguration.AnyKeyword": 150,
+    "codemetrics.nodeconfiguration.AnyKeywordDescription": "尽量控制在150个字符内",
+    "codemetrics.basics.ComplexityLevelHighDescription": "代码质量不错",
+    "codemetrics.basics.ComplexityLevelLow": 1,
+    "codemetrics.basics.ComplexityLevelLowDescription": "代码已优化",
+    "codemetrics.basics.DiagnosticsEnabled": true,
+    "codemetrics.basics.ComplexityLevelNormalDescription": "代码达标",
+    "codemetrics.nodeconfiguration.CallExpressionDescription": "Cakoexpression",
+    "codemetrics.nodeconfiguration.BreakStatementDescription": "Break atement",
+    "codemetrics.nodeconfiguration.CaseClauseDescription": "Case 语句",
+    "codemetrics.nodeconfiguration.JsxSelfClosingElementDescription": "Jsx元素闭合",
+    "codemetrics.nodeconfiguration.JsxElementDescription": "这是Jsx元素",
+    "codemetrics.nodeconfiguration.LabeledStatementDescription": "标记语句",
+    "codemetrics.nodeconfiguration.MethodDeclarationDescription": "方法声明",
+    "codemetrics.nodeconfiguration.MethodSignatureDescription": "Method Signature",
+    "codemetrics.nodeconfiguration.NamedImports": 1,
+    "codemetrics.nodeconfiguration.ModuleDeclaration": 1,
+    "codemetrics.nodeconfiguration.ModuleDeclarationDescription": "模块声明",
+    "codemetrics.nodeconfiguration.NamedImportsDescription": "命名导入",
+    "codemetrics.nodeconfiguration.NamespaceImport": 1,
+    "codemetrics.nodeconfiguration.NamespaceImportDescription": "命名空间导入",
+    "codemetrics.nodeconfiguration.SwitchStatementDescription": "Switch 语句",
+    "codemetrics.nodeconfiguration.ThrowStatementDescription": "Throw语句",
+    "codemetrics.nodeconfiguration.TryStatementDescription": "Try catch语句",
+    "codemetrics.nodeconfiguration.VariableStatementDescription": "变量声明",
+    "codemetrics.nodeconfiguration.VariableStatement": 1,
+    "codemetrics.nodeconfiguration.ClassDeclarationDescription": "类声明",
+    "codemetrics.nodeconfiguration.ClassDeclaration": 1,
+    "codemetrics.nodeconfiguration.ReturnStatementDescription": "返回语句",
+    "codemetrics.nodeconfiguration.IfStatementDescription": "if 语句",
+    "codemetrics.nodeconfiguration.ArrowFunctionDescription": "箭头函数",
+    "codemetrics.nodeconfiguration.ConditionalExpressionDescription": "三目运算语句",
+    "codemetrics.nodeconfiguration.CatchClauseDescription": "Catch Case语句",
+    "codemetrics.nodeconfiguration.ConstructorDescription": "构造函数",
+    "codemetrics.basics.ComplexityLevelNormal": 3,
+    "codemetrics.basics.ComplexityTemplate": "圈复杂度为 {0}，{1}",
+    "codemetrics.basics.ComplexityColorExtreme": "#ff0000",
+    "codemetrics.basics.ComplexityColorHigh": "#e6a23c",
+    "codemetrics.basics.ComplexityColorNormal": "#4bb14f",
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+    "redhat.telemetry.enabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "xml.symbols.maxItemsComputed": 50000,
+    "markdown.marp.enableHtml": true,
+    "markdown.marp.outlineExtension": false,
+    "leetcode.hint.commentDescription": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "fileheader.configObj": {
+        "createFileTime": true,
+        "language": {
+            "languagetest": {
+                "head": "/$$",
+                "middle": " $ @",
+                "end": " $/",
+                "functionSymbol": {
+                    "head": "/** ",
+                    "middle": " * @",
+                    "end": " */"
+                },
+                "functionParams": "js"
+            }
+        },
+        "autoAdd": false,
+        "autoAddLine": 100,
+        "autoAlready": true,
+        "annotationStr": {
+            "head": "/*",
+            "middle": " * @",
+            "end": " */",
+            "use": false
+        },
+        "headInsertLine": {
+            "php": 2,
+            "sh": 2
+        },
+        "beforeAnnotation": {
+            "文件后缀": "该文件后缀的头部注释之前添加某些内容"
+        },
+        "afterAnnotation": {
+            "文件后缀": "该文件后缀的头部注释之后添加某些内容"
+        },
+        "specialOptions": {
+            "特殊字段": "自定义比如LastEditTime/LastEditors"
+        },
+        "switch": {
+            "newlineAddAnnotation": true
+        },
+        "supportAutoLanguage": [],
+        "prohibitAutoAdd": [
+            "json"
+        ],
+        "folderBlacklist": [
+            "node_modules",
+            "文件夹禁止自动添加头部注释"
+        ],
+        "prohibitItemAutoAdd": [
+            "项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加"
+        ],
+        "moveCursor": true,
+        "dateFormat": "YYYY-MM-DD HH:mm:ss",
+        "atSymbol": [
+            "@",
+            "@"
+        ],
+        "atSymbolObj": {
+            "文件后缀": [
+                "头部注释@符号",
+                "函数注释@符号"
+            ]
+        },
+        "colon": [
+            ": ",
+            ": "
+        ],
+        "colonObj": {
+            "文件后缀": [
+                "头部注释冒号",
+                "函数注释冒号"
+            ]
+        },
+        "filePathColon": "路径分隔符替换",
+        "showErrorMessage": false,
+        "writeLog": false,
+        "wideSame": false,
+        "wideNum": 13,
+        "functionWideNum": 0,
+        "CheckFileChange": false,
+        "createHeader": false,
+        "useWorker": false,
+        "designAddHead": false,
+        "headDesignName": "random",
+        "headDesign": false,
+        "cursorModeInternalAll": {},
+        "openFunctionParamsCheck": true,
+        "functionParamsShape": [
+            "{",
+            "}"
+        ],
+        "functionBlankSpaceAll": {},
+        "functionTypeSymbol": "*",
+        "typeParamOrder": "type param",
+        "customHasHeadEnd": {},
+        "throttleTime": 60000,
+        "functionParamAddStr": "",
+        "NoMatchParams": "no show param"
+    },
+    "fileheader.customMade": {
+        // Author字段是文件的创建者 可以在specialOptions中更改特殊属性
+        // 公司项目和个人项目可以配置不同的用户名与邮箱 搜索: gitconfig includeIf  比如: https://ayase.moe/2021/03/09/customized-git-config/
+        // 自动提取当前git config中的: 用户名、邮箱
+        "Author": "git config user.name && git config user.email", // 同时获取用户名与邮箱
+        // "Author": "git config user.name", // 仅获取用户名
+        // "Author": "git config user.email", // 仅获取邮箱
+        // "Author": "OBKoro1", // 写死的固定值 不从git config中获取
+        "Date": "Do not edit", // 文件创建时间(不变)
+        // LastEditors、LastEditTime、FilePath将会自动更新 如果觉得时间更新的太频繁可以使用throttleTime(默认为1分钟)配置更改更新时间。
+        "LastEditors": "git config user.name && git config user.email", // 文件最后编辑者 与Author字段一致
+        // 由于编辑文件就会变更最后编辑时间，多人协作中合并的时候会导致merge
+        // 可以将时间颗粒度改为周、或者月，这样冲突就减少很多。搜索变更时间格式: dateFormat
+        "LastEditTime": "Do not edit", // 文件最后编辑时间
+        // 输出相对路径，类似: /文件夹名称/src/index.js
+        "FilePath": "Do not edit", // 文件在项目中的相对路径 自动更新
+        // 插件会自动将光标移动到Description选项中 方便输入 Description字段可以在specialOptions更改
+        "Description": "", // 介绍文件的作用、文件的入参、出参。
+        // custom_string_obkoro1~custom_string_obkoro100都可以输出自定义信息
+        // 可以设置多条自定义信息 设置个性签名、留下QQ、微信联系方式、输入空行等
+        "custom_string_obkoro1": "", 
+        // 版权声明 保留文件所有权利 自动替换年份 获取git配置的用户名和邮箱
+        // 版权声明获取git配置, 与Author字段一致: ${git_name} ${git_email} ${git_name_email}
+        "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by ${git_name_email}, All Rights Reserved. "
+        // "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by 写死的公司名/用户名, All Rights Reserved. "
+    },
+    "leetcode.endpoint": "leetcode",
+    // "http.proxy": "http://127.0.0.1:9999",
+    "leetcode.hint.configWebviewMarkdown": false,
+    "leetcode.filePath": {
+    
+        "default": {
+            "folder": "",
+            "filename": "${id}.${kebab-case-name}.${ext}"
+        }
+    },
+    "prettier.useTabs": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "workbench.colorTheme": "Monokai",
+    "volar.inlayHints.eventArgumentInInlineHandlers": false,
+    "tabnine.experimentalAutoImports": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.wordWrap": "on",
+    "git.openRepositoryInParentFolders": "never",
+    "gitlens.proxy": {},
+    "errorLens.excludeBySource": [
+        "ts(2339)",
+        "vue(17)",
+        "ts(2345)",
+        "ts(2552)",
+        "ts(2304)",
+        "ts(1005)"
+    ],
+    "editor.linkedEditing": true,
+    "cursorcode.accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkN1VWI0NkVHT3BHaXI4TDh3VkRQRCJ9.eyJpc3MiOiJodHRwczovL2N1cnNvci51cy5hdXRoMC5jb20vIiwic3ViIjoiZ2l0aHVifDEzMDkxNTAzMSIsImF1ZCI6WyJodHRwczovL2N1cnNvci51cy5hdXRoMC5jb20vYXBpL3YyLyIsImh0dHBzOi8vY3Vyc29yLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODIwNDgzNTgsImV4cCI6MTY4MjEzNDc1OCwiYXpwIjoiS2JaVVI0MWNZN1c2elJTZHBTVUo3STdtTFlCS09DbUIiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIG9mZmxpbmVfYWNjZXNzIn0.yOXAET6j3mkobhLZNUw_BM6pvBJvlUKgO8fupUZdkNaGGgUjtB07krOWTXRZonJ710ImKPaFQq2eOVQCkod8WPhLw8HhVzWMlllRyFE00BI7unnw2SLsXsAtetQo7Iyoa2G6WJsv-isCfvnW3K-56-DAqsgQ_TEUx1zrw0XmOT-wpnHlkaC6Lc6cJPR41kJbWuo9-MXO9oG_zvSRABVtplSI3qemM4zUTvXt2o41yh-EO5NnE9ud-O9jAL4c68_mwNjLH2nfYvCIWqpCQlAzO6yX5_BbCppq2GRFEjnXJWoLh5e4uRBjlWl47lAenqgQdBoQWGQR_jr5_HJtUtFivw",
+    "editor.inlineSuggest.enabled": true,
+    "window.commandCenter": true,
+    "workbench.editor.enablePreview": false,
+    "http.proxyAuthorization": null,
+    "docthis.includeDescriptionTag": true,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "codeium.enableConfig": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "chinese": true
+    },
+    "workbench.editor.empty.hint": "hidden",
+    "gitlens.views.stashes.files.layout": "list",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  }
