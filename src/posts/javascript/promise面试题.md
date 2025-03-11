@@ -1,5 +1,5 @@
 ---
-title: Promise 面试题
+title: Promise 相关整理
 date: 2019-06-19
 tags:
   - Javascript
@@ -28,14 +28,19 @@ console.log(5);
 ## 写一个promise 重试 3次的函数
 
 ```js
-const retryPromise = (promise, retries = 3) => {
-    return promise().catch((error) => {
-        if (retries === 1) {
-        throw error;
-        }
-        return retryPromise(promise, retries - 1);
-    });
-}
+
+
+
+
 ```
 ## 多个promise 并行执行 不超过3个
+
+### 1.方法1 
+
+
+
+
+## 写一个可以中断的promise
+
+
 

@@ -2,9 +2,10 @@
 title: Promise 原理、代码与应用
 date: 2019-06-19
 tags:
-  - Javascript
+  - js 基础
   - promise
 ---
+[[toc]]
 
 # 深入理解 Promise：原理、代码与应用
 
@@ -368,6 +369,7 @@ MyPromise.reject = function(reason) {
 #### 4.2.3 MyPromise.all
 ::: important 
 异步串行并发 都成功了 才成功 如果有失败的立马失败
+按输入顺序返回（即使某些 Promise 先完成）
 :::
 
 ```javascript
