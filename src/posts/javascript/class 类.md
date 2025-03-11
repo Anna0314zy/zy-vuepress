@@ -277,3 +277,213 @@ console.log(tsInstance.name); // ✅ 公开属性可访问
 ✅ **JavaScript** 使用 `#` 定义私有属性/方法（**ES2020+**）。  
 ✅ **TypeScript** 使用 `private` / `protected` 控制访问权限。  
 ✅ **如果你只用 JavaScript，不会有 `private` 关键字**，私有字段只能用 `#`。  
+## **类装饰器（Class Decorators）详解**
+
+---
+
+类装饰器（Class Decorators）是 TypeScript 和 ECMAScript 提案中的一个特性，用于修改类的行为或对类进行元编程。类装饰器是一个**函数**，它能够接收一个类的构造函数，并返回一个新的构造函数或修改原有构造函数的行为。
+
+### **📌 类装饰器的基本语法**
+类装饰器的基本语法是一个函数，这个函数接收一个类构造函数作为参数：
+
+```ts
+function MyDecorator(constructor: Function) {
+  console.log("类装饰器被调用", constructor);
+}
+
+@MyDecorator
+class MyClass {
+  constructor() {
+    console.log("MyClass 创建实例");
+  }
+}
+
+const instance = new MyClass();
+```
+
+### **📌 示例解析**
+- `MyDecorator` 是一个**类装饰器**，它接受类构造函数 `constructor` 作为参数。
+- `@MyDecorator` 用于将装饰器应用到 `MyClass` 上，等同于 `MyClass = MyDecorator(MyClass)`。
+- 装饰器会在类的构造函数实例化之前被调用，通常用于**修改类的行为**或添加一些额外功能。
+
+#### **输出：**
+```bash
+类装饰器被调用 [Function: MyClass]
+MyClass 创建实例
+```
+
+### **📌 装饰器的作用**
+1. **修改类的构造函数**：可以修改原类的构造函数，甚至返回一个新的类。
+2. **添加类元数据**：可以为类添加一些附加信息，如日志、计时等。
+3. **增强类的功能**：例如，在实例化类时为其注入某些依赖、自动执行某些方法等。
+
+---
+
+## **📌 装饰器如何修改类的行为**
+
+我们可以在装饰器中修改类的构造函数或创建一个新的构造函数，从而改变类的行为：
+
+### **1. 修改类的构造函数**
+```ts
+function AddTimestamp(constructor: Function) {
+  constructor.prototype.timestamp = Date.now();  // 在原型上添加 timestamp 属性
+}
+
+@AddTimestamp
+class MyClass {
+  constructor(public name: string) {}
+}
+
+const instance = new MyClass("Example");
+console.log(instance.timestamp);  // 输出当前的时间戳
+```
+
+#### **解析**：
+- `AddTimestamp` 装饰器会在类的构造函数上添加一个 `timestamp` 属性。
+- 类实例化时，会自动将当前时间戳添加到实例中。
+
+---
+
+### **2. 修改构造函数**
+通过装饰器可以修改类的构造函数来改变类的实例化过程：
+
+```ts
+function Logger(constructor: Function) {
+  const originalConstructor = constructor;
+  const newConstructor: any = function (...args: any[]) {
+    console.log(`创建了一个新的 ${originalConstructor.name} 实例`);
+    return new originalConstructor(...args);
+  };
+  
+  // 替换原构造函数
+  newConstructor.prototype = originalConstructor.prototype;
+  return newConstructor;
+}
+
+@Logger
+class MyClass {
+  constructor(public name: string) {}
+}
+
+const instance = new MyClass("Example");  // 输出: 创建了一个新的 MyClass 实例
+```
+
+#### **解析**：
+- `Logger` 装饰器通过改变构造函数，向控制台输出一条日志信息。
+- 每当实例化 `MyClass` 时，都会打印 `创建了一个新的 MyClass 实例`。
+
+---
+
+## **📌 装饰器的应用场景**
+
+### **1. 跟踪类实例的创建**
+通过装饰器，可以在类实例化时自动执行某些操作，如日志记录或统计：
+
+```ts
+function LogCreation(constructor: Function) {
+  console.log(`${constructor.name} 类被创建`);
+}
+
+@LogCreation
+class Example {
+  constructor() {
+    console.log("Example 实例化");
+  }
+}
+
+const obj = new Example();
+// 输出:
+// Example 类被创建
+// Example 实例化
+```
+
+### **2. 类依赖注入**
+你可以使用装饰器实现依赖注入（DI），自动注入服务或其他依赖：
+
+```ts
+function InjectService(target: any, propertyKey: string) {
+  // 自动注入服务
+  target[propertyKey] = new SomeService();
+}
+
+class SomeService {
+  getMessage() {
+    return "Hello from Service!";
+  }
+}
+
+class MyComponent {
+  @InjectService
+  service!: SomeService;
+
+  displayMessage() {
+    console.log(this.service.getMessage());
+  }
+}
+
+const component = new MyComponent();
+component.displayMessage();  // 输出: Hello from Service!
+```
+
+#### **解析**：
+- `@InjectService` 会自动将 `SomeService` 实例注入到 `MyComponent` 类中。
+- 每次实例化 `MyComponent` 时，`service` 属性都会自动获得一个新的 `SomeService` 实例。
+
+---
+
+## **📌 多个装饰器的使用**
+
+在 TypeScript 中，你可以为类应用多个装饰器。多个装饰器会按照从下到上的顺序执行（先定义的装饰器最后执行）：
+
+```ts
+function FirstDecorator(constructor: Function) {
+  console.log("FirstDecorator called");
+}
+
+function SecondDecorator(constructor: Function) {
+  console.log("SecondDecorator called");
+}
+
+@FirstDecorator
+@SecondDecorator
+class MyClass {}
+
+const obj = new MyClass();
+// 输出:
+// SecondDecorator called
+// FirstDecorator called
+```
+
+---
+
+## **📌 装饰器的元数据**
+TypeScript 提供了装饰器元数据的功能，通常与 `reflect-metadata` 库一起使用，用于给类、方法、属性等添加元数据。
+
+```ts
+import "reflect-metadata";
+
+function Log(target: any, key: string) {
+  const metadata = Reflect.getMetadata("custom:meta", target, key);
+  console.log(metadata);  // 打印元数据
+}
+
+class MyClass {
+  @Log
+  method() {}
+}
+
+Reflect.defineMetadata("custom:meta", "some data", MyClass.prototype, "method");
+```
+
+---
+
+## **📌 总结**
+
+| 特性         | 说明 |
+|--------------|------|
+| **类装饰器** | 装饰器是一个函数，接收类的构造函数并可返回一个修改后的构造函数 |
+| **功能**     | 修改类的行为、添加元数据、增强功能等 |
+| **多装饰器** | 多个装饰器会按声明顺序依次执行（从下到上） |
+| **元数据**   | 使用 `reflect-metadata` 库为类或方法添加元数据，增强装饰器功能 |
+
+装饰器提供了强大的元编程能力，可以极大地增强类的功能，适用于依赖注入、日志记录、权限验证等场景。🚀

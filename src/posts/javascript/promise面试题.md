@@ -43,4 +43,6 @@ console.log(5);
 ## 写一个可以中断的promise
 
 
+## 实现 Promise.race Promise.resolve Promise.all
+
 

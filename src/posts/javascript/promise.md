@@ -5,7 +5,6 @@ tags:
   - js 基础
   - promise
 ---
-[[toc]]
 
 # 深入理解 Promise：原理、代码与应用
 
