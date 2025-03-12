@@ -1,5 +1,15 @@
 //设计模式
 
+// 写一个promise 重试 3次的函数
+
+// function delay(ms) {
+//   return new Promise((resolve, reject) => {
+//     console.log(ms)
+//     setTimeout(() => {
+//       reject(ms);
+//     }, ms);
+//   });
+// }    
 
 // class Video {
 //   constructor(name) {
@@ -32,14 +42,7 @@ const singleton = function (className) {
     }
 }
 
-// const singleton = function (className) {
-//     let _ins;
-//     return new Proxy(className, {
-//         construct(target, args) {
-//             return _ins || (_ins = new target(...args));
-//         }
-//     })
-// }
+
 
 const SingleVideo = singleton(Video);
 
