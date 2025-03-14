@@ -2,8 +2,9 @@
 title: webpack 基础知识点
 date: 2021-08-16
 tags:
-   - webpack
+   - 工程化
 ---
+**参考文章  [深入浅出 webpack](https://jasonhsu9.github.io/dive-into-webpack/chapter5/quarter5-3.html)**
 
 
 

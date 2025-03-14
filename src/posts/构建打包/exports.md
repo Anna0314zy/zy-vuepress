@@ -1,8 +1,7 @@
 ---
 title: exports 和 module.exports
-date: 2019-08-16
 tags:
-   - Javascript
+   - 工程化
 ---
 
 ## 面试会问
