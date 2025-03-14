@@ -16,35 +16,23 @@ function promiseRetry(promiseFn, retries = 3) {
 	});
 }
 
-const retryPromise1 = (promiseFn, retries = 3) => {
-	for (let i = 0; i < retries; i++) { 
-
-        promiseFn().then(res => {
-            return res
-        }).catch(err => {
-            if(retries - 1 <= 1){
-                return Promise.reject(err)
-            }
-        })
-
+async function retryPromise2(promiseFn, retries = 3) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        return await promiseFn(attempt);
+      } catch (err) {
+        if (attempt === retries) throw err; // 最后一次失败，抛出错误
+      }
     }
-};
+  }
+  
+  
 
-function retryPromise(promise, times) {
-	console.log("retryPromise", times);
-	return new Promise((resolve, reject) => {
-		promise()
-			.then(resolve) // ✅ 成功时立即 resolve
-			.catch((err) => {
-				if (times > 1) {
-					return retryPromise(promise, times - 1).then(resolve, reject); // ✅ 递归时保证 resolve/reject 传递
-				}
-				reject(err); // ✅ 最后一次失败时，确保 reject 触发
-			});
-	});
-}
-
-function retryPromise1(promise, time) {}
+const retryPromise = (promiseFn, retries = 3) =>
+    promiseFn().catch((err) =>
+      retries > 1 ? retryPromise(promiseFn, retries - 1) : Promise.reject(err)
+    );
+  
 // 示例使用：
 const fetchData = async () => {
 	return new Promise((resolve, reject) => {
@@ -59,7 +47,7 @@ const fetchData = async () => {
 	});
 };
 
-promiseRetry(fetchData, 3)
+retryPromise(fetchData, 3)
 	.then((res) => {
 		console.log("成功", res);
 	})

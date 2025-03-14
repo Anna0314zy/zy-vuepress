@@ -1,0 +1,23 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 创建 script 标签
+        var script = document.createElement('script');
+        script.src = 'http://localhost:3000/data?callback=handleResponse';
+        document.body.appendChild(script);
+  
+        // 处理回调函数
+        function handleResponse(data) {
+          console.log('接收到的数据:', data);
+          alert('接收到的数据:' + JSON.stringify(data));
+        }
+      </script>
+</body>
+</html>

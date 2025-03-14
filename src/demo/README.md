@@ -1,5 +1,5 @@
 ---
-title: 全部博文
+title: demo
 index: false
 icon: laptop-code
 category:

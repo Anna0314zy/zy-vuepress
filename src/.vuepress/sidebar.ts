@@ -4,11 +4,12 @@ export default sidebar({
   "/": [
     "",
     {
-      text: "如何使用",
+      text: "demo",
       icon: "laptop-code",
       prefix: "demo/",
       link: "demo/",
       children: "structure",
+      expanded:true
     },
     {
       text: "文章",

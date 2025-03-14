@@ -1,267 +1,346 @@
 ---
-title: javascript中的闭包
+title: javascript中的作用域
 date: 2019-06-05
 tags:
-   - Javascript
+  - Javascript
 ---
 
-## 快速导航
-- [快速导航](#快速导航)
-- [什么是闭包](#什么是闭包)
-- [闭包的常见案例分析](#闭包的常见案例分析)
-      - [案例1-基本介绍](#案例1-基本介绍)
-      - [案例2-前端实现点击事件](#案例2-前端实现点击事件)
-      - [案例3-ajax请求](#案例3-ajax请求)
-      - [案例4-for循环案例](#案例4-for循环案例)
-- [闭包与内存泄漏](#闭包与内存泄漏)
-- [闭包的应用](#闭包的应用)
-- [面试题分析](#面试题分析)
-- [总结](#总结)
+闭包（Closure）是 JavaScript 中的一个重要概念，常常出现在面试题中。理解闭包有助于深入掌握 JavaScript 的作用域和函数行为。
 
-## 什么是闭包
-> 维基百科中的概念
+## js 作用域
 
--  在计算机科学中，闭包(也称词法闭包或函数闭包)是指一个函数或函数的引用，与一个引用环境绑定在一起，这个引用环境是一个存储该函数每个非局部变量(也叫自由变量)的表。
--  闭包，不同于一般的函数，它允许一个函数在立即词法作用域外调用时，仍可访问非本地变量
+闭包是指**闭包就是能够读取其他函数内部变量的函数**
+在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
 
+### 一、变量的作用域
 
-> 学术上
+要理解闭包，首先必须理解Javascript特殊的变量作用域。
 
--  闭包是指在 JavaScript 中，内部函数总是可以访问**其所在的**外部函数中声明的参数和变量，即使在其外部函数被返回return掉（寿命终结）了之后。
+变量的作用域无非就是两种：全局变量和局部变量。
 
-> 个人理解
+Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。
 
--  闭包是在函数里面定义一个函数，该函数可以是匿名函数，该子函数能够读写父函数的局部变量。
+### 作用域链的定义及形成
+当所需要的变量在所在的作用域中查找不到的时候，它会一层一层向上查找，直到找到全局作用域还没有找到的时候，就会放弃查找。这种一层一层的关系，就是作用域链。
+在 JavaScript 中，**变量提升**（Variable Hoisting）是指在代码执行前，编译器将变量声明提升到作用域的顶部。这意味着，无论变量在代码中出现的位置如何，JavaScript 都会在执行之前将其声明提升到作用域的最前面。
 
+### **变量提升的关键点：**
 
-## 闭包的常见案例分析
+1. **`var` 声明的变量：**
+   - **提升行为：** 使用 `var` 声明的变量会被提升到函数或全局作用域的顶部，但仅提升声明，不包括赋值操作。
+   - **示例：**
+     ```javascript
+     console.log(a); // 输出：undefined
+     var a = 10;
+     console.log(a); // 输出：10
+     ```
+     在上述代码中，`var a` 的声明被提升到顶部，但赋值操作 `a = 10` 保持在原位置。因此，第一次 `console.log(a)` 输出 `undefined`，第二次输出 `10`。
 
-**案例分析是从浅入深希望大家都看完!**
+2. **函数声明的提升：**
+   - **提升行为：** 函数声明会被提升到作用域顶部，包括函数的声明和定义。
+   - **示例：**
+     ```javascript
+     greet(); // 输出：Hello, world!
 
-##### 案例1-基本介绍
+     function greet() {
+       console.log('Hello, world!');
+     }
+     ```
+     在此示例中，函数 `greet` 的声明和定义被提升到顶部，因此可以在声明之前调用。
 
-```javascript
-function A(){
-    var localVal=10;
-    return localVal;
-}
+3. **`let` 和 `const` 声明的变量：**
+   - **提升行为：** `let` 和 `const` 声明的变量也会被提升，但不会初始化。访问这些变量会导致 `ReferenceError`，因为它们处于“暂时性死区”（Temporal Dead Zone）。
+   - **示例：**
+     ```javascript
+     console.log(a); // 抛出 ReferenceError
+     let a = 10;
+     ```
+     在上述代码中，访问 `a` 会抛出 `ReferenceError`，因为 `a` 虽然被提升，但在赋值之前处于暂时性死区。
 
-A();//输出30
+**相关面试题：**
 
+1. **变量提升的输出结果：**
+   ```javascript
+   console.log(a); // 输出什么？
+   var a = 5;
+   ```
+   **答案：** 输出 `undefined`。因为变量 `a` 的声明被提升，但赋值操作保持在原位置。
 
-function A(){
-    var localVal=10;
-    return function(){
-         console.log(localVal);
-         return localVal;
-    }
-}
-var func=A();
-func();//输出10
-```
-两段代码，在第二段代码中，函数A内的匿名函数可以访问到函数A中的局部变量这就是闭包的基本使用。
+2. **函数提升的调用顺序：**
+   ```javascript
+   test(); // 输出什么？
+   function test() {
+     console.log('Function test called');
+   }
+   ```
+   **答案：** 输出 `'Function test called'`。因为函数声明会被提升，包括其定义。
 
-##### 案例2-前端实现点击事件
+3. **`let` 和 `const` 的提升行为：**
+   ```javascript
+   console.log(b); // 输出什么？
+   let b = 10;
+   ```
+   **答案：** 抛出 `ReferenceError`。因为 `let` 声明的变量在赋值前处于暂时性死区。
 
-```javascript
-!function(){
-    var localData="localData here";
-    document.addEventListener('click',function(){
-    console.log(localData);    
-    });
-}();
-```
-前端原始点击事件操作也用到了闭包来访问外部的局部变量。
+**深入理解：**
 
-##### 案例3-ajax请求
+在 JavaScript 的执行上下文中，变量提升发生在创建执行上下文的阶段。在这个阶段，所有的变量声明（使用 `var`）和函数声明都会被扫描并提升到作用域的顶部。然而，`let` 和 `const` 声明的变量不会被初始化，访问它们会导致运行时错误。
 
-```javascript
-!function(){
-    var localData="localData here";
-    var url="http://www.baidu.com";
-    $.ajax({
-      url:url,
-      success:function(){
-          //do sth...
-          console.log(localData);
-      }
-    })
-}();
-```
-在ajax请求的方法中也用到了闭包，访问外部的局部变量。
+**参考资料：**
 
-##### 案例4-for循环案例
+- [JavaScript 变量提升面试题](https://www.cnblogs.com/mengfangui/p/8670526.html)
+- [JS面试题：变量提升和函数提升](https://juejin.cn/post/7054847872361037837)
 
-```javascript
-var arrays = [];
+理解变量提升对于编写高质量的 JavaScript 代码至关重要，特别是在处理作用域和变量声明时。 
 
-for (var i=0; i<3; i++) {
-    arrays.push(function() {
-        console.log('>>> ' + i); //all are 3
-    });
-}
+### 二、如何从外部读取局部变量？
 
-```
-上面的这段代码，刚看了代码一定会以为陆续打印出1，2，3，实际输出的是3，3，3，出现这种情况的原因是**匿名函数保存的是引用**，当for循环结束的时候，i已经变成3了，所以打印的时候变成3。出现这种情况的解决办法是利用闭包解决问题。
+出于种种原因，我们有时候需要得到函数内的局部变量。但是，前面已经说过了，正常情况下，这是办不到的，只有通过变通方法才能实现。
 
-```javascript
-for (var i=0; i<3; i++) {
-    (function(n) {
-        tasks.push(function() {
-            console.log('>>> ' + n);
-        });
-    })(i);
+那就是在函数的内部，再定义一个函数。
+
+```js
+function f1() {
+	var n = 999;
+
+	function f2() {
+		alert(n); // 999
+	}
 }
 ```
-**闭包里的匿名函数**，读取变量的顺序，先读取本地变量，再读取父函数的局部变量，如果找不到到全局里面搜索，**i作为局部变量存到闭包里面**，所以调整后的代码可以能正常打印1，2，3。
 
+在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的"链式作用域"结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。
 
-## 闭包与内存泄漏
-- javascript回收后内存的方式:
-  
-javascript的主要通过计数器方式回收内存，假设有a，b，c三个对象，当a引用b的时候，那么b的引用计算器增加1(通俗的说用到那个对象哪个对象引用计算器增加1)，同时b引用c的时候，c引用计数器增加1，当a被释放的时候，b的引用计数器减少1，变成0的时候这个对象被释放，c计数器变成0，被释放,但是当遇到b和c之间互相引用的时候，无法通过计数器方式释放内存。
+既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗！
 
-- 闭包可以导致上面所说b和c互相引用无法释放内存
-第一个案例的代码拿过来分析：
+```js
+function f1() {
+	var n = 999;
 
-```javascript
-function A(){
-    var localVal=10;
-    return function(){
-         console.log(localVal);
-         return localVal;
-    }
-}
-var func=A();
-func();//输出10
-```
-当A函数结束的时候，想要释放，发现它的localVal变量被匿名函数引用，所有A函数无法释放，导致内存泄漏。但是也有好处，闭包正是可以做到这一点，因为它不会释放外部的引用，从而函数内部的值可以得以保留。
+	function f2() {
+		alert(n);
+	}
 
-说明:闭包不代表一定会带来内存泄漏，良好的使用闭包是不会造成内存泄漏的。
-## 闭包的应用
-- 封装
-
-```javascript
-var person = function(){    
-    //变量作用域为函数内部，外部无法访问    
-    var name = "default";       
-       
-    return {    
-       getName : function(){    
-           return name;    
-       },    
-       setName : function(newName){    
-           name = newName;    
-       }    
-    }    
-}();    
-     
-print(person.name);//直接访问，结果为undefined    
-print(person.getName());    
-person.setName("kaola");    
-print(person.getName());    
-   
-得到结果如下：  
-   
-undefined  
-default  
-kaola
-```
-- 实例中的for循环另一种形式
-
-```javascript
-doucument.body.innerHTML="<div id=div1>aaa</div>"+"<div id=div2>bbb</div>"+"<div id=div3>ccc</div>";
-for(var i=1;i<4;i++){
-    !function(i){
-        document.getElementById('div'+i);
-        addEventListener('click',function(){
-           alert(i);//1,2,3 
-        });
-    }
-}
-```
-- 结果缓存
-
-```javascript
-var CachedSearchBox = (function(){    
-    var cache = {},    
-       count = [];    
-    return {    
-       attachSearchBox : function(dsid){    
-           if(dsid in cache){//如果结果在缓存中    
-              return cache[dsid];//直接返回缓存中的对象    
-           }    
-           var fsb = new uikit.webctrl.SearchBox(dsid);//新建    
-           cache[dsid] = fsb;//更新缓存    
-           if(count.length > 100){//保正缓存的大小<=100    
-              delete cache[count.shift()];    
-           }    
-           return fsb;          
-       },    
-     
-       clearSearchBox : function(dsid){    
-           if(dsid in cache){    
-              cache[dsid].clearSelection();      
-           }    
-       }    
-    };    
-})();    
-     
-CachedSearchBox.attachSearchBox("input");
-```
-说明：开发中会碰到很多情况，设想我们有一个处理过程很耗时的函数对象，每次调用都会花费很长时间，那么我们就需要将计算出来的值存储起来，当调用这个函数的时候，首先在缓存中查找，如果找不到，则进行计算，然后更新缓存并返回值，如果找到了，直接返回查找到的值即可。闭包正是可以做到这一点，因为它不会释放外部的引用，从而函数内部的值可以得以保留。
-
-## 面试题分析
-闭包测试题: 求输出结果
-
-```javascript
-function fun(n,o){
-    console.log(o);
-    return {
-        fun:function(m){//[2]
-            return fun(m,n);//[1]
-        }
-    }
+	return f2;
 }
 
-var a=fun(0);
-a.fun(1);
-a.fun(2);
-a.fun(3);
-var b=fun(0).fun(1).fun(2).fun(3);
-var c=fun(0).fun(1);
-c.fun(2);
-c.fun(3);
+var result = f1();
+
+result(); // 999
 ```
-由于分析内容比较多，大家可直接参考这篇文章
-https://cnodejs.org/topic/567ed16eaacb6923221de48f
 
-分析内容说明，在看这篇文章的时候，注意两点可能会看的更明白：
--  JS的词法作用域,JS变量作用域存在于函数体中即函数体，并且变量的作用域是在函数定义声明的时候就是确定的，而非在函数运行时。
--  在JS中调用函数的时候，如果用一个参数的方法调用两个参数的方法，这时候只是第二个参数未定义，代码不会报错停止运行，正常流程往下走，像面试题中仍然会返回一个对象。
+## 三、闭包的概念
+
+上一节代码中的f2函数，就是闭包。
+
+各种专业文献上的"闭包"（closure）定义非常抽象，很难看懂。我的理解是，闭包就是能够读取其他函数内部变量的函数。
+
+由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成"定义在一个函数内部的函数"。
+
+所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+
+## 四、闭包的用途
+
+闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。
+
+怎么来理解这句话呢？请看下面的代码。
+
+```js
+function f1() {
+	var n = 999;
+
+	nAdd = function () {
+		n += 1;
+	};
+
+	function f2() {
+		alert(n);
+	}
+
+	return f2;
+}
+
+var result = f1();
+
+result(); // 999
+
+nAdd(); // 全局变量
+
+result(); // 1000
+```
+在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。
+
+为什么会这样呢？原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。
+
+这段代码中另一个值得注意的地方，就是"nAdd=function(){n+=1}"这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter <font color="red">**可以在函数外部对函数内部的局部变量进行操作。**</font>
+
+## 五、使用闭包的注意点
+
+1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+
+2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
+## 思考 
+
+```js
+var name = "The Window";
+
+　　var object = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　return function(){
+　　　　　　　　return this.name;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object.getNameFunc()());
+
+```
+```js
+var name = "The Window";
+
+　　var object = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　var that = this;
+　　　　　　return function(){
+　　　　　　　　return that.name;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object.getNameFunc()());
+
+```
+## 常见的闭包面试题
+
+### **1. 使用闭包实现私有变量**
+
+请实现一个计数器函数，使得它具有 `increment` 和 `getValue` 两个方法，且内部计数值不能被外部直接修改。
+
+**解答：**
+
+```javascript
+function createCounter() {
+	let count = 0;
+	return {
+		increment: function () {
+			count++;
+		},
+		getValue: function () {
+			return count;
+		},
+	};
+}
+
+const counter = createCounter();
+counter.increment();
+console.log(counter.getValue()); // 输出：1
+```
+
+在这个例子中，`count` 变量被封装在 `createCounter` 的闭包中，外部无法直接访问或修改，只能通过 `increment` 和 `getValue` 方法操作。
+
+###  **2. 闭包与循环**
+
+以下代码的输出是什么？如何修改以获得预期结果？
+
+```javascript
+for (var i = 0; i < 3; i++) {
+	setTimeout(function () {
+		console.log(i);
+	}, 1000);
+}
+```
+
+**解答：**
+
+上述代码将在 1 秒后连续输出三次数字 `3`。这是因为 `setTimeout` 中的回调函数在全局作用域中执行，而此时循环已经结束，`i` 的值为 `3`。
+
+要使每次循环的 `i` 值被正确捕获，可以使用立即调用函数表达式（IIFE）创建闭包：
+
+```javascript
+for (var i = 0; i < 3; i++) {
+	(function (i) {
+		setTimeout(function () {
+			console.log(i);
+		}, 1000);
+	})(i);
+}
+```
+
+或者使用 `let` 声明块级作用域的变量：
+
+```javascript
+for (let i = 0; i < 3; i++) {
+	setTimeout(function () {
+		console.log(i);
+	}, 1000);
+}
+```
+
+这两种方法都能使输出分别为 `0`、`1`、`2`。
+
+### **3. 闭包与内存泄漏**
+
+使用闭包时需要注意可能导致的内存泄漏问题。如果闭包中引用了不再需要的对象，可能导致这些对象无法被垃圾回收器回收，从而引发内存泄漏。
+
+**示例：**
+
+```javascript
+function createClosure() {
+	let largeArray = new Array(1000000).fill("*");
+	return function () {
+		console.log(largeArray[0]);
+	};
+}
+
+const closure = createClosure();
+// 此时 largeArray 仍然被引用，无法被回收
+```
+
+在上述示例中，`largeArray` 被闭包引用，即使在函数执行后，`largeArray` 仍然存在于内存中。为避免这种情况，应在不再需要时手动解除引用：
+
+```javascript
+function createClosure() {
+	let largeArray = new Array(1000000).fill("*");
+	return function () {
+		console.log(largeArray[0]);
+		largeArray = null; // 解除引用
+	};
+}
+
+const closure = createClosure();
+closure(); // 使用后解除 largeArray 的引用
+```
+### 变量提升
+
+```js
+function foo() {
+  console.log( this.a );
+}
+
+function doFoo() {
+  foo();
+}
+
+var obj = {
+  a: 1,
+  doFoo: doFoo
+};
+
+var a = 2; 
+obj.doFoo() // 
+// 2
 
 
-
+```
 
 ## 总结
-1. 闭包其实是在函数内部定义一个函数。
-2. 闭包在使用的时候不会释放**外部的引用**，闭包函数内部的值会得到保留。
-3. 闭包里面的匿名函数，读取变量的顺序，先读取本地变量，再读取父函数的局部变量。
-4. 对于闭包外部无法引用它内部的变量，因此**在函数内部创建的变量**执行完后会立刻释放资源，不污染全局对象。
-5. 闭包使用的时候要考虑到内存泄漏，因为不释放**外部引用**，但是合理的使用闭包是内存使用不是内存泄漏。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+闭包是 JavaScript 中强大的特性，能够实现数据封装和状态持久化。在使用闭包时，需要注意可能引发的内存泄漏问题，确保及时解除不再需要的引用。深入理解闭包的工作原理，有助于编写出更高效、更健壮的代码。

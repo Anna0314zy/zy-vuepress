@@ -17,6 +17,24 @@ JavaScript 提供了许多数组方法，它们都是高阶函数，因为它们
 
 #### **① `map()`** —— **映射**
 ```js
+array.map(callback(currentValue, index, array), thisArg);
+```
+```js
+Array.prototype.myMap = function(callback, thisArg) {
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+      // 确保只处理有实际值的元素
+      if (i in this) {
+        result[i] = callback.call(thisArg, this[i], i, this);
+      }
+      // 如果是空元素，保持该空槽
+    }
+    return result;
+  };
+
+
+```
+```js
 const numbers = [1, 2, 3, 4];
 const squared = numbers.map(num => num * num);
 console.log(squared); // [1, 4, 9, 16]
@@ -26,6 +44,23 @@ console.log(squared); // [1, 4, 9, 16]
 ---
 
 #### **② `filter()`** —— **筛选**
+
+```js
+array.filter(callback(currentValue, index, array), thisArg);
+
+```
+```js
+Array.prototype.myFilter = function(callback, thisArg) {
+  const result = [];
+  for (let i = 0; i < this.length; i++) {
+    if (i in this && callback.call(thisArg, this[i], i, this)) {  // 如果当前元素满足条件
+      result.push(this[i]);
+    }
+  }
+  return result;
+};
+
+```
 ```js
 const numbers = [10, 25, 40, 5];
 const greaterThan20 = numbers.filter(num => num > 20);
@@ -36,9 +71,41 @@ console.log(greaterThan20); // [25, 40]
 ---
 
 #### **③ `reduce()`** —— **累加**
+reduce() 方法对数组中的每个元素执行一个累加器函数（从左到右），最后返回单个结果。
+
+reduce() 方法的签名：
+```js
+array.reduce(callback(accumulator, currentValue, index, array), initialValue);
+
+```
+- callback：一个函数，接受四个参数：
+- accumulator：累加器，保存每次调用 callback 后的返回值。
+- currentValue：当前正在处理的元素。
+- index：当前元素的索引。
+- array：调用 reduce 的原始数组。
+- initialValue：可选，累加器的初始值。如果没有提供，第一次调用 callback 时，accumulator 会是数组的第一个元素。
+
+---
+
+```js
+Array.prototype.myReduce = function(callback, initialValue) {
+  let accumulator = initialValue !== undefined ? initialValue : this[0];
+  let startIndex = initialValue !== undefined ? 0 : 1;
+
+  for (let i = startIndex; i < this.length; i++) {
+    if (i in this) {
+      accumulator = callback(accumulator, this[i], i, this);
+    }
+  }
+  return accumulator;
+};
+
+
+```
+
 ```js
 const numbers = [1, 2, 3, 4];
-const sum = numbers.reduce((acc, num) => acc + num, 0);
+const sum = numbers.reduce((acc, num) => acc + num, 5);
 console.log(sum); // 10
 ```
 📌 **`reduce()` 作用**：对数组中的所有元素进行累积计算，最终返回一个值。

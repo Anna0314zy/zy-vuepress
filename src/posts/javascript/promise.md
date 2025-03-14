@@ -342,7 +342,7 @@ promise
 
 ### 4.2 实现静态方法
 
-#### 4.2.1 MyPromise.resolve
+### 4.2.1 MyPromise.resolve
 
 ```javascript
 MyPromise.resolve = function(value) {
@@ -355,7 +355,7 @@ MyPromise.resolve = function(value) {
 };
 ```
 
-#### 4.2.2 MyPromise.reject
+### 4.2.2 MyPromise.reject
 
 ```javascript
 MyPromise.reject = function(reason) {
@@ -365,7 +365,7 @@ MyPromise.reject = function(reason) {
 };
 ```
 
-#### 4.2.3 MyPromise.all
+### 4.2.3 MyPromise.all
 ::: important 
 异步串行并发 都成功了 才成功 如果有失败的立马失败
 按输入顺序返回（即使某些 Promise 先完成）
@@ -377,7 +377,7 @@ MyPromise.all = function(promises) {
     const results = [];
     let count = 0;
     for (let i = 0; i < promises.length; i++) {
-      promises[i].then(
+       Promise.resolve(promises[i]).then(
         (value) => {
           results[i] = value;
           count++;
@@ -394,7 +394,7 @@ MyPromise.all = function(promises) {
 };
 ```
 
-#### 4.2.4 MyPromise.race
+### 4.2.4 MyPromise.race
 ::: important 
 比的是谁先结束 谁先结束 把结果返给下层的 then
 :::
@@ -408,7 +408,7 @@ MyPromise.race = function(promises) {
   });
 };
 ```
-#### 4.2.4 MyPromise.finally
+### 4.2.4 MyPromise.finally
 ::: important 
 原型上的方法 无论如何都执行 没有参数 其实就是执行 then 方法
 内部可以返回一个 promise 成功或者失败的结果将作为 then 的参数
