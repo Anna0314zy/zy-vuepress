@@ -11,7 +11,7 @@ tags:
 
 > 开发中经常会遇到创建单例
 
-## 实践 通过 getInstance
+## 通过 getInstance
 ::: danger
 问题 如果是js 没有办法强制要求用户 一定要 使用getInstance方法来获取实例
 

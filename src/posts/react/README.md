@@ -1,2 +1,9 @@
+---
+title: react 学习笔记
+index: false
+icon: laptop-code
+category:
+  - node
+---
 
-# react 学习笔记
+<Catalog />

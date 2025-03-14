@@ -8,8 +8,8 @@ tags:
 
 Promise是ES6中的特性，现在很多前端框架像AngularJS，Vue等在HTTP请求之后都是返回的Promise处理，因此Promise是必须要掌握的一个知识点。
 本文将为大家分享15道由易到难的ES6 Promise题, 帮助你快速理解Promise。
-基础题
-01
+
+## 01 基础题
 ```js
 const promise = new Promise((resolve, reject) => {
     console.log(1)
@@ -30,7 +30,7 @@ Promise 构造函数是同步执行的，promise.then 中的函数是异步执�
 // => 2
 // => 4
 // => 3
-02
+## 02
 ```js
 const first = () => (new Promise((resolve, reject) => {
     console.log(3);
@@ -66,7 +66,7 @@ console.log(4);
 // => 1
 // => 2
 // => 5
-03
+## 03
 ```js
 const promise1 = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -96,7 +96,7 @@ promise2 Promise {<rejected>: Error: error!!!
     at <anonymous>}
 ```
 解释：promise 有 3 种状态：pending、fulfilled 或 rejected。状态改变只能是 pending->fulfilled 或者 pending->rejected，状态一旦改变则不能再变。上面 promise2 并不是 promise1，而是返回的一个新的 Promise 实例。
-04
+## 04
 ```js
 const promise = new Promise((resolve, reject) => {
   resolve('success1')
@@ -116,7 +116,7 @@ promise
 构造函数中的 resolve 或 reject 只有第一次执行有效，多次调用没有任何作用，呼应代码二结论：promise 状态一旦改变则不能再变。
 运行结果：
 then: success1
-05
+## 05
 ```js
 Promise.resolve(1)
   .then((res) => {
@@ -135,7 +135,7 @@ promise 可以链式调用。提起链式调用我们通常会想到通过 retur
 运行结果：
 1
 2
-06
+## 06
 ```js
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -158,7 +158,7 @@ promise 的 .then 或者 .catch 可以被调用多次，但这里 Promise 构造
 once
 success 1005
 success 1007
-07
+## 07
 ```js
 Promise.resolve()
   .then(() => {
@@ -183,7 +183,7 @@ throw new Error('error!!!')
 then:  Error: error!!!
     at <anonymous>
 ```
-08
+## 08
 ```js
 const promise = Promise.resolve()
   .then(() => {
@@ -204,7 +204,7 @@ process.nextTick(function tick () {
 TypeError: Chaining cycle detected for promise #<Promise>
 
 ```
-09
+## 09
 ```js
 Promise.resolve(1)
   .then(2)
@@ -215,7 +215,7 @@ Promise.resolve(1)
 .then 或者 .catch 的参数期望是函数，传入非函数则会发生值穿透。
 运行结果：
 1
-10
+## 10
 ```js
 Promise.resolve()
   .then(function success (res) {
@@ -269,7 +269,7 @@ then
 setImmediate
 编程题
 上面题目太基础，没有挑战性？那就来点有难度的！
-12
+## 12
 红灯3秒亮一次，绿灯1秒亮一次，黄灯2秒亮一次；如何使用Promise让三个灯不断交替重复亮灯？（海康威视笔试题）
 ```js
 function red(){
@@ -330,7 +330,7 @@ myStep();
 // => yellow
 // => red
 ```
-13
+## 13
 请实现一个mergePromise函数，把传进去的数组按顺序先后执行，并且把返回的数据先后放到数组data中。
 ```js
 const timeout = ms => new Promise((resolve, reject) => {
@@ -397,7 +397,7 @@ const mergePromise = ajaxArray => {
 // 而 data（保存数组中的函数执行后的结果） 也会作为参数，传入下次调用的 then 方法中。
   return sequence;
 };
-14
+## 14
 现有8个图片资源的url，已经存储在数组urls中，且已有一个函数function loading，输入一个url链接，返回一个Promise，该Promise在图片下载完成的时候resolve，下载失败则reject。
 要求：任何时刻同时下载的链接数量不可以超过3个。
 请写一段代码实现这个需求，要求尽可能快速地将所有图片下载完成。
@@ -467,7 +467,7 @@ limitLoad(urls, loadImg, 3).then(() => {
 ```
 
 
-15
+## 15
 封装一个异步加载图片的方法
 解析：
 ```js
@@ -483,6 +483,40 @@ function loadImageAsync(url) {
         image.src = url;
      });
 }
+```
+
+## 16.执行顺序
+
+
+```js
+
+console.log(1);
+async function async () {
+    console.log(2);
+    await console.log(3);
+    console.log(4)
+}
+setTimeout(() => {
+	console.log(5);
+}, 0);
+const promise = new Promise((resolve, reject) => {
+    console.log(6);
+    resolve(7)
+})
+promise.then(res => {
+	console.log(res)
+})
+async (); 
+console.log(8);
+// 1
+// 6
+// 2
+// 3
+// 8
+// 7
+// 4
+// 5
+
 ```
 总结
 这一部分题目我从网上收集来的一些练习题，几道编程题我自己第一遍做也觉得没那么好做，但是做完感觉获益匪浅，加深了我对Promise特性和如何更好使用Promise的理解。

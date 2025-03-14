@@ -188,6 +188,17 @@ console.log('' == false);     // true
 - **空字符串会被转换为 `0`**，因此和数字 `0` 或 `false` 比较时返回 `true`。
 
 ### **5. 对象与原始值比较**
+
+对象跟 字符串 数字 symbol比较的时候 会把对象转换成原始数据类型
+
+对象转换的规则，会先调用内置的 [ToPrimitive] 函数，其规则逻辑如下：
+
+- 如果部署了 Symbol.toPrimitive 方法，优先调用再返回；
+
+- 调用 valueOf()，如果转换为基础类型，则返回；
+
+- 调用 toString()，如果转换为基础类型，则返回；
+
 ```js
 console.log({} == '[object Object]') //JavaScript 会尝试将对象转换为字符串，空对象 {} 的默认字符串是 "[object Object]"。
 console.log([] == '');                // true
