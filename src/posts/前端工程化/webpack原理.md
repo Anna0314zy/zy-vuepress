@@ -123,7 +123,7 @@ syncBailHook.call("panda", 18);
 
 // 1 panda 18
 // 2 panda 18
-复制代码
+
 ```
 
 通过上面的用法可以看出，`SyncHook` 和 `SyncBailHook` 在逻辑上只是 `call` 方法不同，导致事件的执行机制不同，对于后面其他的 “钩子”，也是 `call` 的区别，接下来实现 `SyncBailHook` 类。
@@ -216,7 +216,6 @@ class SyncWaterfallHook {
         return reduce((ret, task) => task(ret), first(...args));
     }
 }
-复制代码
 ```
 
 上面代码中 `call` 的逻辑是将存储事件处理函数的 `tasks` 拆成两部分，分别为第一个事件处理函数，和存储其余事件处理函数的数组，使用 `reduce` 进行归并，将第一个事件处理函数执行后的返回值作为归并的初始值，依次调用其余事件处理函数并传递上一次归并的返回值。
@@ -294,7 +293,7 @@ class SyncLoopHook {
         });
     }
 }
-复制代码
+
 ```
 
 在上面代码中可以看到 `SyncLoopHook` 类 `call` 方法的实现更像是 `SyncHook` 和 `SyncBailHook` 的 `call` 方法的结合版，外层循环整个 `tasks` 事件处理函数队列，内层通过返回值进行循环，控制每一个事件处理函数的执行次数。
@@ -471,7 +470,7 @@ class AsyncParallelHook {
         return Promise.all(this.tasks.map(task => task(...args)));
     }
 }
-复制代码
+
 ```
 
 其实根据上面对于 `tapPromise` 和 `promise` 使用的描述就可以猜到，`promise` 方法的逻辑是通过 `Promise.all` 来实现的。
@@ -528,7 +527,7 @@ asyncSeriesHook.callAsync("panda", 18, () => {
 // 3 panda 18 2018-08-07T14:40:57.901Z
 // complete
 // time: 6008.790ms
-复制代码
+
 ```
 
 ***异步串行是指，事件处理函数内三个定时器的异步执行时间分别为 `1s`、`2s` 和 `3s`，而三个事件处理函数执行完总共用时接近 `6s`，所以三个事件处理函数执行是需要排队的，必须一个一个执行，当前事件处理函数执行完才能执行下一个。\***
@@ -565,7 +564,6 @@ class AsyncSeriesHook {
         next();
     }
 }
-复制代码
 ```
 
 `AsyncParallelHook` 是通过循环依次执行了所有的事件处理函数，`done` 方法只为了检测是否已经满足条件执行 `callAsync` 的回调，如果中间某个事件处理函数没有调用 `done`，只是不会调用 `callAsync` 的回调，但是所有的事件处理函数都执行了。
@@ -625,7 +623,6 @@ asyncSeriesHook.promise("panda", 18).then(ret => {
 // 3 panda 18 2018-08-07T14:45:57.901Z
 // time: 6014.291ms
 // [ '1', '2', '3' ]
-复制代码
 ```
 
 分析上面的执行过程，所有的事件处理函数都返回了 Promise 的实例，如果想实现 “串行”，则需要让每一个返回的 Promise 实例都调用 `then`，并在 `then` 中执行下一个事件处理函数，这样就保证了只有上一个事件处理函数执行完后才会执行下一个。
@@ -654,7 +651,7 @@ class AsyncSeriesHook {
         }, first(...args));
     }
 }
-复制代码
+
 ```
 
 上面代码中的 “串行” 是使用 `reduce` 归并来实现的，首先将存储所有事件处理函数的数组 `tasks` 解构成两部分，第一个事件处理函数和存储其他事件处理函数的数组 `others`，对 `others` 进行归并，将第一个事件处理函数执行后返回的 Promise 实例作为归并的初始值，这样在归并的过程中上一个值始终是上一个事件处理函数返回的 Promise 实例，可以直接调用 `then` 方法，并在 `then` 的回调中执行下一个事件处理函数，直到归并完成，将 `reduce` 最后返回的 Promise 实例作为 `promise` 方法的返回值，则实现 `promise` 方法执行后继续调用 `then` 来实现后续逻辑。
@@ -2170,7 +2167,6 @@ emit
 
 loader是处理模块的解析器。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
   module: {
@@ -2185,7 +2181,6 @@ loader是处理模块的解析器。
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ### 2.自定义loader的查找规则
 
@@ -2195,7 +2190,6 @@ loader是处理模块的解析器。
 
 \1. resolveLoader.moduels
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
   resolveLoader: {
@@ -2211,7 +2205,6 @@ loader是处理模块的解析器。
   }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 2.resolveLoader.alias
 
@@ -2225,7 +2218,6 @@ loader是处理模块的解析器。
 
 3.loader的绝对路径
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
   module: {
@@ -2238,7 +2230,6 @@ loader是处理模块的解析器。
   }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 4.npm link(待解决)
 
@@ -2326,7 +2317,6 @@ require("!!" + "../loaders/css-loader.js!./style.css")
 
 其预期参数如下：
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
 this.callback(
@@ -2337,7 +2327,6 @@ this.callback(
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ⚠️： 使用该方法时，loader必须返回undefined。
 
@@ -2349,7 +2338,6 @@ Pitching loader指的是loader上的pitch方法。
 
 **语法：**
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```js
 module.exports = function (content) {
@@ -2383,7 +2371,6 @@ module.exports = function (content) {
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 **作用：**
 
@@ -2401,7 +2388,6 @@ module.exports = function (content) {
 
 **执行顺序**：
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```js
 use: [
@@ -2419,7 +2405,6 @@ use: [
 |- a-loader normal execution
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 如果某个loader的pitch方法返回一个非undefined的值，将会跳过剩余的loader。
 
@@ -2468,7 +2453,6 @@ schema-utils: 用于校验loader和plugin的数据结构
 
 简单的模拟实现babel-loader。它本身是基于@babel/core和其他插件和预设。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
 const babel = require('@babel/core');
@@ -2494,13 +2478,11 @@ function loader(inputSource) {
 module.exports = loader;
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 #### 2. banner-loader
 
 给解析的模块添加注释信息。该loader主要用于学习schema-utils的用法。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
 const babel = require('@babel/core');
@@ -2540,11 +2522,9 @@ function loader(inputSource) {
 module.exports = loader;
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 按照loader中的要求，options必须含有两个字段，filename和text,否则会报错
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
           {
@@ -2556,11 +2536,9 @@ module.exports = loader;
           }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 #### 3. less-loader
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```
 const less = require('less');
@@ -2573,11 +2551,9 @@ module.exports = function(content) {
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 #### 4. css-loader
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```js
 /**
@@ -2637,11 +2613,9 @@ function createPlugin({urlItems, importItems}) {
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 #### 5.style-loader
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```js
 const loaderUtils = require('loader-utils');
@@ -2658,11 +2632,9 @@ module.exports.pitch = function(remainingRquest, precedingRequest, data){
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 #### 6. file-loader
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```js
 /**
@@ -2680,11 +2652,8 @@ module.exports = function(content) {
 module.exports.raw = true;
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 #### 7.url-loader 
-
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```js
 /**

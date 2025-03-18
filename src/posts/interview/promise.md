@@ -2,7 +2,7 @@
 title: Promise
 date: 2019-01-06
 tags:
-   - Promise
+   - 面试题
 ---
 
 

@@ -2,8 +2,10 @@
 title: 算法
 date: 2019-01-06
 tags:
-- JS
+- 面试题
 ---
+
+# 参考 **[代码随想录](https://programmercarl.com/)**
 ## 排序
 ### 1.冒泡排序
 

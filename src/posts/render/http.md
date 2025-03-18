@@ -1,6 +1,5 @@
 ---
-title: js
-date: 2022-04-19
+title: 强缓存与协商缓存
 tags:
   - Javascript
   - 面试题
