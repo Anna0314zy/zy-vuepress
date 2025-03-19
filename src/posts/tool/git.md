@@ -110,6 +110,7 @@ export NODE_OPTIONS=--openssl-legacy-provider
 
 ```js
  ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitee -C "xxxxx@qq.com"
+ //-f 选项：指定密钥文件名，避免覆盖 ~/.ssh/id_rsa（默认密钥）。
 ```
 
 
