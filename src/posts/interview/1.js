@@ -9,3 +9,6 @@ Object.defineProperty(globalThis, 'a', {
 if (a == 1 && a == 2 && a == 3) {
     console.log(1);
 }
+
+
+console.log('test')
