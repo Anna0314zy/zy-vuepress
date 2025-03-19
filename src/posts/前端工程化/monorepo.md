@@ -1,5 +1,5 @@
 ---
-title: pnpm + monorepo + changeset实现多包管理和发布
+title: monorepo
 tags:
    - 工程化
 ---
