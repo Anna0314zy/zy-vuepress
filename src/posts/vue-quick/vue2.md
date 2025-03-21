@@ -1,473 +1,215 @@
 ---
 title: vue2
-index: false
-icon: laptop-code
-category:
+tags:
   - vue
 ---
-### **Vue 2 双向数据绑定原理详解**  
 
-Vue 2 采用 **数据劫持（Object.defineProperty）+ 发布-订阅模式（Dep 依赖收集）** 来实现双向数据绑定。本篇文档详细介绍 Vue 2 的 **响应式原理**，以及 `watch` 和 `computed` 是如何触发视图更新的。
 
----
 
-## **🔥 1. Vue 2 的双向数据绑定原理**
-### **1.1 关键点**
-Vue 2 主要通过 **`Object.defineProperty()`** 来拦截对象的 `get` 和 `set` 操作，实现数据劫持。当数据发生变化时，Vue 会通知相关的**依赖（Watcher）**，触发视图更新。
+# **🔥 Vue 2 响应式原理：依赖收集 & 视图更新（手写实现）**  
 
-### **1.2 Vue 响应式流程**
-1️⃣ **`Observer`（数据劫持）**：使用 `Object.defineProperty()` 监听对象属性的 `get` 和 `set`  
-2️⃣ **`Dep`（依赖收集）**：每个数据都有一个 `Dep`，负责存储 `Watcher`（订阅者）  
-3️⃣ **`Watcher`（观察者）**：当数据变化时，`Watcher` 负责通知 Vue 重新渲染  
-4️⃣ **`Compile`（模板编译）**：解析 Vue 模板（`{{ message }}`），建立 `Watcher`  
+Vue 2 的双向数据绑定是基于 **`Object.defineProperty()`** 和 **发布-订阅模式（观察者模式）** 实现的。核心流程包括：  
+
+1. **依赖收集（Dep）**：在 `getter` 访问时收集依赖（`Watcher`）。
+2. **数据劫持（Observer）**：使用 `Object.defineProperty()` 监听数据变化。
+3. **视图更新（Watcher）**：在 `setter` 触发时通知 `Watcher`，并执行 `update()` 进行视图更新。
 
 ---
 
-## **🔥 2. Vue 2 响应式数据劫持 (`Observer`)**
-Vue 2 通过 `Object.defineProperty()` 为数据添加 `getter` 和 `setter`，实现数据劫持。
+# **🚀 第一步：实现 `Dep`（依赖收集中心）**
+在 Vue 2 中，每个 **响应式属性** 都有一个 `Dep`（依赖收集器），用于存储所有依赖该数据的 `Watcher`。
 
-### **📌 代码实现**
-```javascript
-class Observer {
-  constructor(data) {
-    this.walk(data);
-  }
-
-  walk(obj) {
-    if (!obj || typeof obj !== "object") return;
-    Object.keys(obj).forEach((key) => {
-      this.defineReactive(obj, key, obj[key]);
-    });
-  }
-
-  defineReactive(obj, key, val) {
-    const dep = new Dep(); // 每个属性对应一个 Dep 实例
-    new Observer(val); // 递归监听对象
-
-    Object.defineProperty(obj, key, {
-      get() {
-        if (Dep.target) {
-          dep.depend(); // 依赖收集
-        }
-        return val;
-      },
-      set(newVal) {
-        if (newVal !== val) {
-          val = newVal;
-          new Observer(newVal); // 监听新值
-          dep.notify(); // 通知 Watcher 更新视图
-        }
-      }
-    });
-  }
-}
-```
-**📌 说明**
-- `Observer` 遍历对象，为每个属性添加 `getter/setter`。
-- `get()` 时，收集依赖（Dep 订阅 Watcher）。
-- `set()` 时，通知依赖更新（Dep 触发 Watcher）。
-
----
-
-## **🔥 3. 依赖收集 (`Dep`)**
-Vue 通过 `Dep` **存储 Watcher，并在数据更新时通知 Watcher 重新渲染**。
-
-### **📌 代码实现**
-```javascript
+### **✅ 代码实现：`Dep` 类**
+```typescript
 class Dep {
-  constructor() {
-    this.subs = []; // 存储 Watcher
+  subs: Watcher[] = []; // 存储 Watcher 依赖
+  static target: Watcher | null = null; // 当前正在收集的 Watcher
+
+  // 依赖收集
+  addSub(watcher: Watcher) {
+    this.subs.push(watcher);
   }
 
-  depend() {
-    if (Dep.target) {
-      this.subs.push(Dep.target); // 收集 Watcher
-    }
-  }
-
+  // 通知所有 Watcher 更新视图
   notify() {
-    this.subs.forEach((watcher) => watcher.update()); // 触发 Watcher 更新
+    this.subs.forEach(watcher => watcher.update());
   }
 }
-Dep.target = null; // 记录当前 Watcher
 ```
-📌 **说明**
-- `subs` 用于存储 `Watcher`（订阅者）。
-- `depend()` 在 `get()` 时收集依赖。
-- `notify()` 在 `set()` 时触发 `Watcher` 更新。
+
+### **📌 依赖收集的核心逻辑**
+- `subs`：存储所有依赖此数据的 `Watcher`。
+- `addSub(watcher)`：将 `Watcher` 添加到 `subs` 中（即收集依赖）。
+- `notify()`：当数据变更时，通知所有 `Watcher` 触发 `update()` 进行视图更新。
 
 ---
 
-## **🔥 4. 观察者 Watcher（通知视图更新）**
-Vue 通过 `Watcher` 监听数据变化，当数据改变时，`Watcher` 触发 `update()` 更新视图。
+# **🚀 第二步：实现 `Observer`（数据劫持）**
+Vue 2 通过 `Object.defineProperty()` **劫持数据**，在 `getter` 访问时 **收集依赖**，在 `setter` 修改时 **通知更新**。
 
-### **📌 代码实现**
-```javascript
+### **✅ 代码实现：`Observer` 类**
+```typescript
+class Observer {
+  constructor(obj: any) {
+    this.walk(obj); // 遍历所有属性
+  }
+
+  walk(obj: any) {
+    Object.keys(obj).forEach(key => defineReactive(obj, key, obj[key]));
+  }
+}
+
+// 使对象属性变成响应式
+function defineReactive(obj: any, key: string, val: any) {
+  const dep = new Dep(); // 创建 Dep 实例
+
+  Object.defineProperty(obj, key, {
+    get() {
+      if (Dep.target) {
+        dep.addSub(Dep.target); // 依赖收集
+      }
+      return val;
+    },
+    set(newVal) {
+      if (newVal !== val) {
+        val = newVal;
+        dep.notify(); // 触发视图更新
+      }
+    }
+  });
+}
+```
+
+### **📌 `Observer` 核心逻辑**
+- `walk(obj)`：遍历对象的所有属性，并调用 `defineReactive()` 进行响应式处理。
+- `defineReactive()`：
+  1. **`getter` 访问时** 调用 `dep.addSub()` **收集依赖**（`Watcher`）。
+  2. **`setter` 变更时** 调用 `dep.notify()` **触发视图更新**。
+
+---
+
+# **🚀 第三步：实现 `Watcher`（监听数据 & 触发更新）**
+`Watcher` 负责：
+1. **依赖收集**：在 `getter` 访问时，添加自己到 `Dep` 依赖列表中。
+2. **视图更新**：在 `setter` 修改时，触发 `update()` 进行视图更新。
+
+### **✅ 代码实现：`Watcher` 类**
+```typescript
 class Watcher {
-  constructor(vm, key, cb) {
-    this.vm = vm;
+  obj: any;
+  key: string;
+  updateFn: Function;
+
+  constructor(obj: any, key: string, updateFn: Function) {
+    this.obj = obj;
     this.key = key;
-    this.cb = cb;
-    Dep.target = this; // 设置当前 Watcher
-    this.vm[this.key]; // 触发 get() 进行依赖收集
-    Dep.target = null;
+    this.updateFn = updateFn;
+
+    Dep.target = this; // 触发依赖收集
+    this.obj[this.key]; // 读取一次属性，触发 `getter` 进行依赖收集
+    Dep.target = null; // 清除当前 Watcher
   }
 
   update() {
-    this.cb(this.vm[this.key]); // 触发视图更新
+    this.updateFn(this.obj[this.key]); // 触发视图更新
   }
 }
 ```
-📌 **说明**
-- `Watcher` 负责**依赖收集**，在 `get()` 时被 `Dep` 记录。
-- `set()` 触发 `Dep.notify()`，`Watcher.update()` 更新视图。
+
+### **📌 `Watcher` 核心逻辑**
+- `Dep.target = this;`：在 `getter` 访问时，标记当前 `Watcher` 进行依赖收集。
+- `this.obj[this.key];`：访问属性，触发 `getter`，从而 `Dep.addSub(this)` 收集依赖。
+- `update()`：当 `Dep.notify()` 触发时，执行 `updateFn()` 进行视图更新。
 
 ---
 
-## **🔥 5. `watch` 的实现**
-Vue 的 `watch` 本质上是 **监听数据变化后执行回调函数**，它的底层原理就是 `Watcher`。
+# **🚀 第四步：整合 Vue 2 响应式系统**
+Vue 2 在初始化时，会创建 `Observer` 监听 `data`，然后用 `Watcher` 监听变化，最终触发 `update()` 更新视图。
 
-### **📌 `watch` 代码实现**
-```javascript
+### **✅ 代码实现：Vue 2 响应式**
+```typescript
 class Vue {
-  constructor(options) {
-    this.$data = options.data;
-    new Observer(this.$data);
+  data: any;
+  constructor(options: any) {
+    this.data = options.data;
+    new Observer(this.data); // 监听 `data`
 
-    // 监听 watch
-    if (options.watch) {
-      Object.keys(options.watch).forEach((key) => {
-        new Watcher(this, key, options.watch[key]);
-      });
-    }
+    // 创建 Watcher 监听 `data.text`
+    new Watcher(this.data, "text", newVal => {
+      console.log("视图更新:", newVal);
+    });
   }
 }
+```
 
-// 测试 Watcher
+### **✅ 测试 Vue 响应式**
+```typescript
 const vm = new Vue({
-  data: { message: "Hello Vue" },
-  watch: {
-    message(newVal) {
-      console.log("message 变化了:", newVal);
-    }
+  data: {
+    text: "Hello Vue 2"
   }
 });
 
-// 触发 watch
-vm.$data.message = "Hello World";
-```
-📌 **原理**
-1. **创建 Watcher** 监听 `message`
-2. `set()` 触发 `Dep.notify()`，`Watcher.update()` 执行回调函数
-
-📌 **输出**
-```bash
-message 变化了: Hello World
+// 触发视图更新
+vm.data.text = "Vue 响应式成功！";
+// 输出: "视图更新: Vue 响应式成功！"
 ```
 
 ---
 
-## **🔥 6. `computed` 的实现**
-`computed` 本质上是**缓存的 `watcher`**，只有依赖变化时才重新计算。
+# **🚀 第五步：处理数组响应式**
+`Object.defineProperty()` **无法拦截数组索引变化**，所以 Vue 2 采用**劫持数组原型**的方法。
 
-### **📌 `computed` 代码实现**
-```javascript
-class ComputedWatcher {
-  constructor(vm, key, getter) {
-    this.vm = vm;
-    this.key = key;
-    this.getter = getter;
-    this.value = this.get();
-  }
+### **✅ 代码实现：拦截数组方法**
+```typescript
+const arrayProto = Array.prototype;
+const arrayMethods = Object.create(arrayProto);
 
-  get() {
-    Dep.target = this; // 依赖收集
-    const val = this.getter.call(this.vm);
-    Dep.target = null;
-    return val;
-  }
-
-  update() {
-    this.value = this.get(); // 重新计算
-    console.log(`${this.key} 变化了:`, this.value);
-  }
-}
-
-class Vue {
-  constructor(options) {
-    this.$data = options.data;
-    new Observer(this.$data);
-
-    if (options.computed) {
-      this.$computed = {};
-      Object.keys(options.computed).forEach((key) => {
-        const watcher = new ComputedWatcher(this, key, options.computed[key]);
-        Object.defineProperty(this.$computed, key, {
-          get: () => watcher.value
-        });
-      });
-    }
-  }
-}
-
-// 测试 Computed
-const vm = new Vue({
-  data: { a: 2, b: 3 },
-  computed: {
-    sum() {
-      return this.$data.a + this.$data.b;
-    }
-  }
+["push", "pop", "shift", "unshift", "splice", "sort", "reverse"].forEach(method => {
+  arrayMethods[method] = function (...args: any[]) {
+    const result = arrayProto[method].apply(this, args);
+    console.log(`数组方法 ${method} 被调用`, args);
+    return result;
+  };
 });
 
-console.log(vm.$computed.sum); // 5
-vm.$data.a = 5; // 触发更新
-console.log(vm.$computed.sum); // 8
-```
-📌 **输出**
-```bash
-5
-sum 变化了: 8
-8
-```
-📌 **原理**
-- **`computed` 依赖 `a, b`，当 `a, b` 变化时重新计算**。
-- **`computed` 具有缓存性，值不变不会重复计算**。
-
----
-
-## **🎯 总结**
-| **机制** | **作用** | **原理** |
-|---------|--------|--------|
-| **`Observer`** | **数据劫持** | `Object.defineProperty()` 拦截 `get/set` |
-| **`Dep`** | **依赖收集** | 记录 `Watcher`，数据变化时触发 `notify()` |
-| **`Watcher`** | **更新视图** | 依赖 `Dep`，当数据变化时执行回调 |
-| **`watch`** | **监听数据变化** | `Watcher.update()` 触发回调 |
-| **`computed`** | **计算属性（缓存）** | `Watcher.get()` 只有依赖变化才重新计算 |
-
-📌 **Vue 2 通过 `Object.defineProperty()` 实现响应式，Vue 3 使用 `Proxy` 替代**。
-
----
-
-📌 **你的 Vue 2 项目是要优化 `computed` 还是 `watch`？我可以帮你优化代码！😃**
-
-# **Vue 2 的 `provide` 和 `inject` 以及数据通信方式**
-
-## **🚀 1. `provide` 和 `inject` 的使用**
-在 Vue 2 中，`provide` 和 `inject` 主要用于 **祖孙组件之间通信**，不需要通过 `props` 一层层传递数据。
-
-### **📌 使用场景**
-- **深层组件通信**（祖先组件向多个子孙组件提供数据）
-- **插件开发**（如 `Vuex`，内部使用 `provide`）
-- **全局数据共享**（如主题、用户信息）
-
----
-
-## **🔥 2. `provide` 和 `inject` 代码示例**
-### **✅ `provide`（祖先组件）**
-```vue
-<!-- App.vue -->
-<template>
-  <div>
-    <h2>App 组件</h2>
-    <Parent />
-  </div>
-</template>
-
-<script>
-import Parent from "./Parent.vue";
-export default {
-  components: { Parent },
-  provide() {
-    return {
-      message: "Hello from App.vue",
-      count: 100
-    };
+class Observer {
+  constructor(obj: any) {
+    if (Array.isArray(obj)) {
+      obj.__proto__ = arrayMethods; // 让数组使用拦截后的方法
+    } else {
+      this.walk(obj);
+    }
   }
-};
-</script>
-```
-📌 **提供数据**
-- `provide()` 返回一个对象，里面存储**可被子组件访问的数据**。
-
----
-
-### **✅ `inject`（子孙组件）**
-```vue
-<!-- Child.vue -->
-<template>
-  <div>
-    <h3>Child 组件</h3>
-    <p>收到 message: {{ message }}</p>
-    <p>收到 count: {{ count }}</p>
-  </div>
-</template>
-
-<script>
-export default {
-  inject: ["message", "count"] // 直接获取父级提供的数据
-};
-</script>
-```
-📌 **接收数据**
-- `inject: ["message", "count"]` 表示从 `provide` 里拿到对应的值。
-
----
-
-### **🔥 `provide` 和 `inject` 的注意事项**
-1️⃣ **`provide` 提供的是 **"引用类型" 数据**，`inject` 直接修改不会触发视图更新**
-```vue
-export default {
-  provide() {
-    return {
-      count: 100
-    };
-  }
-};
-```
-**🚨 直接修改 `inject` 的值不会响应式**
-```vue
-export default {
-  inject: ["count"],
-  mounted() {
-    this.count = 200; // ❌ 修改不会更新视图
-  }
-};
-```
-✅ **正确方式：使用 `Vue.observable`（Vue 2.6+）**
-```vue
-export default {
-  provide() {
-    return {
-      count: Vue.observable({ value: 100 }) // 响应式数据
-    };
-  }
-};
-```
-```vue
-export default {
-  inject: ["count"],
-  mounted() {
-    this.count.value = 200; // ✅ 修改后视图更新
-  }
-};
-```
-
----
-
-## **🚀 3. Vue 2 组件间的数据通信方式**
-### **📌 Vue 2 中 6 种组件通信方式**
-| **通信方式** | **适用场景** | **示例** |
-|------------|------------|--------|
-| **props + $emit** | **父子组件** | `props="message"`，`this.$emit("event", data)` |
-| **$parent / $children** | **父访问子 / 子访问父** | `this.$parent.xxx`，`this.$children[i]` |
-| **$attrs / $listeners** | **透传 `props` 和 `事件`** | `<child v-bind="$attrs" v-on="$listeners">` |
-| **Event Bus（$emit / $on）** | **兄弟组件通信** | `Vue.prototype.$bus = new Vue()` |
-| **Vuex（全局状态管理）** | **跨组件 / 跨页面** | `this.$store.state.xxx` |
-| **provide / inject** | **祖孙组件（跨层级）** | `provide: { theme: "dark" }`，`inject: ["theme"]` |
-
----
-
-### **🔥 1. `props + $emit`（父子组件通信）**
-```vue
-<!-- Parent.vue -->
-<Child :message="parentMessage" @updateMessage="parentMessage = $event" />
-```
-```vue
-<!-- Child.vue -->
-<template>
-  <button @click="$emit('updateMessage', '新的消息')">更新消息</button>
-</template>
-```
-📌 **适用于：**
-- **父 -> 子** 传递数据（`props`）
-- **子 -> 父** 传递数据（`$emit`）
-
----
-
-### **🔥 2. `$parent / $children`（访问父组件 / 子组件）**
-```vue
-// 子组件访问父组件
-console.log(this.$parent.someData);
-```
-```vue
-// 父组件访问子组件
-console.log(this.$children[0].childMethod());
-```
-📌 **适用于：**
-- **简单的父子通信**，不建议用于复杂场景（耦合度高）。
-
----
-
-### **🔥 3. `$attrs / $listeners`（透传 `props` 和 `事件`）**
-```vue
-<Child v-bind="$attrs" v-on="$listeners" />
-```
-📌 **适用于：**
-- **中间组件不处理 `props` 和 `事件`**，直接传递。
-
----
-
-### **🔥 4. `Event Bus`（兄弟组件通信）**
-```javascript
-Vue.prototype.$bus = new Vue(); // 在 main.js 里定义
-```
-```vue
-// 组件 A
-this.$bus.$emit("eventName", data);
-```
-```vue
-// 组件 B
-this.$bus.$on("eventName", (data) => { console.log(data); });
-```
-📌 **适用于：**
-- **非父子组件**（如兄弟组件）
-- **项目小型，不用 Vuex**
-
----
-
-### **🔥 5. Vuex（全局状态管理）**
-```vue
-computed: {
-  count() { return this.$store.state.count; }
-}
-methods: {
-  increment() { this.$store.commit('increment'); }
 }
 ```
-📌 **适用于：**
-- **跨组件 / 跨页面**
-- **大型项目，数据集中管理**
 
----
+### **✅ 测试数组响应式**
+```typescript
+const data = { list: [1, 2, 3] };
+new Observer(data);
 
-### **🔥 6. `provide / inject`（祖孙组件通信）**
-```vue
-export default {
-  provide() { return { theme: "dark" }; }
-}
+data.list.push(4); // 输出: "数组方法 push 被调用 [4]"
+data.list.splice(1, 1); // 输出: "数组方法 splice 被调用 [1, 1]"
 ```
-```vue
-export default {
-  inject: ["theme"]
-}
-```
-📌 **适用于：**
-- **多层级组件通信**
-- **插件开发（如 Vue Router、Vuex 内部实现）**
 
 ---
 
-## **🎯 总结**
-| **方式** | **适用场景** | **特点** |
-|---------|------------|--------|
-| **props + $emit** | **父子组件通信** | 最推荐，结构清晰 |
-| **$parent / $children** | **访问父 / 子组件** | 耦合度高，不推荐 |
-| **$attrs / $listeners** | **透传 `props` 和 `事件`** | 适用于中间组件 |
-| **Event Bus** | **兄弟组件通信** | 适用于小项目，Vue 3 废弃 |
-| **Vuex** | **全局状态管理** | 适用于大型应用 |
-| **provide / inject** | **祖孙组件通信** | 适用于插件、多层级通信 |
+# **🎯 总结**
+| **步骤** | **实现方式** | **代码示例** |
+|---------|-----------|------------|
+| **依赖收集 (`Dep`)** | `getter` 访问时收集 `Watcher` | `dep.addSub(watcher)` |
+| **数据劫持 (`Observer`)** | `Object.defineProperty()` 拦截 `getter/setter` | `defineReactive(obj, key, val)` |
+| **监听变化 (`Watcher`)** | 依赖收集后执行 `update()` 更新视图 | `this.obj[this.key]` |
+| **数组拦截** | 继承 `Array.prototype` 并重写 7 个方法 | `arrayMethods.push = function(...) {}` |
+| **整合 Vue 2 响应式** | 初始化 `Observer` 和 `Watcher` | `new Vue({ data })` |
 
 ---
 
-📌 **你的 Vue 2 项目是要优化组件通信，还是要迁移到 Vue 3？可以帮你选最佳方案！😃**
+## **🔥 你学到了什么？**
+- Vue 2 **如何收集依赖**
+- **如何设计 `Dep`、`Observer`、`Watcher`**
+- **如何劫持对象和数组**
+- **如何实现视图更新**
+
+📌 **你在 Vue 2 项目中是否遇到了响应式相关问题？可以帮你优化代码！😃**
