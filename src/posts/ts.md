@@ -306,3 +306,6 @@ export type QueType2 = `${QueTypeList}` // 'L1' | 'L2' | 'L3'
 
 
 ```
+### vue 中使用**[具体引用](https://cn.vuejs.org/guide/typescript/composition-api#typing-template-refs)**
+
+
