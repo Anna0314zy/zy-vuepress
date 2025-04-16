@@ -1,17 +1,41 @@
-// 测试二分法
+// 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
 
-// 删除数组的某一个元素
 
-const arr = [1];
-// 删除数组重复元素
-function removeDuplicates(arr) {
-    if(arr.length === 0) return 0;
-    let slow = 1;
-    for(let fast = 1; fast < arr.length; fast++) {
-        if(arr[fast] !== arr[slow - 1]) {
-            arr[slow++] = arr[fast];
-        }
+function moveZeroes(nums) {
+    let left = 0;
+    let right = 0
+   while(right < nums.length) {
+    if(nums[right]) {
+        [nums[left],nums[right]] = [nums[right],nums[left]]
+        left++
     }
-    return slow;
+    right++
+   }
 }
-console.log(removeDuplicates(arr))
+
+const arr = [0,9,8,0,9,91]
+
+moveZeroes(arr);
+console.log(arr)
+
+// 给定 s 和 t 两个字符串，当它们分别被输入到空白的文本编辑器后，如果两者相等，返回 true 。# 代表退格字符。
+
+// 注意：如果对空文本输入退格字符，文本继续为空。
+
+// s = "ab#c", t = "ad#c"
+
+function backspaceCompare(s, t) {
+    function process(str) {
+        const stack = [];
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] !== '#') {
+                stack.push(str[i]);
+            } else if (stack.length > 0) {
+                stack.pop();
+            }
+        }
+        return stack.join('');
+    }
+
+    return process(s) === process(t);
+}
