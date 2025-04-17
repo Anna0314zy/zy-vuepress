@@ -1,41 +1,58 @@
-// 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+const nums = [-1, 0, 1, 2, -1, -4]
 
-
-function moveZeroes(nums) {
-    let left = 0;
-    let right = 0
-   while(right < nums.length) {
-    if(nums[right]) {
-        [nums[left],nums[right]] = [nums[right],nums[left]]
-        left++
-    }
-    right++
-   }
-}
-
-const arr = [0,9,8,0,9,91]
-
-moveZeroes(arr);
-console.log(arr)
-
-// 给定 s 和 t 两个字符串，当它们分别被输入到空白的文本编辑器后，如果两者相等，返回 true 。# 代表退格字符。
-
-// 注意：如果对空文本输入退格字符，文本继续为空。
-
-// s = "ab#c", t = "ad#c"
-
-function backspaceCompare(s, t) {
-    function process(str) {
-        const stack = [];
-        for (let i = 0; i < str.length; i++) {
-            if (str[i] !== '#') {
-                stack.push(str[i]);
-            } else if (stack.length > 0) {
-                stack.pop();
+var threeSum = function (nums) {
+    // nsum通用解法核心方法
+    function nSumTarget(nums, n, start, target) {
+        // 前提：nums要先排序好
+        let res = [];
+        if (n === 2) {
+            res = towSumTarget(nums, start, target);
+        } else {
+            for (let i = start; i < nums.length; i++) {
+                // 递归求(n - 1)sum
+                let subRes = nSumTarget(
+                    nums,
+                    n - 1,
+                    i + 1,
+                    target - nums[i]
+                );
+                for (let j = 0; j < subRes.length; j++) {
+                    res.push([nums[i], ...subRes[j]]);
+                }
+                // 跳过相同元素
+                while (nums[i] === nums[i + 1]) i++;
             }
         }
-        return stack.join('');
+        return res;
     }
 
-    return process(s) === process(t);
-}
+    function towSumTarget(nums, start, target) {
+        // 前提：nums要先排序好
+        let res = [];
+        let len = nums.length;
+        let left = start;
+        let right = len - 1;
+        while (left < right) {
+            let sum = nums[left] + nums[right];
+            if (sum < target) {
+                while (nums[left] === nums[left + 1]) left++;
+                left++;
+            } else if (sum > target) {
+                while (nums[right] === nums[right - 1]) right--;
+                right--;
+            } else {
+                // 相等
+                res.push([nums[left], nums[right]]);
+                // 跳过相同元素
+                while (nums[left] === nums[left + 1]) left++;
+                while (nums[right] === nums[right - 1]) right--;
+                left++;
+                right--;
+            }
+        }
+        return res;
+    }
+    nums.sort((a, b) => a - b);
+    // n = 3，此时求3sum之和
+    return nSumTarget(nums, 3, 0, 0);
+};
