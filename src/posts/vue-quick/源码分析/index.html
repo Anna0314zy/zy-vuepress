@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue 3 CDN 示例</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <script>
+    //   const { createApp, ref, watch,effect } = Vue;
+      // 提供一个注册副作用函数的机制
+
+      //   用一个全局变量存储被注册的副作用函数
+
+      let activeEffect;
+      const data = { text: "hello world",ok:true };
+
+      // 存储副作用函数的桶
+      const bucket = new WeakMap();
+      // 代理对象
+      const obj = new Proxy(data, {
+        get(target, key) {
+          console.log("触发读取操作---");
+          track(target, key);
+          return target[key];
+        },
+        set(target, key, value) {
+          target[key] = value;
+          trigger(target, key, value);
+        },
+      });
+
+      function track(target, key) {
+        if (!activeEffect) return target[key];
+        // 依赖收集
+
+        let depsMap = bucket.get(target);
+        if (!depsMap) {
+          bucket.set(target, (depsMap = new Map()));
+        }
+        let deps = depsMap.get(key); // 每个键值对应一个副作用函数
+        if (!deps) {
+          depsMap.set(key, (deps = new Set()));
+        }
+        deps.add(activeEffect);
+        // deps 就是一个与当前副作用函数相关联的集合
+        activeEffect.deps.push(deps);
+      }
+      function trigger(target, key, value) {
+        target[key] = value;
+        // 触发副作用函数
+        const depsMap = bucket.get(target);
+        if (!depsMap) return;
+        const effects = depsMap.get(key);
+        if (!effects) return;
+        // 避免无限循环 因为 effect会先删除之前的依赖关系
+        const effectsToRun = new Set(effects); // 触发副作用函数
+        effectsToRun.forEach((fn) => {
+          fn();
+        });
+      }
+
+      function effect(fn) {
+        const effectFn = () => {
+          cleanUp(effectFn); // 清除上次的副作用函数
+          // 触发副作用函数
+          activeEffect = effectFn;
+          fn();
+        };
+        effectFn.deps = []; // 记录当前副作用函数所依赖的属性
+        effectFn();
+      }
+
+      function cleanUp(effectFn) {
+       for(let i=0;i<effectFn.deps.length;i++){
+        const deps = effectFn.deps[i];
+        deps.delete(effectFn); // 删除副作用函数
+       }
+       effectFn.deps.length = 0; // 清空副作用函数
+      }
+
+
+
+      effect(() => {
+        console.log("effect run ");
+        // document.body.innerText = obj.text;
+        document.body.innerText = obj.ok ? obj.text : 'not'; // 触发读取操作
+      }); // 触发副作用函数
+      setTimeout(() => {
+        // TODO 添加一个不存在的值 不应该触发副作用函数 问题原因 我们没有在副作用函数与操作的目标字段之间建立明确的联系
+        // 需要考虑的点
+        // 1. 两个副作用函数同时读物一个对象的属性值  target text -> effect1 effect2
+        // 2. 一个副作用函数读取了同一个对象的两个不同的属性 text1 effect1  text2 effect1
+        // obj.text1 = "hello vue3"; // 建a立了对应的关系 此时就可以不用触发副作用函数
+        obj.ok = false
+        obj.text = "hello vue3"; // 触发副作用函数
+      }, 1000);
+      
+
+    
+
+
+
+    </script>
+  </body>
+</html>
