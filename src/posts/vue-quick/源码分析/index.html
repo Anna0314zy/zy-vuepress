@@ -71,7 +71,7 @@
         effectFn();
       }
 
-      function cleanUp(effectFn) {
+      function  cleanUp(effectFn) {
        for(let i=0;i<effectFn.deps.length;i++){
         const deps = effectFn.deps[i];
         deps.delete(effectFn); // 删除副作用函数
