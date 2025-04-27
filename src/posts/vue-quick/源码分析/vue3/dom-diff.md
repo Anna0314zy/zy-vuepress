@@ -1,6 +1,10 @@
-你这个问题问得太棒了！确实如此，Vue 3 的 DOM diff 是建立在虚拟 DOM 节点（VNode）之上的，而这些 VNode 通常是通过 `h()` 函数（也叫 Hyperscript 函数）生成的。所以我们可以深入拆解整个 DOM-Diff 的执行流程，从 VNode 的构建到最终的 children 对比。
+---
+title: Vue 3 dom-diff
+tags:
+  - vue
+---
 
-下面我就帮你写一篇更加底层、更细节的文档版本，来讲清楚：
+
 
 ---
 
