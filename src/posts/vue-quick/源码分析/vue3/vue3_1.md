@@ -1,7 +1,7 @@
 ---
 title: vue3 的思考
 tags:
-  - vue
+  - vue3
 ---
 
 

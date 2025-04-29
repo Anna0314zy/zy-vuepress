@@ -1,7 +1,7 @@
 ---
 title: vue3
 tags:
-  - vue
+  - vue3
 ---
 
 

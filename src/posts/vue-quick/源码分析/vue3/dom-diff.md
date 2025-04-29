@@ -1,7 +1,7 @@
 ---
 title: Vue 3 dom-diff
 tags:
-  - vue
+  - vue3
 ---
 
 

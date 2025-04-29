@@ -2,7 +2,7 @@
 title: 进阶Vue篇（三）
 date: 2019-07-14
 tags:
-  - Javascript
+  - Javascript vue
 ---
 
 # 进阶Vue篇（三）
