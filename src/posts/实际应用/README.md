@@ -1,9 +1,9 @@
 ---
-title: vue 学习笔记
+title: 实际应用
 index: false
 icon: laptop-code
 category:
-  - vue
+  - 实际应用
 ---
 
 <Catalog />

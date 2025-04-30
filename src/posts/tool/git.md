@@ -113,6 +113,13 @@ export NODE_OPTIONS=--openssl-legacy-provider
  //-f 选项：指定密钥文件名，避免覆盖 ~/.ssh/id_rsa（默认密钥）。
 ```
 
+winows
+
+```js
+ssh-keygen -t rsa -f $env:USERPROFILE\.ssh\id_rsa -C "p_zouyu@ledupeiyou.com"
+
+```
+
 
 ### 2.将 ssh-key 分别添加到 ssh-agent 信任列表
 ```js
