@@ -77,6 +77,10 @@ export default hopeTheme({
         hint: "Password: 1234",
         password: "1234",
       },
+      "/posts/git-repositories.html": {
+        hint: "输入密码",
+        password: "zouyu3665",
+      },
     },
   },
 

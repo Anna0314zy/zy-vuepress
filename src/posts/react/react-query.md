@@ -342,3 +342,6 @@ const { data, hasNextPage, fetchNextPage } = useInfiniteQuery(['users'], fetchUs
 ```
 
 React Query 提供了强大的数据管理能力，可以显著简化 React 应用中的数据获取和状态管理逻辑。通过合理使用其各种功能，可以构建出高性能、用户体验良好的应用程序。
+
+
+# [github 地址](https://gitee.com/fjianzhou/zhufeng-react-query-2022.git)
