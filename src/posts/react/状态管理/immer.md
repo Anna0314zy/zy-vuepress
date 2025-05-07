@@ -202,5 +202,3 @@ console.log(inversePatches); // [{ op: "replace", path: ["count"], value: 0 }]
 
 ## **📌 参考资料**
 🔗 `immer` 官方文档：[https://immerjs.github.io/immer/](https://immerjs.github.io/immer/)
-
-你在项目里用的是 React、Redux 还是 Vue？有具体的使用需求吗？🚀

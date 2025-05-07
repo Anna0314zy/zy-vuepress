@@ -8,6 +8,10 @@ tags:
 Here's a Markdown document with all the repositories, including clickable links and SSH addresses, along with a complete shell script to clone all repositories:
 # Gitee Repositories
 
+## 状态机 xstate
+
+- ssh: git@gitee.com:fjianzhou/zhufeng-react-states.git
+
 ## Repositories List
 
 ### [201803](https://gitee.com/jw-speed/201803.git)
