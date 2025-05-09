@@ -19,17 +19,18 @@
 ## 概述
 
 Recoil 是 Facebook 推出的 React 状态管理库，专为 React 设计，充分利用 React 的并发模式特性。它提供了一种更直观、更灵活的方式来管理应用状态，特别适合复杂的状态管理场景。
+其核心思想是： 使用 “原子化状态（Atom）+ 派生状态（Selector）” 的方式，使状态管理像使用 React 组件一样简单且具备良好的性能。
 
 ## 核心概念
 
 ### Atom
 
-Atom 是 Recoil 中的基本状态单位，代表应用中的一部分状态。
+Atom：最小状态单元
+- 是 Recoil 中状态的最小组成单元。
 
-**特性：**
-- 可读可写
-- 可以被任何组件订阅
-- 当值改变时，所有订阅组件都会重新渲染
+- 可以被多个组件共享、订阅。
+
+- 修改 Atom 时，只有使用该 Atom 的组件会重新渲染。
 
 **示例代码：**
 ```javascript
@@ -60,12 +61,12 @@ function TodoList() {
 
 ### Selector
 
-Selector 代表派生状态，可以从 atom 或其他 selector 中派生数据。
+Selector：派生/计算状态
+- 类似于 Vue 的 computed。
 
-**特性：**
-- 可以是只读或可写的
-- 当依赖的状态变化时自动重新计算
-- 可以包含异步操作
+- 用于从一个或多个 Atom 中派生出新状态。
+
+- 支持同步和异步派生。
 
 **示例代码：**
 ```javascript
@@ -100,6 +101,17 @@ function TodoListStats() {
   );
 }
 ```
+🧠 内部机制（简要）
+✅ 原子依赖追踪（依赖图 DAG）
+每个 Atom/Selector 构成一个“依赖图”，Recoil 追踪谁依赖了谁。
+
+当某个 Atom 改变时，只会通知真正依赖它的组件重新渲染，避免不必要更新。
+
+✅ React Concurrent Mode 支持
+Recoil 是为 React 的并发模式（Concurrent Mode）设计的，可以天然处理“延迟渲染”和“挂起”逻辑（通过 selector 的 async 支持）。
+
+✅ Snapshots（状态快照）
+Recoil 支持快照机制，可以用来实现撤销/重做、调试状态、时间旅行等功能。
 
 ## 高级功能
 
