@@ -8,176 +8,73 @@
 <body>
    <div id="root"></div>
     <script>
-  // 极简版 React 实现
-class MiniReact {
-  // 1. 虚拟 DOM 结构
-  static createElement(type, props, ...children) {
-    return {
-      type,
-      props: props || {},
-      children: children.flat()
-    };
-  }
-
-  // 2. 组件基类（类似 React.Component）
-  static Component = class {
-    constructor(props) {
-      this.props = props;
-      this.state = {};
-    }
-
-    setState(partialState) {
-      this.state = { ...this.state, ...partialState };
-      this._updateComponent(); // 触发更新
-    }
-
-    _updateComponent() {
-      const prevVNode = this._vNode;
-      const newVNode = this.render();
-      const patches = this.diff(prevVNode, newVNode);
-      this.patch(this._dom, patches);
-      this._vNode = newVNode;
-    }
-  }
-
-  // 3. 渲染入口
-  static render(vnode, container) {
-    const dom = this._createDom(vnode);
-    container.appendChild(dom);
-    return dom;
-  }
-
-  // 4. 创建真实 DOM
-  static _createDom(vnode) {
-    if (typeof vnode === 'string') {
-      return document.createTextNode(vnode);
-    }
-
-    const dom = document.createElement(vnode.type);
-    
-    // 处理属性
-    Object.keys(vnode.props).forEach(prop => {
-      if (prop.startsWith('on')) {
-        const eventType = prop.toLowerCase().substring(2);
-        dom.addEventListener(eventType, vnode.props[prop]);
-      } else {
-        dom[prop] = vnode.props[prop];
-      }
-    });
-
-    // 递归创建子节点
-    vnode.children.forEach(child => {
-      this.render(child, dom);
-    });
-
-    vnode.dom = dom; // 保存 DOM 引用
-    return dom;
-  }
-
-  // 5. 极简 Diff 算法
-  static diff(oldVNode, newVNode) {
-    if (!oldVNode) return { type: 'CREATE', newVNode };
-    if (!newVNode) return { type: 'REMOVE' };
-    if (oldVNode.type !== newVNode.type) return { type: 'REPLACE', newVNode };
-    
-    // 属性比对
-    const propPatches = {};
-    Object.keys(newVNode.props).forEach(prop => {
-      if (oldVNode.props[prop] !== newVNode.props[prop]) {
-        propPatches[prop] = newVNode.props[prop];
-      }
-    });
-
-    return {
-      type: 'UPDATE',
-      props: propPatches,
-      children: this._diffChildren(oldVNode, newVNode)
-    };
-  }
-
-  // 6. 子节点 Diff
-  static _diffChildren(oldVNode, newVNode) {
-    const patches = [];
-    const maxLen = Math.max(
-      oldVNode.children.length,
-      newVNode.children.length
-    );
-
-    for (let i = 0; i < maxLen; i++) {
-      patches.push(this.diff(
-        oldVNode.children[i],
-        newVNode.children[i]
-      ));
-    }
-
-    return patches;
-  }
-
-  // 7. 应用补丁
-  static patch(dom, patches) {
-    if (!patches) return;
-
-    switch (patches.type) {
-      case 'CREATE':
-        dom.parentNode.appendChild(this._createDom(patches.newVNode));
-        break;
-      case 'REPLACE':
-        dom.parentNode.replaceChild(this._createDom(patches.newVNode), dom);
-        break;
-      case 'UPDATE':
-        // 更新属性
-        Object.entries(patches.props).forEach(([prop, value]) => {
-          if (prop.startsWith('on')) {
-            const eventType = prop.toLowerCase().substring(2);
-            dom.removeEventListener(eventType, dom[prop]);
-            dom.addEventListener(eventType, value);
-          } else {
-            dom[prop] = value;
-          }
-        });
-
-        // 递归更新子节点
-        patches.children.forEach((childPatch, index) => {
-          this.patch(dom.childNodes[index], childPatch);
-        });
-        break;
-      case 'REMOVE':
-        dom.parentNode.removeChild(dom);
-        break;
-    }
-  }
+  function createHook(state) {
+  return {
+    memoizedState: state,  // 当前的状态
+    next: null             // 指向下一个 Hook
+  };
 }
+let fiber = {
+  memoizedState: null // 指向第一个 Hook
+};
 
-// 使用示例 -------------------------------------------------
-class Counter extends MiniReact.Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
+let workInProgressHook = null; // 当前执行到的 Hook 节点
+
+function useReducer(reducer, initialState) {
+  let hook;
+
+  if (!workInProgressHook) {
+    // 第一次执行，创建第一个 hook
+    hook = createHook(initialState);
+    fiber.memoizedState = hook;
+    workInProgressHook = hook;
+  } else {
+    // 后续执行，进入下一个 hook
+    if (!workInProgressHook.next) {
+      hook = createHook(initialState);
+      workInProgressHook.next = hook;
+    } else {
+      hook = workInProgressHook.next;
+    }
+    workInProgressHook = hook;
   }
 
-  handleClick = () => {
-    this.setState({ count: this.state.count + 1 });
+  const dispatch = (action) => {
+    hook.memoizedState = reducer(hook.memoizedState, action);
+    render(); // 重新渲染
   };
 
-  render() {
-    return MiniReact.createElement(
-      'div',
-      null,
-      MiniReact.createElement('h1', null, 'Count: ', this.state.count),
-      MiniReact.createElement(
-        'button',
-        { onClick: this.handleClick },
-        'Increment'
-      )
-    );
-  }
+  return [hook.memoizedState, dispatch];
+}
+function render() {
+  workInProgressHook = fiber.memoizedState; // 重置 Hook 遍历指针
+  CounterComponent();
 }
 
-// 初始化渲染
-const app = MiniReact.render(
-  MiniReact.createElement(Counter),
-  document.getElementById('root')
-);
+function CounterComponent() {
+  const [count, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case 'INCREMENT': return state + 1;
+      case 'DECREMENT': return state - 1;
+      default: return state;
+    }
+  }, 0);
+
+  console.log('Count:', count);
+
+  
+
+  // 绑定按钮模拟
+  window.increment = () => dispatch({ type: 'INCREMENT' });
+  window.decrement = () => dispatch({ type: 'DECREMENT' });
+}
+
+render();
+// // 测试
+// increment(); // Count: 1
+// increment(); // Count: 2
+// decrement(); // Count: 1
+
     </script>
 </body>
 </html>

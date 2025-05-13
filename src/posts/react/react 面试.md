@@ -228,62 +228,6 @@ function render() {
 }
 ```
 
----
-
-### ✅ 5. 示例函数组件
-
-```js
-function CounterComponent() {
-  const [count, dispatch] = useReducer((state, action) => {
-    switch (action.type) {
-      case 'INCREMENT': return state + 1;
-      case 'DECREMENT': return state - 1;
-      default: return state;
-    }
-  }, 0);
-
-  console.log('Count:', count);
-
-  // 绑定按钮模拟
-  window.increment = () => dispatch({ type: 'INCREMENT' });
-  window.decrement = () => dispatch({ type: 'DECREMENT' });
-}
-```
-
----
-
-### ✅ 6. 初始化渲染
-
-```js
-render();
-// 测试
-increment(); // Count: 1
-increment(); // Count: 2
-decrement(); // Count: 1
-```
-
----
-
-## 🧩 更进一步：多个 useReducer/useState
-
-你可以在组件里多次调用 `useReducer`，它会串成链表，状态保持正确：
-
-```js
-function MultiCounter() {
-  const [count1, dispatch1] = useReducer(reducer, 0);
-  const [count2, dispatch2] = useReducer(reducer, 100);
-
-  console.log('Count1:', count1, 'Count2:', count2);
-
-  window.inc1 = () => dispatch1({ type: 'INCREMENT' });
-  window.inc2 = () => dispatch2({ type: 'INCREMENT' });
-}
-```
-
-链表结构会确保你每次都访问到正确的 Hook 状态，即使调用顺序很多。
-
----
-
 ## 🔍 总结
 
 | 项目        | 数组实现                | 链表实现（React 真实做法）                    |
@@ -292,5 +236,4 @@ function MultiCounter() {
 | Hook 顺序管理 | 用 `hookIndex` 控制    | 用 `workInProgressHook` 游标管理         |
 | 更新后重建     | 全部重新遍历              | 重走链表，复用 Hook 位置                     |
 | 好处        | 模拟简单                | 更贴近 React，易于扩展和优化                   |
-
 ---
