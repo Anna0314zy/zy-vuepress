@@ -697,4 +697,159 @@ memoizedState = {
 
 ---
 
+## React Router
+
+> React Router 是一个通过监听 URL 变化（`history` 或 `hash`），利用 React 的组件渲染机制来匹配对应的路由组件，从而实现页面内容的动态切换的客户端路由方案。
+
+---
+
+
+### 1. **URL 变化监听**
+
+React Router 有两种模式：
+
+| 路由模式          | 实现方式                                           |
+| ------------- | ---------------------------------------------- |
+| BrowserRouter | 使用 HTML5 的 `history.pushState` 和 `popstate` 事件 |
+| HashRouter    | 使用 URL 中的 `#` 号和 `hashchange` 事件               |
+
+这两个模式都可以实现「URL 改变但页面不刷新」。
+
+---
+
+### 2. **history 对象的封装**
+
+React Router 底层依赖 [`history`](https://github.com/remix-run/history) 库，它封装了浏览器原生的 `history` API，提供了统一的编程接口：
+
+```ts
+const history = createBrowserHistory()
+
+history.push('/about') // 改变路径，不刷新页面
+```
+
+---
+
+### 3. **Router Context 提供当前 location**
+
+React Router 使用一个 `RouterContext`，通过 React 的 Context API 全局提供当前路由状态：
+
+```tsx
+const routerContext = React.createContext()
+
+<RouterContext.Provider value={{ location, navigate }}>
+  {children}
+</RouterContext.Provider>
+```
+
+其他组件（如 `<Route>`）通过 `useContext(RouterContext)` 获取当前路径信息，实现匹配与渲染。
+
+---
+
+### 4. **路由匹配原理（递归匹配）**
+
+React Router 会将定义好的 routes（通常是树形结构），和当前的 location.pathname 进行**递归匹配**，找到最匹配的 `Route` 并渲染它。
+
+源码核心方法为 `matchRoutes(routes, location.pathname)`。
+
+---
+
+### 5. **动态渲染组件**
+
+路由匹配成功后，会通过 `<Outlet>` 和 `<useRoutes>` 等 API 动态渲染组件：
+
+```tsx
+const element = useRoutes([
+  { path: '/', element: <Home /> },
+  { path: '/about', element: <About /> },
+])
+```
+
+---
+
+## 二、整体流程图示（简化版）
+
+```txt
++-------------------+        +----------------+
+| BrowserRouter     | --->   | 创建 History   |
++-------------------+        +----------------+
+        |
+        v
++--------------------------+
+| 监听 URL 改变（popstate）|
++--------------------------+
+        |
+        v
++--------------------------+
+| 更新 location，更新状态  |
++--------------------------+
+        |
+        v
++--------------------------+
+| 重新执行 matchRoutes     |
++--------------------------+
+        |
+        v
++--------------------------+
+| 渲染匹配到的组件         |
++--------------------------+
+```
+
+---
+
+## 三、路由跳转原理
+
+### 编程式跳转
+
+```tsx
+const navigate = useNavigate()
+navigate('/about')
+```
+
+调用后：
+
+* 内部执行了 `history.push('/about')`
+* 触发 `location` 状态更新
+* Router 重新匹配并渲染组件
+
+---
+
+### `<Link to="/about" />` 实现
+
+`<Link>` 组件的实现本质就是阻止默认跳转行为，然后调用 `history.push()`：
+
+```tsx
+<a href="/about" onClick={(e) => {
+  e.preventDefault()
+  history.push('/about')
+}}>
+  About
+</a>
+```
+
+---
+
+## 四、你可以自己实现一个简版路由
+
+### 核心点：
+
+* 监听 `popstate` / `hashchange`
+* 用 context 提供 `location`
+* 用匹配算法决定渲染哪个组件
+
+
+---
+
+## 五、总结（面试复述版）
+
+| 点位     | 内容                                           |
+| ------ | -------------------------------------------- |
+| 路由模式   | 使用 `history` 或 `hash` 模式监听 URL               |
+| 路由状态管理 | 用 `React Context` 提供 `location` 和 `navigate` |
+| 匹配机制   | `matchRoutes()` 遍历配置和当前路径进行匹配                |
+| 渲染机制   | 使用 `<Routes>` 和 `<Route>` 控制渲染               |
+| 跳转原理   | `history.push()` 改变路径，触发重新匹配                 |
+
+---
+
+
 
