@@ -696,6 +696,7 @@ memoizedState = {
 | 关键代码            | `throwException`, `attachPingListener`, `SuspenseComponent` 的 beginWork 和 completeWork |
 
 ---
+## react 路由
 
 ## React Router
 
@@ -852,4 +853,136 @@ navigate('/about')
 ---
 
 
+要实现一个简单的 React 路由库（类似 `react-router-dom`），我们需要从最基本的路由匹配、导航、组件渲染等功能着手。以下是一个基本的路由实现思路。我们将手动管理路由的状态、组件的渲染，并利用 React 的 Context 和 Hooks 来管理导航和路由状态。
+
+### 1. 创建 `RouterContext`
+
+首先，我们需要一个 `RouterContext` 来存储当前路由信息，并提供路由跳转的功能。
+
+```js
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+// 创建路由上下文
+const RouterContext = createContext();
+
+export function useRouter() {
+  return useContext(RouterContext);
+}
+
+export function RouterProvider({ children }) {
+  const [location, setLocation] = useState(window.location.pathname);
+
+  useEffect(() => {
+    // 监听浏览器的 popstate 事件
+    const handlePopState = () => {
+      setLocation(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  const navigate = (path) => {
+    window.history.pushState({}, '', path);
+    setLocation(path); // 更新当前路由
+  };
+
+  return (
+    <RouterContext.Provider value={{ location, navigate }}>
+      {children}
+    </RouterContext.Provider>
+  );
+}
+```
+
+* `RouterProvider` 是我们整个路由系统的核心，负责存储和更新当前路径。
+* `useRouter` 是一个自定义 Hook，用来方便地获取路由信息和导航函数。
+
+---
+
+### 2. 创建 `Route` 组件
+
+`Route` 组件用于根据路径匹配当前 URL，并渲染相应的组件。
+
+```js
+export function Route({ path, component }) {
+  const { location } = useRouter();
+  
+  // 简单的路径匹配
+  const match = location === path;
+
+  return match ? component : null; // 如果路径匹配，渲染组件
+}
+```
+
+* `Route` 会检查当前的路径（`location`）是否与 `path` 匹配。如果匹配，则渲染对应的组件。
+
+---
+
+### 3. 创建 `Link` 组件
+
+`Link` 用于在用户点击时触发路由跳转。
+
+```js
+export function Link({ to, children }) {
+  const { navigate } = useRouter();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(to);
+  };
+
+  return <a href={to} onClick={handleClick}>{children}</a>;
+}
+```
+
+* `Link` 组件通过 `navigate` 函数进行路由跳转。我们也阻止了默认的跳转行为（防止页面刷新）。
+
+---
+
+### 4. 使用 Router
+
+我们可以将这些组件组合起来，实现一个简易的路由系统。
+
+```js
+import React from 'react';
+import { RouterProvider, Route, Link } from './router';
+
+function Home() {
+  return <h2>Home Page</h2>;
+}
+
+function About() {
+  return <h2>About Page</h2>;
+}
+
+function App() {
+  return (
+    <RouterProvider>
+      <div>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+        </nav>
+        <div>
+          <Route path="/" component={<Home />} />
+          <Route path="/about" component={<About />} />
+        </div>
+      </div>
+    </RouterProvider>
+  );
+}
+
+export default App;
+```
+
+### 总结
+
+我们用几个简单的 React API 实现了一个基本的路由库：
+
+1. **`RouterProvider`**：提供当前路径和路由跳转功能（`navigate`）。
+2. **`Route`**：根据当前路径来渲染匹配的组件。
+3. **`Link`**：创建路由链接，避免页面刷新并使用 `navigate` 来进行路由跳转。
 
