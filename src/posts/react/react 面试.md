@@ -139,79 +139,86 @@ react18  显示结果是 0 0 2 3
 
 :::
 
-非常好！你已经掌握了用数组模拟 Hook 状态，现在我们来实现 **更接近 React 内部的方式 —— 使用链表结构管理 Hook**。
+## 一、 `useState` 的实现原理？
 
 ---
 
-## 🧠 为什么要用链表？
+### ✅ 1. **`useState` 是如何保存状态的？**
 
-React 的 Fiber 架构中，每个函数组件对应一个 `fiber` 节点，每个 `fiber` 有一个 `memoizedState`，这是一个 **单向链表**，每个节点就是一个 Hook：
+React 通过内部的 **Fiber 数据结构** 记录每个组件的状态信息。每个组件（Fiber）都有一个 `memoizedState` 属性，它存储了当前组件的所有 Hook 状态（比如 `useState`, `useEffect` 等）。
 
-```
-fiber.memoizedState → Hook1 → Hook2 → Hook3 → null
-```
-
-每次组件执行时，React 会按顺序遍历这个链表并同步更新。
+React 使用一个 **链表结构** 依次存储每个 Hook 的状态，每次执行组件时，都通过内部的 `currentHook` 指针逐个恢复。
 
 ---
 
-## 🔧 用链表手写 Hook 系统
+### ✅ 2. **`useState` 的基本执行流程**
 
-我们一步步模拟这个过程。
+* 初次渲染时，`useState(initialState)` 会：
+
+  * 创建一个 Hook 对象：`{ memoizedState: initialState, queue: updateQueue }`
+  * 存入当前 Fiber 的 `memoizedState` 链表中。
+  * 返回 `[state, setState]`
+
+* `setState` 调用时：
+
+  * 把更新（如新值或函数）添加到更新队列中。
+  * 触发调度机制 `scheduleUpdateOnFiber()`，标记当前组件需要重新渲染。
+  * 重新执行组件函数，从 `memoizedState` 恢复状态链表，重新计算新状态。
 
 ---
 
-### ✅ 1. 定义 Hook 节点结构
+### ✅ 3. **多次 `useState` 怎么区分？**
+
+React 内部是**按调用顺序区分**的。多次 `useState()` 是按照链表依次挂载的，每次重新渲染时，必须以相同顺序调用 Hook，否则会报错。
+
+---
+
+### ✅ 4. **为什么不能在条件语句里用 Hook？**
+
+因为状态链表必须在相同顺序上恢复。如果你在条件语句中调用 `useState`，下一次 render 顺序就不一致了，会导致状态错乱。
+
+---
+
+## 二、源码角度深入剖析
+
+
+---
+
+### 1. 初始化阶段（首次 render）
 
 ```js
-function createHook(state) {
-  return {
-    memoizedState: state,  // 当前的状态
-    next: null             // 指向下一个 Hook
+function mountState(initialState) {
+  const hook = mountWorkInProgressHook();
+
+  const queue = {
+    pending: null, // 环状链表的 pending update
+    dispatch: null
   };
-}
-```
 
----
+  hook.memoizedState = typeof initialState === 'function'
+    ? initialState()
+    : initialState;
+  hook.queue = queue;
 
-### ✅ 2. 模拟全局 Fiber 和 Hook Cursor
+  const dispatch = (queue.dispatch = (action) => {
+    const update = {
+      action,
+      next: null
+    };
 
-```js
-let fiber = {
-  memoizedState: null // 指向第一个 Hook
-};
-
-let workInProgressHook = null; // 当前执行到的 Hook 节点
-```
-
----
-
-### ✅ 3. 实现 useReducer
-
-```js
-function useReducer(reducer, initialState) {
-  let hook;
-
-  if (!workInProgressHook) {
-    // 第一次执行，创建第一个 hook
-    hook = createHook(initialState);
-    fiber.memoizedState = hook;
-    workInProgressHook = hook;
-  } else {
-    // 后续执行，进入下一个 hook
-    if (!workInProgressHook.next) {
-      hook = createHook(initialState);
-      workInProgressHook.next = hook;
+    // 插入到环状链表中
+    const pending = queue.pending;
+    if (pending === null) {
+      update.next = update;
     } else {
-      hook = workInProgressHook.next;
+      update.next = pending.next;
+      pending.next = update;
     }
-    workInProgressHook = hook;
-  }
+    queue.pending = update;
 
-  const dispatch = (action) => {
-    hook.memoizedState = reducer(hook.memoizedState, action);
-    render(); // 重新渲染
-  };
+    // 调度更新
+    scheduleUpdateOnFiber(currentFiber);
+  });
 
   return [hook.memoizedState, dispatch];
 }
@@ -219,21 +226,475 @@ function useReducer(reducer, initialState) {
 
 ---
 
-### ✅ 4. 组件函数执行 & 重置 Hook 指针
+### 2. 更新阶段（re-render）
 
 ```js
-function render() {
-  workInProgressHook = fiber.memoizedState; // 重置 Hook 遍历指针
-  CounterComponent();
+function updateState() {
+  const hook = updateWorkInProgressHook();
+  const queue = hook.queue;
+
+  let baseState = hook.memoizedState;
+  const pendingQueue = queue.pending;
+
+  if (pendingQueue !== null) {
+    queue.pending = null;
+
+    // 处理更新队列（环状链表转成线性）
+    let firstUpdate = pendingQueue.next;
+    let update = firstUpdate;
+    do {
+      const action = update.action;
+      baseState = typeof action === 'function' ? action(baseState) : action;
+      update = update.next;
+    } while (update !== firstUpdate);
+  }
+
+  hook.memoizedState = baseState;
+  return [baseState, queue.dispatch];
 }
 ```
 
-## 🔍 总结
-
-| 项目        | 数组实现                | 链表实现（React 真实做法）                    |
-| --------- | ------------------- | ----------------------------------- |
-| 状态存储方式    | `hookStates[index]` | `fiber.memoizedState → hook → hook` |
-| Hook 顺序管理 | 用 `hookIndex` 控制    | 用 `workInProgressHook` 游标管理         |
-| 更新后重建     | 全部重新遍历              | 重走链表，复用 Hook 位置                     |
-| 好处        | 模拟简单                | 更贴近 React，易于扩展和优化                   |
 ---
+
+## 三、核心数据结构图解
+
+```
+FunctionComponent
+  └── fiber.memoizedState → Hook1 → Hook2 → ...
+                         (useState) (useEffect)
+                                ↑
+                              queue (有更新队列)
+                                ↑
+                            dispatch()
+```
+
+---
+
+## 四、你可以提到的补充点（加分）
+
+* `useReducer` 实际上与 `useState` 共享底层实现，差异只是 reducer vs. direct value。
+* Hook 本质是基于闭包、链表和调度控制的组合。
+* React 并不会立即执行 setState，而是通过调度器控制更新节奏（时间切片、优先级）。
+
+---
+
+## 总结一句话回答（精简版）：
+
+> `useState` 会把状态保存到当前 Fiber 的 Hook 链表中，并通过 `setState` 将更新加入队列，再触发调度重新渲染。多个 Hook 是按顺序绑定的，必须稳定调用顺序。
+
+
+---
+
+## 🧠 一、`useEffect` 实现原理？
+
+
+---
+
+### ✅ 1. `useEffect` 状态的保存机制
+
+React 会在每个函数组件的 Fiber 上维护一个 `memoizedState` 链表，每次调用 `useEffect`，都会在链表中注册一个 Hook 对象：
+
+```ts
+{
+  memoizedState: {
+    deps: [...],          // 上一次的依赖
+    create: () => void,   // 这次传入的 effect 函数
+    destroy: () => void   // 上次的清理函数
+  }
+}
+```
+
+---
+
+### ✅ 2. `useEffect` 什么时候执行？
+
+* **执行时机**：是在 **浏览器绘制之后异步执行（非阻塞 UI）**，大致等价于 `componentDidMount` 和 `componentDidUpdate`。
+* 是在 commit 阶段之后统一调度执行的（**副作用阶段**）。
+
+---
+
+### ✅ 3. `useEffect` 是怎么知道依赖变化的？
+
+每次更新时，React 会把本次的 `deps` 和上一次保存在 Hook 中的 `deps` 做 **浅对比（Object.is）**：
+
+* 如果没变，则跳过执行；
+* 如果有变：
+
+  * 执行上次的 `destroy()` 清理函数（如果有）；
+  * 执行新的 `create()` 函数，并将其返回的清理函数保留下来。
+
+---
+
+### ✅ 4. 为什么不能在条件中使用 `useEffect`？
+
+因为 React 是通过**调用顺序**来匹配 Hook 的状态，条件中使用会破坏顺序，导致 `deps` 错配或异常行为。
+
+---
+
+## 🧩 二、源码层面简化解析
+
+React 对 `useEffect` 的处理主要在两个阶段：
+
+---
+
+### 🔧 1. render 阶段注册 effect：
+
+```js
+function mountEffect(create, deps) {
+  const hook = mountWorkInProgressHook();
+
+  const effect = {
+    tag: Passive,       // 表示 useEffect
+    create,             // 副作用函数
+    destroy: undefined, // 清理函数
+    deps                // 依赖项
+  };
+
+  hook.memoizedState = effect;
+
+  // 将 effect 存入 fiber 的 effect 链表
+  pushEffect(effect);
+}
+```
+
+> 更新时调用 `updateEffect`，其中做依赖项的对比。
+
+---
+
+### 🔄 2. commit 阶段执行 effect：
+
+```js
+function commitPassiveEffects(fiber) {
+  // 遍历 fiber 的 effect 链表
+  for (let effect of fiber.updateQueue.effects) {
+    // 有清理函数就先执行
+    if (typeof effect.destroy === 'function') {
+      effect.destroy();
+    }
+
+    // 执行副作用，保存新的清理函数
+    const destroy = effect.create();
+    effect.destroy = typeof destroy === 'function' ? destroy : undefined;
+  }
+}
+```
+
+这些 effect 是在 **异步调度的 effect flushing 阶段** 执行的，确保不会阻塞渲染。
+
+---
+
+## 🔄 三、核心数据结构示意图
+
+```ts
+FunctionComponent
+  └─ memoizedState: Hook1(useState) → Hook2(useEffect) → ...
+                                ↓
+                   Hook.memoizedState = {
+                     deps: [...],
+                     create: fn,
+                     destroy: fn | undefined
+                   }
+```
+
+---
+
+## 💡 四、简版总结回答（适合面试）
+
+> `useEffect` 会在组件渲染后异步执行，React 内部将其注册为一个副作用（effect）对象，保存于 Hook 链表中，在 commit 阶段统一调度执行。通过对比当前依赖和上一次依赖决定是否重新执行，并支持返回清理函数处理副作用清理。
+
+---
+
+## 🛠 五、进阶补充（加分项）
+
+* `useLayoutEffect` 与 `useEffect` 不同：它在 DOM 变更后同步执行，阻塞绘制。
+* `useInsertionEffect` 是在 React DOM commit 前注入 CSS 的（如 styled-components）。
+* React 18 开始，effect 的执行有调度优先级影响，结合调度器。
+
+---
+
+## 🧠 Suspense 核心原理一句话总结：
+
+> **React 捕捉到组件抛出的 Promise，切换到 fallback，等 Promise resolve 后再重新渲染。**
+
+---
+
+## ✅ 实现机制分三步：
+
+### 1. `React.lazy()` 返回的是一个“懒加载组件”
+
+```js
+const MyComponent = React.lazy(() => import('./MyComponent'));
+```
+
+这个懒加载组件在初次渲染时不会直接返回组件，而是抛出一个 Promise 给 React。
+
+```js
+// 内部类似这样
+function lazy(loader) {
+  let status = 'pending'; // 'pending' | 'fulfilled' | 'rejected'
+  let result;
+
+  const thenable = loader().then(
+    module => {
+      status = 'fulfilled';
+      result = module.default;
+    },
+    err => {
+      status = 'rejected';
+      result = err;
+    }
+  );
+
+  return function LazyComponent(props) {
+    if (status === 'pending') {
+      throw thenable; // 🚨 抛出 Promise，React 会捕获
+    } else if (status === 'rejected') {
+      throw result;   // 🚨 抛出 Error，走 ErrorBoundary
+    }
+    return React.createElement(result, props);
+  };
+}
+```
+
+---
+
+### 2. `<Suspense fallback>` 捕获“异常渲染”
+
+当 `LazyComponent` 抛出 Promise，React 进入“**挂起状态**”，它会查找最近的 `<Suspense>` 来显示 fallback。
+
+React 内部通过 try/catch 捕捉这个 Promise，然后注册 `.then()`，当其 resolve 后，重新发起一次渲染。
+
+> **注意：不是 error 是 promise，React 是通过判断 thrown 的值是 Promise 来进入 suspend 模式的。**
+
+---
+
+### 3. 异步完成后重新渲染
+
+当 Promise resolve，React 就会恢复组件树渲染流程，并正常显示组件。
+
+---
+
+## 🖼️ 流程图简化：
+
+```
+  function App() {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyComponent />
+      </Suspense>
+    );
+  }
+```
+
+➡️ 渲染 LazyComponent
+  ➡️ 抛出 Promise
+  ➡️ React 捕获
+  ➡️ 显示 fallback
+  ➡️ Promise resolve 后
+  ➡️ 自动重新渲染 LazyComponent
+
+---
+
+## 🧪 类比：
+
+可以将 Suspense 看作是一个“try-catch + loading 注册器”，遇到 `throw Promise` 时它就：
+
+* catch 住
+* 等 Promise resolve
+* 然后重新渲染该部分组件树
+
+---
+
+## 📦 除了 lazy，谁还能用 Suspense？
+
+除了 `React.lazy()`，只要有组件能 **throw 一个 Promise**，就能挂起渲染。常见的应用包括：
+
+* ⚛️ `react-router` 的懒加载路由组件
+* ⚛️ `React Server Components`
+* ⚛️ `Relay` 等数据抓取库
+* ⚛️ 你自己写的组件中 `throw fetchData()` 也能用（配合 `suspense: true`）
+
+---
+
+## ✅ 总结
+
+| 点                 | 内容                               |
+| ----------------- | -------------------------------- |
+| **本质**            | 通过 `throw Promise` 暂停渲染          |
+| **用途**            | 异步组件、数据加载、懒加载                    |
+| **fallback 触发条件** | 当前组件树内某组件抛出 Promise              |
+| **恢复条件**          | Promise resolve 后，React 自动重新渲染   |
+| **依赖**            | `React.lazy()` 或其他抛出 Promise 的组件 |
+
+---
+
+## ✅ 简化版 `React.lazy` + `Suspense` 实现
+
+我们不实现 Fiber，仅用「同步渲染 + try/catch + Promise」模拟 React 的核心行为。
+
+### 1️⃣ `lazy` 模拟版
+
+```js
+function lazy(loader) {
+  let status = 'pending'
+  let result
+  let promise = loader().then(
+    mod => {
+      status = 'fulfilled'
+      result = mod.default
+    },
+    err => {
+      status = 'rejected'
+      result = err
+    }
+  )
+
+  return function LazyComponent(props) {
+    if (status === 'pending') {
+      throw promise
+    } else if (status === 'rejected') {
+      throw result
+    }
+    return result(props)
+  }
+}
+```
+
+### 2️⃣ 简化版 `Suspense` 实现
+
+我们写一个模拟「挂起捕获」逻辑的渲染函数：
+
+```js
+function render(App, fallback) {
+  try {
+    const result = App()
+    console.log('✅ 渲染完成:', result)
+  } catch (e) {
+    if (typeof e.then === 'function') {
+      console.log('🕒 捕获 Promise，显示 fallback')
+      e.then(() => {
+        console.log('🔄 Promise resolved，重新渲染')
+        render(App, fallback)
+      })
+    } else {
+      console.error('❌ 报错:', e)
+    }
+  }
+}
+```
+
+### 3️⃣ 测试：延迟组件
+
+```js
+const LazyHello = lazy(() =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        default: () => 'Hello from lazy component!'
+      })
+    }, 1000)
+  })
+)
+
+function App() {
+  return LazyHello()
+}
+
+// 开始渲染
+render(App, 'Loading...')
+```
+
+### ✅ 输出结果：
+
+```
+🕒 捕获 Promise，显示 fallback
+🔄 Promise resolved，重新渲染
+✅ 渲染完成: Hello from lazy component!
+```
+
+---
+
+## 📚 React 源码层面：如何真正实现挂起？
+
+以下是 React 18 中的真实处理：
+
+### 1. 组件抛出 Promise 的时候
+
+在 `beginWork` 阶段调用组件（如函数组件）时：
+
+```ts
+const Component = workInProgress.type
+const value = Component(props) // ⚠️ 抛出 Promise
+```
+
+React 捕获到异常，并检查是否是 thenable：
+
+```ts
+if (typeof thrownValue.then === 'function') {
+  // 挂起逻辑走这里
+  attachPingListener(root, thrownValue)
+  throw thrownValue // 再次抛出给上层 Suspense 捕捉
+}
+```
+
+### 2. Suspense 较近边界拦截它
+
+React 会查找「最近的 Suspense 组件 Fiber」，记录下来并替换为 fallback 树。
+
+相关代码在：
+
+```
+packages/react-reconciler/src/ReactFiberThrow.js
+→ throwException()
+→ handleException()
+```
+
+### 3. Promise resolve 后的 ping 机制
+
+每一个 Promise（也就是 `thenable`）都会被注册一个监听回调（叫 `pingCache`），回调会触发 root 的 `performConcurrentWorkOnRoot`，重新进入渲染流程。
+
+```ts
+function attachPingListener(root, thenable) {
+  const ping = () => {
+    root.pingCache.delete(thenable)
+    scheduleUpdateOnFiber(root, ...);
+  }
+
+  thenable.then(ping, ping)
+}
+```
+
+---
+
+## 🧠 memoizedState 是怎么配合的？
+
+在挂起时，React 会将 Suspense 的 fallback 节点存在该 Fiber 的 `memoizedState` 上：
+
+```ts
+memoizedState = {
+  dehydrated: null,
+  retryLane: lane,
+  ...
+}
+```
+
+这个状态用来标记：
+
+* 当前是否处于挂起状态（是否正在显示 fallback）
+* 恢复时是否还需要继续 retry
+
+---
+
+## ✅ 总结
+
+| 点               | 内容                                                                                     |
+| --------------- | -------------------------------------------------------------------------------------- |
+| `React.lazy`    | 返回组件时根据加载状态决定是否抛出 Promise                                                              |
+| `Suspense`      | 捕获 Promise，替换子树为 fallback，等 Promise resolve                                            |
+| 异步恢复            | 注册 ping 监听器，Promise resolve 后重新渲染                                                      |
+| `memoizedState` | 存储 fallback 显示状态，避免多次切换                                                                |
+| 关键代码            | `throwException`, `attachPingListener`, `SuspenseComponent` 的 beginWork 和 completeWork |
+
+---
+
+
