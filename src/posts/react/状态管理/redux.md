@@ -254,7 +254,7 @@ store.dispatch(dispatch => {
 > Redux 的中间件是对 `dispatch` 的函数式封装链，异步中间件（如 `redux-thunk`）允许你派发函数，从而在函数中执行异步操作后再 `dispatch` action。
 
 ---
-
+.`
 
 
 
