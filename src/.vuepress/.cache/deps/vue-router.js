@@ -16,7 +16,7 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-JN5NFW2R.js";
+} from "./chunk-MZ7BKW6T.js";
 
 // node_modules/.pnpm/@vue+devtools-api@6.6.4/node_modules/@vue/devtools-api/lib/esm/env.js
 function getDevtoolsGlobalHook() {
@@ -176,7 +176,7 @@ function setupDevtoolsPlugin(pluginDescriptor, setupFn) {
   }
 }
 
-// node_modules/.pnpm/vue-router@4.5.1_vue@3.5.13/node_modules/vue-router/dist/vue-router.mjs
+// node_modules/.pnpm/vue-router@4.5.1_vue@3.5.14/node_modules/vue-router/dist/vue-router.mjs
 var isBrowser = typeof document !== "undefined";
 function isRouteComponent(component) {
   return typeof component === "object" || "displayName" in component || "props" in component || "__vccOpts" in component;
