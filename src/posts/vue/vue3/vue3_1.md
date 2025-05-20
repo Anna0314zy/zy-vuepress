@@ -1,5 +1,5 @@
 ---
-title: vue3 的思考
+title: vue3 computed 和 watch
 tags:
   - vue3
 ---
@@ -132,5 +132,3 @@ watch(fullName, (newVal) => {
 - **需要计算数据时，使用 `computed`**（不能有副作用）。  
 - **需要监听数据并触发副作用时，使用 `watch`**（可以有副作用）。  
 - **在 `computed` 里不要写 `console.log`、API 请求等副作用代码，否则可能会有不可预期的行为。**
-
-📌 **你在项目中是否遇到了 `computed` 和 `watch` 相关的问题？可以帮你优化代码！😊**
