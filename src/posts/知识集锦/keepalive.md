@@ -167,5 +167,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 - 两个页面都始终在内存中，通过 `display: none` 隐藏非当前页面。
 
 ---
-
-如果你需要配合滚动位置缓存、`react-router` 的嵌套路由、自动清理缓存等高级特性，也可以继续扩展这个 `KeepAlive` 组件。需要我继续完善高级功能吗？

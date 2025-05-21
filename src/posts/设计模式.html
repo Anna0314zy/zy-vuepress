@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+const singleton = function (BaseClass) {
+    let _ins;
+    return class SingletonClass extends BaseClass {
+        constructor(...args) {
+            if (_ins) return _ins;
+            super(...args);
+            _ins = this;
+        }
+    }
+}
+
+class Video {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+const SingleVideo = singleton(Video);
+
+SingleVideo.prototype.say = function () {
+  console.log(this.name + ' say');
+}
+
+const a = new SingleVideo('a');
+const b = new SingleVideo('b');
+
+console.log(a === b); // true
+b.say(); // ✅ 正常输出 "a say"
+
+
+
+    </script>
+    
+</body>
+</html>
