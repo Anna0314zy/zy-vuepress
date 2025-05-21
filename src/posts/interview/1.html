@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    let value = 1;
+console.log(globalThis);
+Object.defineProperty(globalThis, 'a', {
+    get() {
+        return value++;
+    }
+});
+
+if (a == 1 && a == 2 && a == 3) {
+    console.log(1);
+}
+
+
+console.log('test')
+
+// 将一组带有父子关系的扁平数据转成树形结构。
+function buildTree(data, idKey = 'id', parentKey = 'pid', childrenKey = 'children', extraPropsFn) {
+    const treeMap = {};
+    const tree = [];
+  
+    // 深拷贝数据，避免污染原数据
+    const dataCopy = JSON.parse(JSON.stringify(data));
+  
+    // 先建立id映射表
+    dataCopy.forEach(item => {
+      // 额外属性函数，给每个节点加属性（可选）
+      if (extraPropsFn && typeof extraPropsFn === 'function') {
+        Object.assign(item, extraPropsFn(item));
+      }
+      treeMap[item[idKey]] = item;
+    });
+    // 构造树形结构
+    dataCopy.forEach(item => {
+      const parent = treeMap[item[parentKey]];
+      if (parent) {
+        parent[childrenKey] = parent[childrenKey] || [];
+        parent[childrenKey].push(item);
+      } else {
+        tree.push(item);
+      }
+    });
+  
+    return tree;
+  }
+  const flatData = [
+    { id: 1, pid: 0, name: '一级A' },
+    { id: 2, pid: 1, name: '二级A-1' },
+    { id: 3, pid: 1, name: '二级A-2' },
+    { id: 4, pid: 0, name: '一级B' },
+    { id: 5, pid: 4, name: '二级B-1' },
+    { id: 6, pid: 5, name: '三级A-1' }
+  ];
+  
+  const treeData = buildTree(flatData, 'id', 'pid', 'children', item => ({ label: item.name }));
+  
+  console.log(treeData);  
+
+
+  function findNode(tree, targetId) {
+  if (!Array.isArray(tree)) return null;
+
+  const stack = [...tree]; // 使用栈进行深度优先遍历
+  while (stack.length) {
+    const node = stack.pop();
+    if (node.id === targetId) {
+      return node;
+    }
+    if (node.children) {
+      stack.push(...node.children);
+    }
+  }
+  return null;
+}
+
+const treeData1 = [
+  {
+    id: 1,
+    name: '节点 1',
+    children: [
+      {
+        id: 2,
+        name: '节点 1-1',
+        children: [
+          {
+            id: 5,
+            name: '节点 1-1-1'
+          }
+        ]
+      },
+      {
+        id: 3,
+        name: '节点 1-2'
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: '节点 2'
+  }
+];
+const result = findNode(treeData1, 5);
+console.log(result);
+
+
+
+console.log(1);
+const promise1 = new Promise((resolve, reject) => {
+    resolve(4)
+})
+async function async () {
+    console.log(2);
+    const r = await promise1;
+    console.log(4)
+}
+setTimeout(() => {
+	console.log(5);
+}, 0);
+const promise = new Promise((resolve, reject) => {
+    console.log(6);
+    resolve(7)
+})
+promise.then(res => {
+	console.log(res)
+})
+async (); 
+console.log(8);
+  </script>
+  
+</body>
+</html>

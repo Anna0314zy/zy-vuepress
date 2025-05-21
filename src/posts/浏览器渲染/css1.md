@@ -57,6 +57,280 @@ tags:
 
    - 将关键 CSS 放在页面头部，确保首屏渲染。
 
+
+以下是一份详尽的 SCSS（Sass）高级用法总结文档，涵盖所有能大幅简化 CSS 编写的技巧，适合用于团队共享或作为开发手册。
+
+---
+
+##  💼 SCSS 高级用法总结：简化 CSS 的利器
+
+Sass（SCSS 语法）不仅提供变量、嵌套等基础功能，还支持多种高级用法，大大提升 CSS 的可读性、复用性与维护性。
+
+---
+
+## 📁 一、变量定义（`$变量名`）
+
+统一管理颜色、字体、尺寸等设计常量。
+
+```scss
+$primary-color: #409EFF;
+$font-size-base: 14px;
+$padding-base: 16px;
+```
+
+### ✅ 优势：
+
+* 全局统一修改
+* 可用于主题切换
+* 支持默认值（`!default`）
+
+```scss
+$theme-color: red !default;
+```
+
+---
+
+## 🧩 二、嵌套语法（Nesting）
+
+让样式层级结构更清晰，符合 HTML 结构。
+
+```scss
+.card {
+  padding: 20px;
+
+  .title {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+```
+
+### ✅ 支持：
+
+* 类名嵌套
+* 伪类（`:hover`, `:after`）
+* 媒体查询嵌套
+
+```scss
+.container {
+  width: 100%;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
+}
+```
+
+---
+
+## 🔁 三、循环与条件控制
+
+### 1. `@each` 遍历列表或 map
+
+```scss
+$colors: (primary: #409EFF, success: #67C23A, danger: #F56C6C);
+
+@each $name, $color in $colors {
+  .text-#{$name} {
+    color: $color;
+  }
+}
+```
+
+### 2. `@for` 循环
+
+```scss
+@for $i from 1 through 5 {
+  .mt-#{$i} {
+    margin-top: $i * 10px;
+  }
+}
+```
+
+### 3. `@if` 条件语句
+
+```scss
+$theme: dark;
+
+body {
+  @if $theme == dark {
+    background: #000;
+    color: #fff;
+  } @else {
+    background: #fff;
+    color: #000;
+  }
+}
+```
+
+---
+
+## 🛠 四、Mixin（混合宏）
+
+用于复用样式片段，支持参数。
+
+```scss
+@mixin flex-center($direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+.box {
+  @include flex-center(column);
+}
+```
+
+---
+
+## 📐 五、函数（`@function`）
+
+封装通用计算逻辑：
+
+```scss
+@function rem($px, $base: 16) {
+  @return ($px / $base) * 1rem;
+}
+
+.title {
+  font-size: rem(24);
+}
+```
+
+---
+
+## 📦 六、占位符选择器（`%` + `@extend`）
+
+像类一样使用，但不会生成实际样式，适合复用。
+
+```scss
+%btn-base {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.btn {
+  @extend %btn-base;
+  background: blue;
+}
+```
+
+---
+
+## 🧩 七、列表（List）与映射（Map）
+
+### 列表：
+
+```scss
+$sizes: 10px, 12px, 14px;
+```
+
+### 映射：
+
+```scss
+$theme-colors: (
+  primary: #409EFF,
+  warning: #e6a23c,
+  danger: #f56c6c
+);
+
+.color {
+  @each $key, $val in $theme-colors {
+    &-#{$key} {
+      color: $val;
+    }
+  }
+}
+```
+
+---
+
+## 📂 八、模块化结构（`@use` / `@forward`）
+
+> SCSS 推荐使用 `@use` 和 `@forward` 替代 `@import`。
+
+### 结构：
+
+```scss
+// _variables.scss
+$primary-color: #409EFF;
+
+// _mixins.scss
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// styles.scss
+@use 'variables';
+@use 'mixins';
+
+.button {
+  color: variables.$primary-color;
+  @include mixins.center;
+}
+```
+
+---
+
+## 🧮 九、内置函数
+
+| 函数类别  | 示例                                  |
+| ----- | ----------------------------------- |
+| 数学函数  | `percentage(0.5)` → 50%             |
+| 字符串拼接 | `#{$var}-suffix`                    |
+| 颜色函数  | `lighten($color, 10%)`, `rgba(...)` |
+| 单位函数  | `unit(10px)`, `unitless(10px)`      |
+| 类型判断  | `type-of(10px)` → `number`          |
+
+---
+
+## 🧠 十、实用技巧
+
+### 1. 使用 `_` 命名部分文件避免编译
+
+```scss
+// _variables.scss 不会单独编译
+@use 'variables';
+```
+
+### 2. 动态类名（插值表达式）
+
+```scss
+$prefix: btn;
+
+.#{$prefix}-primary {
+  background: blue;
+}
+```
+
+### 3. 自动单位计算
+
+```scss
+.width {
+  width: 100px + 20px; // → 120px
+}
+```
+
+---
+
+## ✅ 结语：为何使用 SCSS？
+
+| 优点    | 说明                      |
+| ----- | ----------------------- |
+| 模块化   | 用 `@use` 分离结构和职责        |
+| 可维护   | 变量、mixin、function 提高复用性 |
+| 更强表达力 | 支持判断、循环、映射等高级语言能力       |
+| 更接近业务 | 可实现主题系统、响应式尺寸、动态类名等     |
+
+---
+
+
 ## 二、Less 和 Sass 的高级用法
 
 Less 和 Sass 是两种流行的 CSS 预处理器，提供了变量、嵌套、混合、函数等高级特性，使 CSS 更易维护和扩展。

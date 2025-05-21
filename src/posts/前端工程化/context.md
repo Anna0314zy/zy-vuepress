@@ -98,5 +98,3 @@ console.log(modules); // 直接返回 { './modules/a.js': Module, './modules/b.j
 - **更高效的模块导入**（默认懒加载，提升性能）  
 - **支持动态导入（Markdown、JSON、图片等）**  
 - **按需加载，减少打包体积**  
-
-📌 **你现在是 Webpack 还是 Vite 项目？如果要迁移 Webpack 到 Vite，我可以帮你优化！😃**

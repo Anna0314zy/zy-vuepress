@@ -110,5 +110,4 @@ console.log(exports === module.exports); // false ❌
 ✅ **用 `module.exports` 直接赋值导出整个模块**  
 ✅ **不要 `exports = {...}`，会断开引用**  
 
-📌 **你的项目里是要导出多个方法，还是一个对象？我可以帮你优化代码！😃**
 

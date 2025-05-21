@@ -55,6 +55,89 @@ tags:
 - **阻塞问题**：传统的 `<script>` 标签（不带 `async` 或 `defer`）会阻塞 HTML 解析，直到脚本加载并执行完毕。
 - **优化方案**：为减少阻塞，可使用 `async`（脚本异步加载，执行时不阻塞）或 `defer`（脚本延迟执行，等 HTML 全部解析完成后再执行）。
 - `JavaScript 放在 <body> 底部：将 <script> 标签放在 <body> 底部，确保在页面内容和样式加载完成后再加载和执行脚本，避免阻塞页面的解析和渲染。`
+你提供的内容主要是关于如何**优化 `<script>` 标签的加载顺序和方式**，以**提升页面的首屏渲染速度和用户体验**。以下是对这段内容的提炼总结和深入解释：
+
+---
+
+### ✅ 为什么要优化 `<script>` 加载？
+
+当浏览器解析 HTML 时，遇到 `<script>` 标签，会：
+
+1. **暂停 HTML 的解析**。
+2. **发起 JS 文件的网络请求**。
+3. 等待加载完成后，**切换至 JavaScript 引擎执行 JS**。
+4. 执行完 JS 后再切回渲染引擎继续解析 HTML。
+
+因此，**加载和执行 JS 会阻塞页面渲染**，影响首屏速度。
+
+---
+
+### ✅ 三种优化方式
+
+### 1. `async` 属性
+
+```html
+<script src="main.js" async></script>
+```
+
+* **加载行为**：异步请求，不阻塞 HTML 解析。
+* **执行时机**：一旦加载完成，立即中断 HTML 解析去执行。
+* **适合场景**：**无依赖关系的脚本**（如统计代码、广告等）。
+
+> ⚠️ 多个 async 脚本 **执行顺序不可控**（谁先加载完谁先执行）。
+
+---
+
+### 2. `defer` 属性
+
+```html
+<script src="main.js" defer></script>
+```
+
+* **加载行为**：异步请求，不阻塞 HTML 解析。
+* **执行时机**：**HTML 全部解析完后统一执行**，按声明顺序执行。
+* **适合场景**：**主业务脚本**（尤其是依赖 DOM 的 JS）。
+
+> ✅ 推荐默认使用 `defer`，尤其是多个脚本间有依赖时。
+
+---
+
+### 3. `type="module"`
+
+```html
+<script type="module" src="main.js"></script>
+```
+
+* **加载行为**：类比 `defer`，异步加载、延迟执行。
+* **模块特性**：支持 `import`/`export`，自动使用严格模式。
+* **适合场景**：**使用 ES6 模块化语法的脚本**。
+
+> ⚠️ 不可与 `nomodule` 的旧浏览器兼容写法混用。
+
+---
+
+## ✅ 补充：为何 `<script>` 放在 `</body>` 前？
+
+* 在早期没有 `async`/`defer` 时，脚本会阻塞页面解析。
+* 所以构建工具默认把 `<script>` 标签放在 HTML 底部：
+
+  * 保证 HTML 优先渲染，避免“白屏”。
+  * 等 DOM 基本加载完，再执行 JS 脚本更安全。
+
+---
+
+## ✅ 小结表格对比
+
+| 属性 / 特性         | 是否异步加载 | 是否阻塞解析        | 执行时机        | 执行顺序  | 推荐用途  |
+| --------------- | ------ | ------------- | ----------- | ----- | ----- |
+| 默认（无属性）         | 否      | ✅ 是           | 加载完立即执行     | 按出现顺序 | 最不推荐  |
+| `async`         | ✅ 是    | ❌ 否           | 加载完立即执行     | 不确定   | 独立脚本  |
+| `defer`         | ✅ 是    | ❌ 否           | HTML 解析完后执行 | ✅ 有序  | 主业务逻辑 |
+| `type="module"` | ✅ 是    | ❌ 否（类似 defer） | HTML 解析完后执行 | ✅ 有序  | 模块化脚本 |
+
+---
+
+
 
 ## 4. 构建渲染树、布局与绘制
 - **渲染树构建**：将 DOM 树和 CSSOM 树结合，生成渲染树，其中每个节点都是需要呈现的对象，并计算它们的样式和位置。
@@ -91,6 +174,113 @@ tags:
   ```html
   <link rel="prefetch" href="next-page.js">
   ```
+
+---
+
+## ✅ `<link>` 标签资源预处理优化总结
+
+| rel 值          | 作用        | 使用场景                 | 特点                    |
+| -------------- | --------- | -------------------- | --------------------- |
+| `dns-prefetch` | DNS 预解析   | 引用外部资源，如 CDN、API 域名等 | 提前将域名解析为 IP，减少延迟      |
+| `preconnect`   | 提前建立连接    | 使用第三方服务（如字体、图片）前     | 提前完成 DNS、TCP、TLS，减少延迟 |
+| `prefetch`     | 空闲时预下载资源  | 未来页面使用的资源（低优先级）      | 浏览器空闲时下载，可能被忽略        |
+| `preload`      | 明确指示预加载资源 | 当前页面即将使用的关键资源        | 高优先级、开发者控制资源类型        |
+| `prerender`    | 预加载并渲染页面  | 用户极有可能跳转的下一页面        | 会真正渲染页面，资源消耗大         |
+
+---
+
+## 1. `dns-prefetch` – DNS 预解析
+
+```html
+<link rel="dns-prefetch" href="//cdn.example.com">
+```
+
+* 提前解析域名，减少 DNS 查询时间。
+* 适合第三方域名（如图片、字体、CDN 脚本等）。
+
+---
+
+## 2. `preconnect` – 提前建立连接（DNS + TCP + TLS）
+
+```html
+<link rel="preconnect" href="https://api.example.com">
+```
+
+* **比 `dns-prefetch` 更进一步**，建立整个连接。
+* 推荐同时加上 `crossorigin`：
+
+  ```html
+  <link rel="preconnect" href="https://cdn.example.com" crossorigin>
+  ```
+
+---
+
+## 3. `prefetch` – 预获取资源（用于**未来**可能使用的资源）
+
+```html
+<link rel="prefetch" href="/next-page.js" as="script">
+```
+
+* 资源在**浏览器空闲时**加载，用于**下一页面或未来操作**。
+* 优先级低，可能被浏览器忽略。
+
+---
+
+## 4. `preload` – 预加载资源（用于**当前页面即将使用**的资源）
+
+```html
+<link rel="preload" href="/main-font.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+* 明确告诉浏览器这是个“重要资源”，强制优先加载。
+* 可指定资源类型：`script`、`style`、`font`、`image`、`fetch` 等。
+* 注意要正确设置 `as` 属性。
+
+---
+
+## 5. `prerender` – 预渲染整个页面
+
+```html
+<link rel="prerender" href="/next-page.html">
+```
+
+* **会下载并执行该页面的 HTML、JS、CSS 等资源**。
+* 页面被提前渲染，用户跳转时“秒开”。
+* 缺点：资源消耗大，可能浪费带宽。
+
+---
+
+## ✅ 选择建议
+
+| 目的         | 使用方法                        |
+| ---------- | --------------------------- |
+| 提前解析域名     | `<link rel="dns-prefetch">` |
+| 提前建立连接     | `<link rel="preconnect">`   |
+| 当前页面用到的资源  | `<link rel="preload">`      |
+| 未来页面或操作的资源 | `<link rel="prefetch">`     |
+| 用户很可能跳转的页面 | `<link rel="prerender">`    |
+
+---
+
+## ✍️ 示例组合
+
+```html
+<!-- 提前处理 CDN 域名 -->
+<link rel="dns-prefetch" href="//cdn.example.com">
+<link rel="preconnect" href="https://cdn.example.com" crossorigin>
+
+<!-- 加载关键字体 -->
+<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- 未来使用的 JS -->
+<link rel="prefetch" href="/next-page.js" as="script">
+
+<!-- 预渲染下一页 -->
+<link rel="prerender" href="/dashboard.html">
+```
+
+---
+
 
 ### 2.3 懒加载（Lazy Loading）
 - **图片和非关键资源**：利用懒加载技术，仅在用户滚动到相应位置时加载图片或其他资源。
