@@ -3,7 +3,7 @@ title: keepAlive 实现
 tags:
    - React
 ---
-好的，下面是一个完整的 **React + React Router v6 + KeepAlive** 的示例，实现了在多个路由页面之间切换时，页面不会被卸载，状态会被缓存保留。
+下面是一个完整的 **React + React Router v6 + KeepAlive** 的示例，实现了在多个路由页面之间切换时，页面不会被卸载，状态会被缓存保留。
 
 ---
 
