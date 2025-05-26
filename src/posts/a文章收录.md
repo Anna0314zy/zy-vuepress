@@ -19,5 +19,12 @@ tags:
  - **[页面失活websokcet处理](https://juejin.cn/post/7418391732163182607#heading-14)**
 
 
+ ## 技术文档
+
+ - [vueUse](https://vueuse.org/core/useWebWorker/)
+
+ - [webworker](https://juejin.cn/post/7139718200177983524#heading-5)
+
+
 
 
