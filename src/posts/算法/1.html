@@ -128,7 +128,59 @@ var threeSum = function (nums) {
 console.log(threeSum([-1, 0, 1, 2, -1, -4])); 
 // 输出: [ [-1, -1, 2], [-1, 0, 1] ]
 
-console.log(towSumTarget(-1, 0, 1, 2, -1, -4))
+
+// let time = "2019-08-13";
+// //=> 2019年8月13日
+// let reg = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
+
+// time = time.replace(reg,"$1年$2月$3日")
+
+//原理步骤 [str].replace([reg],[function])
+//1.首先拿Reg和time进行匹配捕获 能匹配到几次就会把传递的函数执行几次（匹配一次执行一次）
+//2.不仅执行 还给replace还给方法传递了实参信息 exex捕获的内容一致的信息（大正则匹配的内容 小分组匹配的内容....）
+// 3在函数中返回的是啥 就把当前匹配的内容替换成啥
+// let reg = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
+// let time = "2019-08-13";
+// time = time.replace(reg,(big,$1,$2,$3) => {
+//   //=> $1,$2,$3 是我们自己设置的变量
+//   console.log("zhegnze",big,$1,$2,$3) //2019-08-13 2019 08 13
+// })
+// time = time.replace(reg,(...args) => {
+//   //=> $1,$2,$3 是我们自己设置的变量
+//   let [,$1,$2,$3] = args;
+//   $2.length < 2 ? $2="0" + $2: null;
+//     $3.length < 2 ? $3="0" + $3: null;
+//   return $1+'年'+$2+'月'+$3+'日'
+// }) //2019年08月13日
+
+let str = 'good good study, day day up!';
+//首字母大写
+let reg = /\b([a-zA-z])[a-zA-z]*\b/g;
+str = str.replace(reg,function(...args) { //函数执行6次
+  let [content,$1] = args
+  console.log(content) //content good
+  $1 = $1.toUpperCase();
+  content = content.substring(1); // content good
+  return $1 + content;
+
+})
+
+// function millimeter(str) {
+//     return str.replace(/\d{1,3}(?=(\d{3})+$)/g,(...args)=> {
+//       console.log(args);
+//       const [content] = args; //[ '12', '678', 0, '12345678' ] [ '345', '678', 2, '12345678' ]
+//       return content + ',';
+//     }) //正向预查 条件符合不捕获  ？！条件不符合
+//    //当前正则捕获15 
+// }
+// console.log(millimeter('1234333338'))
+function formatThousands(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, (...args)=> {
+      console.log("formatThousands",args);
+      return ',';
+    });
+}
+console.log(formatThousands('1234567')); // "1,234,333,338"
     </script>
 </body>
 </html>
