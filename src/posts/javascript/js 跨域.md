@@ -24,10 +24,13 @@ tags:
      <html>
        <head>
          <title>JSONP 示例</title>
+          <body>
+         <h1>JSONP 示例</h1>
+       </body>
          <script>
            // 创建 script 标签
            var script = document.createElement('script');
-           script.src = 'http://api.example.com/data?callback=handleResponse';
+            script.src = 'http://localhost:3000/data?callback=handleResponse';
            document.body.appendChild(script);
 
            // 处理回调函数
@@ -36,9 +39,7 @@ tags:
            }
          </script>
        </head>
-       <body>
-         <h1>JSONP 示例</h1>
-       </body>
+      
      </html>
      ```
 

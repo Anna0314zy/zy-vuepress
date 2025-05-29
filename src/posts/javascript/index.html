@@ -1,0 +1,122 @@
+<!-- index.html -->
+<html>
+  <head>
+    <title>JSONP 示例</title>
+    <body>
+        <h1>JSONP 示例</h1>
+      </body>
+    <script>
+      // 创建 script 标签
+      var script = document.createElement('script');
+      script.src = 'http://localhost:3000/data?callback=handleResponse';
+      document.body.appendChild(script);
+
+      // 处理回调函数
+      function handleResponse(data) {
+        console.log('接收到的数据:', data);
+      }
+      function deepClone(obj, hash = new WeakMap()) {
+  if (obj === null || typeof obj !== 'object') return obj;
+
+  // 避免循环引用
+  if (hash.has(obj)) return hash.get(obj);
+
+  // 支持数组和普通对象
+  const clone = Array.isArray(obj) ? [] : {};
+
+  // 记录克隆结果
+  hash.set(obj, clone);
+
+  // 遍历自身可枚举属性（不包括 Symbol 和不可枚举）
+  for (let key in obj) {
+    console.log('key',key,obj)
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      clone[key] = deepClone(obj[key], hash);
+    }
+  }
+
+  return clone;
+}
+const obj = {
+    a:{
+        b:1
+    }
+}
+
+// const c = deepClone(obj)
+// obj.a.b = 'cccc'
+// console.log(obj,'deepclone')
+
+// console.log(c,'deepclone------')
+
+// const arr = [{
+//     name:'333',
+//     id:1
+// },{
+//     name:'444',
+//     id:2,
+//     tag:{
+//         a:1
+//     }
+// }]
+
+// const copyArr = deepClone(arr);
+// arr.push({name:'33344'})
+
+// console.log('copyArr',copyArr,arr)
+
+function myStringify(value, seen = new WeakSet()) {
+  // 1️⃣ 处理 `null` 和基本数据类型（字符串、数字、布尔值、undefined）
+  if (value === null) return 'null';
+  if (typeof value === 'undefined') return undefined;
+  if (typeof value === 'string') return `"${value}"`;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+
+  // 2️⃣ 处理数组
+  if (Array.isArray(value)) {
+    // 使用 `.map()` 遍历数组并深度转换每一项
+    const elements = value.map(item => myStringify(item, seen));
+    return `[${elements.join(',')}]`;
+  }
+
+  // 3️⃣ 处理对象（排除 null）
+  if (typeof value === 'object') {
+    // 处理循环引用
+    if (seen.has(value)) return '{}';  // 如果对象已经在 `seen` 中，避免循环引用
+    seen.add(value);
+
+    // 获取对象的属性并递归转换
+    const keys = Object.keys(value);
+    const properties = keys.map(key => {
+      const keyStr = `"${key}"`;
+      const valueStr = myStringify(value[key], seen);
+      return valueStr !== undefined ? `${keyStr}:${valueStr}` : undefined;
+    }).filter(item => item !== undefined);
+
+    return `{${properties.join(',')}}`;
+  }
+
+  // 处理其他类型（如 `function`，忽略）
+  return undefined;
+}
+
+const obj1 = {
+  name: "Alice",
+  age: 30,
+  friends: ["Bob", "Charlie",{ab:1}],
+  a:null,
+  b:undefined,
+  greet: function() { console.log("Hello!"); }
+};
+
+const circularObj = { name: "John" };
+circularObj.self = circularObj;
+
+console.log(myStringify(obj1));  // {"name":"Alice","age":30,"friends":["Bob","Charlie"]}
+console.log(myStringify(circularObj));  // {}
+
+console.log('-----------',JSON.stringify(obj1),JSON.parse(JSON.stringify(obj1)))
+    </script>
+  </head>
+ 
+</html>

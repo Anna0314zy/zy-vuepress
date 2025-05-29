@@ -181,6 +181,98 @@ function formatThousands(num) {
     });
 }
 console.log(formatThousands('1234567')); // "1,234,333,338"
+
+Array.prototype.myReduce = function (callback, initialValue) {
+  if (typeof callback !== 'function') {
+    throw new TypeError(callback + ' is not a function');
+  }
+
+  const arr = this;
+  const len = arr.length;
+  let accumulator, startIndex = 0;
+
+  // 处理空数组且没有 initialValue 的情况
+  if (len === 0 && initialValue === undefined) {
+    throw new TypeError('Reduce of empty array with no initial value');
+  }
+
+  // 判断是否提供了初始值
+  if (initialValue !== undefined) {
+    accumulator = initialValue;
+  } else {
+    // 找到第一个有效值作为初始值
+    while (startIndex < len && !(startIndex in arr)) {
+      startIndex++;
+    }
+    if (startIndex >= len) {
+      throw new TypeError('Reduce of empty array with no initial value');
+    }
+    accumulator = arr[startIndex++];
+    console.log('accumulator',arr,startIndex)
+  }
+
+  // 开始迭代归约
+  for (let i = startIndex; i < len; i++) {
+    if (i in arr) {
+      accumulator = callback(accumulator, arr[i], i, arr);
+    }
+  }
+
+  console.log(accumulator,'accumulator----------')
+
+  return accumulator;
+};
+// const arr = [1, 2, 3];
+// console.log(arr.reducewo ((acc, cur) => {
+//   console.log("acc",acc,cur)
+//   return acc + cur
+// })); // 6
+
+
+function compose(...funcs) {
+   if (funcs.length === 0) return args => args;
+    if (funcs.length === 1) {
+         return funcs[0];
+    }
+    return funcs.reduce((func,next) => (...args) => func(next(...args)))
+}
+
+
+// function componse(...funcs) {
+//   if(funcs.length ===0) return args => args;
+//   if(funcs.length ===1) {
+//     return funcs[0]
+//   }
+//   return funcs.reduce((func,next) => (...args) => func(next(...args)))
+// }
+
+
+const capitalize = str => {
+  console.log('capitalize')
+ return str.charAt(0).toUpperCase() + str.slice(1)
+};
+const greet = name =>{
+  console.log('greet')
+  return  `Hello, ${name}`
+};
+const exclaim = str => `${str}!`;
+
+const welcome = compose(exclaim, greet, capitalize); // 从右向左执行
+console.log(welcome("john")); // "Hello, John!"
+function func(){
+ return 'wo'
+}
+
+console.log(compose(func))
+
     </script>
+
+
+
 </body>
+
+
+
 </html>
+
+

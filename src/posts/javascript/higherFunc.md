@@ -188,6 +188,14 @@ function compose(...funcs) {
 }
 
 
+function compose(...funcs) {
+  return funcs.reduceRight(
+    (prevFn, nextFn) => (...args) => nextFn(prevFn(...args)),
+    x => x
+  );
+}
+
+
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 const greet = name => `Hello, ${name}`;
 const exclaim = str => `${str}!`;
