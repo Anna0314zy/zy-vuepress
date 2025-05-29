@@ -52,11 +52,11 @@ async function retryPromise2(promiseFn, retries = 3) {
 ```js
 
 async function createRequest(tasks, pool = 5) {
-    let results = [];
-    let taskQueue = [];
+    let results = []; // 用于保存每个任务的执行结果，顺序和输入 tasks 保持一致
+    let taskQueue = []; // 当前正在执行（尚未完成）的任务队列
   
     for (let i = 0; i < tasks.length; i++) {
-      const task = tasks[i]();
+      const task = tasks[i]();// 执行任务函数，返回一个 Promise
       taskQueue.push(task);
   
       task.then(res => {
@@ -72,6 +72,64 @@ async function createRequest(tasks, pool = 5) {
     await Promise.all(taskQueue); // 等待剩余任务完成
     return results;
   }
+
+```
+
+## 任务分发器 来 处理异步并发
+
+```js
+/**
+ * 控制异步任务的并发数，并保留任务结果顺序
+ *
+ * @param tasks - 一个返回 Promise 的函数数组，如： [() => fetch(...), () => axios(...)]
+ * @param pool - 最大并发数
+ * @returns 所有任务的结果数组，顺序与 tasks 对应
+ */
+async function createRequest<T>(tasks: (() => Promise<T>)[], pool: number = 5): Promise<T[]> {
+  const results: T[] = new Array(tasks.length); // 保留顺序
+  let taskIndex = 0; // 当前正在处理的任务索引
+
+  // 工人函数，每次处理一个任务
+  async function worker() {
+    while (taskIndex < tasks.length) {
+      const currentIndex = taskIndex++;
+      try {
+        const res = await tasks[currentIndex]();
+        results[currentIndex] = res;
+      } catch (error) {
+        results[currentIndex] = error as any; // 也可以选择 throw 或标记为失败
+      }
+    }
+  }
+
+  // 创建 pool 个并发 worker
+  const workers = Array.from({ length: pool }, () => worker());
+
+  // 等待所有 worker 完成
+  await Promise.all(workers);
+  return results;
+}
+
+// 测试用例
+
+const delay = (ms: number, value: string) => () =>
+  new Promise(resolve => setTimeout(() => resolve(value), ms));
+
+const tasks = [
+  delay(1000, 'A'),
+  delay(500, 'B'),
+  delay(1500, 'C'),
+  delay(300, 'D'),
+  delay(800, 'E'),
+];
+
+createRequest(tasks, 2).then(res => {
+  console.log(res); // ['A', 'B', 'C', 'D', 'E'] 按顺序
+});
+
+
+
+
 
 ```
 
@@ -156,26 +214,37 @@ MyPromise.reject = function(reason) {
 :::
 
 ```javascript
-MyPromise.all = function(promises) {
-  return new MyPromise((resolve, reject) => {
+MyPromiseAll = function(promises) {
+  return new Promise((resolve, reject) => {
     const results = [];
     let count = 0;
+
+    if (promises.length === 0) {
+      return resolve([]); // ✅ 边界情况：空数组应直接 resolve
+    }
+
     for (let i = 0; i < promises.length; i++) {
-       Promise.resolve(promises[i]).then(
-        (value) => {
+      Promise.resolve(promises[i])
+        .then((value) => {
           results[i] = value;
           count++;
           if (count === promises.length) {
             resolve(results);
           }
-        },
-        (reason) => {
-          reject(reason);
-        }
-      );
+        })
+        .catch((err) => {
+          reject(err);
+        });
     }
   });
 };
+const p1 = Promise.resolve(1);
+const p2 = 42;
+const p3 = new Promise((resolve) => setTimeout(() => resolve('done'), 100));
+
+MyPromiseAll([p1, p2, p3])
+  .then((res) => console.log('成功:', res))  // [1, 42, 'done']
+  .catch((err) => console.error('失败:', err));
 ```
 
 ### 5.4 MyPromise.race

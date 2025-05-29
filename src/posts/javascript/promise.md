@@ -372,26 +372,38 @@ MyPromise.reject = function(reason) {
 :::
 
 ```javascript
-MyPromise.all = function(promises) {
-  return new MyPromise((resolve, reject) => {
+MyPromiseAll = function(promises) {
+  return new Promise((resolve, reject) => {
     const results = [];
     let count = 0;
+
+    if (promises.length === 0) {
+      return resolve([]); // ✅ 边界情况：空数组应直接 resolve
+    }
+
     for (let i = 0; i < promises.length; i++) {
-       Promise.resolve(promises[i]).then(
-        (value) => {
+      Promise.resolve(promises[i])
+        .then((value) => {
           results[i] = value;
           count++;
           if (count === promises.length) {
             resolve(results);
           }
-        },
-        (reason) => {
-          reject(reason);
-        }
-      );
+        })
+        .catch((err) => {
+          reject(err);
+        });
     }
   });
 };
+const p1 = Promise.resolve(1);
+const p2 = 42;
+const p3 = new Promise((resolve) => setTimeout(() => resolve('done'), 100));
+
+MyPromiseAll([p1, p2, p3])
+  .then((res) => console.log('成功:', res))  // [1, 42, 'done']
+  .catch((err) => console.error('失败:', err));
+
 ```
 
 ### 4.2.4 MyPromise.race
@@ -400,13 +412,16 @@ MyPromise.all = function(promises) {
 :::
 
 ```javascript
-MyPromise.race = function(promises) {
-  return new MyPromise((resolve, reject) => {
-    for (let i = 0; i < promises.length; i++) {
-      promises[i].then(resolve, reject);
+function MyPromiseRace(promises) {
+  return new Promise((resolve, reject) => {
+    for (let p of promises) {
+      Promise.resolve(p)
+        .then(resolve)   // 谁先成功就 resolve
+        .catch(reject);  // 谁先失败就 reject
     }
   });
-};
+}
+
 ```
 ### 4.2.4 MyPromise.finally
 ::: important 
