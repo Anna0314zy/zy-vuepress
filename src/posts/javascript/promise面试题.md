@@ -49,6 +49,8 @@ async function retryPromise2(promiseFn, retries = 3) {
 
 ## 3.多个promise 并行执行 不超过3个
 
+### 1.1 Promise.race 配合实现
+
 ```js
 
 async function createRequest(tasks, pool = 5) {
@@ -75,7 +77,7 @@ async function createRequest(tasks, pool = 5) {
 
 ```
 
-## 任务分发器 来 处理异步并发
+### 1.2 任务分发器 来 处理异步并发
 
 ```js
 /**
@@ -132,7 +134,52 @@ createRequest(tasks, 2).then(res => {
 
 
 ```
+### 1.3 任务队列
+```js
 
+function createRequest(tasks, pool, callback) {
+    if (typeof pool === "function") {
+        callback = pool;
+        pool = 5;
+    }
+    if (typeof pool !== "number") pool = 5;
+    if (typeof callback !== "function") callback = function () {};
+    //------
+    class TaskQueue {
+        running = 0;
+        queue = [];
+        results = [];
+        pushTask(task) {
+            let self = this;
+            self.queue.push(task);
+            self.next();
+        }
+        next() {
+            let self = this;
+            while (self.running < pool && self.queue.length) {
+                self.running++;
+                console.log(self.queue, 'self.queue');
+                let task = self.queue.shift();
+                task().then(result => {
+                    self.results.push(result);
+                }).finally(() => {
+                    self.running--;
+                    self.next();
+                });
+            }
+            if (self.running === 0) callback(self.results);
+        }
+    }
+    let TQ = new TaskQueue;
+    tasks.forEach(task => TQ.pushTask(task));
+}
+//使用
+createRequest(tasks, 2, results => {
+    // console.log(results);
+    console.timeEnd('cost');
+    console.log(results);
+});
+```
 
 
 
