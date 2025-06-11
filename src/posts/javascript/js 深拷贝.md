@@ -94,32 +94,37 @@ console.log(obj2);  // { a: 1, b: { x: 20 } }
 ### **2.2. 自定义深拷贝函数**
 
 我们可以通过递归的方式来实现一个更完善的深拷贝函数，能够处理各种边界情况，如 `Date`、`RegExp` 和 `Map` 等。
+
+### 简易实现
 ```js
-function deepClone(obj, hash = new WeakMap()) {
-  if (obj === null || typeof obj !== 'object') return obj;
+function cloneDeep(target, hash = new WeakMap()) {
+  if (target === null || typeof target !== 'object') {
+    return target; // 原始类型直接返回
+  }
 
-  // 避免循环引用
-  if (hash.has(obj)) return hash.get(obj);
+  if (hash.has(target)) {
+    return hash.get(target); // 避免循环引用
+  }
 
-  // 支持数组和普通对象
-  const clone = Array.isArray(obj) ? [] : {};
+  const result = Array.isArray(target) ? [] : {};
+  hash.set(target, result);
 
-  // 记录克隆结果
-  hash.set(obj, clone);
-
-  // 遍历自身可枚举属性（不包括 Symbol 和不可枚举）
-  for (let key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      clone[key] = deepClone(obj[key], hash);
+  for (const key in target) {
+    if (target.hasOwnProperty(key)) {
+      const value = target[key];
+      result[key] = (typeof value === 'object' && value !== null)
+        ? cloneDeep(value, hash)
+        : value;
     }
   }
 
-  return clone;
+  return result;
 }
 
 
-
 ```
+
+### 稍复杂实现
 
 ```js
 function deepClone(obj, hash = new WeakMap()) {

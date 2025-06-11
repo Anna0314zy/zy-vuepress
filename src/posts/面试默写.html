@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+
+class EventEmitter {
+        constructor() {
+            this.events = {};
+        }
+
+        on(event, listener) {
+            if (!this.events[event]) {
+                this.events[event] = [];
+            }
+            this.events[event].push(listener);
+        }
+
+        emit(event, ...args) {
+            if (this.events[event]) {
+                this.events[event].forEach(listener => listener(...args));
+            }
+        }
+        off(event, listener) {
+            if (!this.events[event]) return;
+            this.events[event] = this.events[event].filter(l => l !== listener);
+        }
+        once(event, listener) {
+            const onceWrapper = (...args) => {
+                listener(...args);
+                this.off(event, onceWrapper);
+            };
+            this.on(event, onceWrapper);
+        }
+    }
+    const emitter = new EventEmitter();
+    emitter.on('test', (arg1, arg2) => {
+        console.log(`Event triggered with args: ${arg1}, ${arg2}`);
+    });
+    emitter.emit('test', 'arg1', 'arg2');
+    emitter.on('test', (arg1, arg2) => {
+        console.log(`Another listener: ${arg1}, ${arg2}`);
+    });
+    emitter.emit('test', 'arg3', 'arg4');
+    emitter.on('test', (arg1, arg2) => {
+        console.log(`Third listener: ${arg1}, ${arg2}`);
+    });
+    emitter.emit('test', 'arg5', 'arg6'); 
+
+
+    // new
+
+   function MyNew(constructor, ...args) {
+        if (!(this instanceof MyNew)) {
+            return new MyNew(constructor, ...args);
+        }
+        const instance = Object.create(constructor.prototype);
+        const result = constructor.apply(instance, args);
+        return result instanceof Object ? result : instance;
+    }
+
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    const person1 = MyNew(Person, 'Alice', 30);
+    console.log(person1); // Person { name: 'Alice', age: 30 }
+
+    const checkedType = (target) =>
+  Object.prototype.toString.call(target).replace(/\[object (\w+)\]/, "$1").toLowerCase();
+
+const clone = (target, hash = new WeakMap()) => {
+  const type = checkedType(target);
+
+  // 基础类型或函数直接返回
+  if (["number", "string", "boolean", "null", "undefined", "symbol", "function"].includes(type)) {
+    return target;
+  }
+
+  // 已处理的对象直接返回缓存
+  if (hash.has(target)) return hash.get(target);
+
+  let result;
+  if (type === "array") {
+    result = [];
+  } else if (type === "object") {
+    result = {};
+  } else if (type === "date") {
+    return new Date(target);
+  } else if (type === "regexp") {
+    return new RegExp(target);
+  } else {
+    return target; // Map/Set等暂不处理
+  }
+
+  hash.set(target, result); // 缓存引用，处理循环引用
+
+  // 获取自身所有属性，包括 symbol
+  Reflect.ownKeys(target).forEach((key) => {
+
+    console.log(`Processing key: ${key}, type: ${checkedType(target[key])}`,target);
+    const val = target[key];
+    console.log(`Value of key ${key}:`, val);
+    result[key] = (typeof val === "object" && val !== null)
+      ? clone(val, hash)
+      : val;
+  });
+
+  return result;
+};
+
+// const clonedObj = clone({
+//     // name: 'Alice',
+//     // age: 30,
+//     // hobbies: ['reading', 'gaming'],
+//     // address: {
+//     //     city: 'Wonderland',
+//     //     zip: '12345'
+//     // },
+//     hobbiess:[
+//         { name: 'reading', type: 'book' },
+//         { name: 'gaming', type: 'video' }
+//     ],
+//     // dateOfBirth: new Date('1990-01-01'),
+// });
+
+clone([
+    { name: 'reading', type: 'book' },
+    { name: 'gaming', type: 'video' }])
+
+   </script>
+</body>
+</html>
