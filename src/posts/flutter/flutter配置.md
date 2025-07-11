@@ -113,6 +113,18 @@ com.example.demo1 → com.zouyu.flutterdemo0211
 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/
 ```
 
+### 安卓调试
+
+- 安装 android studio 
+
+- 使用 SDK 管理器
+
+![alt text](./img/image2.png)
+
+- flutter doctor --android-licenses
+
+
+
 ---
 
 ## 四、创建并启动 Flutter 项目
@@ -122,6 +134,7 @@ com.example.demo1 → com.zouyu.flutterdemo0211
 ```bash
 flutter create demo1
 cd demo1
+// 推荐使用 android studio 可以修改 Organization 应用包名
 ```
 
 ### 2. 修改目录权限（确保无权限问题）
@@ -146,13 +159,31 @@ flutter devices
 
 ```bash
 open -a Simulator
+
+
+# 打开模拟器（GUI）
+open -a "Android Studio"
+
+# 启动模拟器（命令行）
+emulator -avd 模拟器名称
 ```
 
 ### 6. 运行项目
 
 ```bash
 flutter run
+
+//否则可以指定设备 ID：
+flutter run -d emulator-5554
 ```
+
+
+**推荐使用  vscode 使用插件 Android iOS Emulator **
+
+Select and run your emulator from Visual Studio Code.
+
+Open all commands with Cmd-Shift-P and type Emulator or click the Emulator icon in the top right.
+
 
 ---
 
@@ -164,10 +195,15 @@ flutter doctor -v
 
 ---
 
+
+
+
+
+
 ## 参考资料
 
 * [掘金 Flutter Mac 环境配置教程](https://juejin.cn/post/7478182398409703476)
-* [真机调试配置参考](https://juejin.cn/post/7112590163884113934)
+* [ios真机调试配置参考](https://juejin.cn/post/7112590163884113934)
 * [iOS 旧系统支持库](https://github.com/filsv/iOSDeviceSupport)
 
 
