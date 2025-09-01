@@ -39,5 +39,9 @@ tags:
 - [performance](https://mp.weixin.qq.com/s/SNvIa8TKMG0rDT4htKK1Mw)
 
 
+## 截图
+
+- [还在用html2canvas？介绍一个比它快100倍的截图神器！](https://mp.weixin.qq.com/s/N3jwNkVjkxBmjz0m1bUT7g)
+
 
 
