@@ -29,7 +29,7 @@ tags:
  ## 鉴权
 
  - [傻傻分不清之 Cookie、Session、Token、JWT](https://juejin.cn/post/6844904034181070861#heading-18)
- -  [单点登录](https://mp.weixin.qq.com/s/_8s_4hmfafv6MFypeE97TA)
+ -  [单点登录](https://mp.weixin.qq.com/s/_8s_4hmfafv6MFypeE97TA)umi
 -  
 
 
