@@ -39,5 +39,9 @@ tags:
 - [performance](https://mp.weixin.qq.com/s/SNvIa8TKMG0rDT4htKK1Mw)
 
 
+## 知识图鉴
+
+- [console.log的用法](https://www.runoob.com/w3cnote/javascript-console-object.html)
+
 
 
