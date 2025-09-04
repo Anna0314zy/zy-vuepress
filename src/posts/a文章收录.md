@@ -29,7 +29,7 @@ tags:
  ## 鉴权
 
  - [傻傻分不清之 Cookie、Session、Token、JWT](https://juejin.cn/post/6844904034181070861#heading-18)
- -  [单点登录](https://mp.weixin.qq.com/s/_8s_4hmfafv6MFypeE97TA)
+ -  [单点登录](https://mp.weixin.qq.com/s/_8s_4hmfafv6MFypeE97TA)umi
 -  
 
 
@@ -42,6 +42,9 @@ tags:
 ## 知识图鉴
 
 - [console.log的用法](https://www.runoob.com/w3cnote/javascript-console-object.html)
+## 截图
+
+- [还在用html2canvas？介绍一个比它快100倍的截图神器！](https://mp.weixin.qq.com/s/N3jwNkVjkxBmjz0m1bUT7g)
 
 
 
