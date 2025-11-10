@@ -116,7 +116,7 @@ export NODE_OPTIONS=--openssl-legacy-provider
 winows
 
 ```js
-ssh-keygen -t rsa -f $env:USERPROFILE\.ssh\id_rsa -C "p_zouyu@ledupeiyou.com"
+ssh-keygen -t rsa -f $env:USERPROFILE\.ssh\id_rsa -C "891374900@qq.com"
 
 ```
 
