@@ -1,3 +1,8 @@
+---
+title: tsyringe
+tags:
+   - 工具
+---
 
 
 # 🧩 一、tsyringe 基础概念

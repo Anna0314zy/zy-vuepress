@@ -1,3 +1,4 @@
+# EditorConfig
 这是 **EditorConfig** 配置文件，用于统一不同编辑器和IDE的代码格式设置。让我详细解释它的作用：
 
 ## EditorConfig 的作用
