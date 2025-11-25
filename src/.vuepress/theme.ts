@@ -79,8 +79,13 @@ export default hopeTheme({
       },
       "/posts/git-repositories.html": {
         hint: "输入密码",
-        password: "zouyu3665",
+        password: "chou_niu",
       },
+       "/posts/知识集锦/cocos%20工程构建/": {
+        hint: "输入密码",
+        password: "chou_niu",
+      },
+
     },
   },
 
