@@ -24,6 +24,7 @@ tags:
  - [vueUse](https://vueuse.org/core/useWebWorker/)
 
  - [webworker](https://juejin.cn/post/7139718200177983524#heading-5)
+ - [webworker](https://juejin.cn/post/7176788060619669565)
 
 
  ## 鉴权
@@ -45,6 +46,12 @@ tags:
 ## 截图
 
 - [还在用html2canvas？介绍一个比它快100倍的截图神器！](https://mp.weixin.qq.com/s/N3jwNkVjkxBmjz0m1bUT7g)
+## 前端调试
+- [前端调试](https://juejin.cn/post/7516057632266764327?searchId=202604201123016CF293384B8010296929)
 
 
+- [chrome调试](https://juejin.cn/post/7248118049584316472?searchId=202604201124385E11DFC070C286FD0AEB)
+- [chrome调试 source](https://juejin.cn/post/7043719715994386446?searchId=202604201124385E11DFC070C286FD0AEB)
 
+- [调试线上代码](https://juejin.cn/post/7340478055913963570?searchId=202604201124385E11DFC070C286FD0AEB)
+- [调试技巧](https://juejin.cn/post/7442163692652085263?searchId=202604201124385E11DFC070C286FD0AEB)
