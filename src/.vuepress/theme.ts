@@ -85,6 +85,10 @@ export default hopeTheme({
         hint: "输入密码",
         password: "chou_niu",
       },
+       "/posts/some": {
+        hint: "输入密码",
+        password: "chou_niu",
+      },
 
     },
   },

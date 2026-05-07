@@ -1,6 +1,6 @@
 ---
 theme: default
-title: Spec-Driven Development 与 Spec Kit
+title:  Spec Kit
 info: |
   ## GitHub Spec Kit
   从 Vibe Coding 到规范驱动开发的演进

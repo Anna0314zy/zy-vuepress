@@ -1,0 +1,14 @@
+_type: chat
+input_variables: ["question"]
+
+messages:
+  - type: system
+    prompt:
+      template: |
+        你是一个专业、耐心、友好的AI助手，请直接回答用户问题。
+      input_variables: []
+
+  - type: human
+    prompt:
+      template: "{question}"
+      input_variables: ["question"]
