@@ -54,26 +54,34 @@ async function retryPromise2(promiseFn, retries = 3) {
 ```js
 
 async function createRequest(tasks, pool = 5) {
-    let results = []; // 用于保存每个任务的执行结果，顺序和输入 tasks 保持一致
-    let taskQueue = []; // 当前正在执行（尚未完成）的任务队列
-  
-    for (let i = 0; i < tasks.length; i++) {
-      const task = tasks[i]();// 执行任务函数，返回一个 Promise
-      taskQueue.push(task);
-  
-      task.then(res => {
-        results[i] = res; // 按原顺序存储
-        taskQueue.splice(taskQueue.indexOf(task), 1); // 从队列移除
+  const results = [];
+  const executing = new Set(); // 用 Set 存当前执行的 Promise，查找/删除 O(1)
+
+  for (let i = 0; i < tasks.length; i++) {
+    // 包装一层，保证即使报错也能被处理，且能从 executing 中移除
+    const p = Promise.resolve()
+      .then(() => tasks[i]()) // 执行任务函数，返回 Promise
+      .then(res => {
+        results[i] = res;
+        executing.delete(p); // 完成就移除
+      })
+      .catch(err => {
+        results[i] = err; // 错误也占位，保持顺序
+        executing.delete(p);
       });
-  
-      if (taskQueue.length >= pool) {
-        await Promise.race(taskQueue); // 等待最快完成的任务
-      }
+
+    executing.add(p);
+
+    // 并发池满了：等任意一个完成
+    if (executing.size >= pool) {
+      await Promise.race(executing);
     }
-  
-    await Promise.all(taskQueue); // 等待剩余任务完成
-    return results;
   }
+
+  // 等最后一批全部结束
+  await Promise.all(executing);
+  return results;
+}
 
 ```
 
@@ -82,38 +90,42 @@ async function createRequest(tasks, pool = 5) {
 ```js
 /**
  * 控制异步任务的并发数，并保留任务结果顺序
- *
- * @param tasks - 一个返回 Promise 的函数数组，如： [() => fetch(...), () => axios(...)]
- * @param pool - 最大并发数
- * @returns 所有任务的结果数组，顺序与 tasks 对应
+ * 
+ * @param tasks - 返回 Promise 的函数数组
+ * @param pool - 最大并发数（默认 5）
+ * @param options - 可选配置
+ * @returns 结果数组，失败项为 Error 对象
  */
-async function createRequest<T>(tasks: (() => Promise<T>)[], pool: number = 5): Promise<T[]> {
-  const results: T[] = new Array(tasks.length); // 保留顺序
-  let taskIndex = 0; // 当前正在处理的任务索引
+async function createRequest<T>(
+  tasks: (() => Promise<T>)[],
+  pool: number = 5,
+  options?: {
+    onProgress?: (completed: number, total: number) => void;
+    onError?: (error: Error, taskIndex: number) => void;
+  }
+): Promise<(T | Error)[]> {
+  const results: (T | Error)[] = new Array(tasks.length);
+  let taskIndex = 0;
+  let completed = 0;
 
-  // 工人函数，每次处理一个任务
   async function worker() {
     while (taskIndex < tasks.length) {
       const currentIndex = taskIndex++;
       try {
-        const res = await tasks[currentIndex]();
-        results[currentIndex] = res;
+        results[currentIndex] = await tasks[currentIndex]();
       } catch (error) {
-        results[currentIndex] = error as any; // 也可以选择 throw 或标记为失败
+        const err = error instanceof Error ? error : new Error(String(error));
+        results[currentIndex] = err;
+        options?.onError?.(err, currentIndex);
+      } finally {
+        completed++;
+        options?.onProgress?.(completed, tasks.length);
       }
     }
   }
-
-  // 创建 pool 个并发 worker
-  const workers = Array.from({ length: pool }, () => worker());
-
-  // 等待所有 worker 完成
-  await Promise.all(workers);
+  await Promise.all(Array.from({ length: pool }, () => worker()));
   return results;
 }
-
-// 测试用例
-
 const delay = (ms: number, value: string) => () =>
   new Promise(resolve => setTimeout(() => resolve(value), ms));
 
@@ -129,56 +141,34 @@ createRequest(tasks, 2).then(res => {
   console.log(res); // ['A', 'B', 'C', 'D', 'E'] 按顺序
 });
 
-
-
-
-
 ```
 ### 1.3 任务队列
 ```js
 
-function createRequest(tasks, pool, callback) {
-    if (typeof pool === "function") {
-        callback = pool;
-        pool = 5;
+function createRequest(tasks, pool = 5) {
+  return new Promise(resolve => {
+    const results = []
+    const queue = [...tasks]
+    let running = 0
+    let index = 0
+
+    function next() {
+      while (running < pool && queue.length) {
+        const i = index++
+        running++
+        queue.shift()()
+          .then(res => results[i] = res)
+          .finally(() => {
+            running--
+            next()
+          })
+      }
+      if (running === 0) resolve(results)
     }
-    if (typeof pool !== "number") pool = 5;
-    if (typeof callback !== "function") callback = function () {};
-    //------
-    class TaskQueue {
-        running = 0;
-        queue = [];
-        results = [];
-        pushTask(task) {
-            let self = this;
-            self.queue.push(task);
-            self.next();
-        }
-        next() {
-            let self = this;
-            while (self.running < pool && self.queue.length) {
-                self.running++;
-                console.log(self.queue, 'self.queue');
-                let task = self.queue.shift();
-                task().then(result => {
-                    self.results.push(result);
-                }).finally(() => {
-                    self.running--;
-                    self.next();
-                });
-            }
-            if (self.running === 0) callback(self.results);
-        }
-    }
-    let TQ = new TaskQueue;
-    tasks.forEach(task => TQ.pushTask(task));
+
+    next()
+  })
 }
-//使用
-createRequest(tasks, 2, results => {
-    // console.log(results);
-    console.timeEnd('cost');
-    console.log(results);
-});
 ```
 
 

@@ -97,129 +97,74 @@ console.log(obj2);  // { a: 1, b: { x: 20 } }
 
 ### 简易实现
 ```js
-function cloneDeep(target, hash = new WeakMap()) {
-  if (target === null || typeof target !== 'object') {
-    return target; // 原始类型直接返回
-  }
-
-  if (hash.has(target)) {
-    return hash.get(target); // 避免循环引用
-  }
-
-  const result = Array.isArray(target) ? [] : {};
-  hash.set(target, result);
-
-  for (const key in target) {
-    if (target.hasOwnProperty(key)) {
-      const value = target[key];
-      result[key] = (typeof value === 'object' && value !== null)
-        ? cloneDeep(value, hash)
-        : value;
-    }
-  }
-
-  return result;
-}
-
-
-```
-
-### 稍复杂实现
-
-```js
 function deepClone(obj, hash = new WeakMap()) {
-  if (obj == null || typeof obj !== "object") return obj;
+  if (obj === null || typeof obj !== 'object') return obj;
 
-  // 处理原始包装对象
-  if (obj instanceof String || obj instanceof Number || obj instanceof Boolean) {
-    const cloned = new obj.constructor(obj.valueOf());
-    cloneProperties(obj, cloned, hash);
-    return cloned;
-  }
-
-  if (obj instanceof Date) {
-    const cloned = new Date(obj.getTime());
-    cloneProperties(obj, cloned, hash);
-    return cloned;
-  }
-
-  if (obj instanceof RegExp) {
-    const cloned = new RegExp(obj.source, obj.flags);
-    cloneProperties(obj, cloned, hash);
-    return cloned;
-  }
-
-  if (obj instanceof Map) {
-    const cloned = new Map();
-    hash.set(obj, cloned);
-    obj.forEach((value, key) => {
-      cloned.set(deepClone(key, hash), deepClone(value, hash));
-    });
-    cloneProperties(obj, cloned, hash);
-    return cloned;
-  }
-
-  if (obj instanceof Set) {
-    const cloned = new Set();
-    hash.set(obj, cloned);
-    obj.forEach(value => {
-      cloned.add(deepClone(value, hash));
-    });
-    cloneProperties(obj, cloned, hash);
-    return cloned;
-  }
-
-  if (obj instanceof ArrayBuffer) {
-    return obj.slice(0);
-  }
-
-  if (obj instanceof DataView) {
-    return new DataView(
-      deepClone(obj.buffer, hash),
-      obj.byteOffset,
-      obj.byteLength
-    );
-  }
-
-  if (ArrayBuffer.isView(obj)) {
-    return new obj.constructor(obj);
-  }
-
-  // 处理循环引用
+  // 避免循环引用
   if (hash.has(obj)) return hash.get(obj);
 
-  // 保持对象的原型
-  const instance = Object.create(Object.getPrototypeOf(obj));
-  hash.set(obj, instance);
+  // 支持数组和普通对象
+  const clone = Array.isArray(obj) ? [] : {};
 
-  cloneProperties(obj, instance, hash);
+  console.log('clone',clone)
 
-  return instance;
-}
+  // 记录克隆结果
+  hash.set(obj, clone);
 
-function cloneProperties(source, target, hash) {
-    // 复制所有属性（包括不可枚举和 Symbol）
-  //获取 obj 上所有自有属性的描述符对象，包括：普通属性Symbol 属性不可枚举属性
-  const descriptors = Object.getOwnPropertyDescriptors(source);
-    //比 Object.keys() 更强大，能遍历到 Symbol 和不可枚举属性。
-  for (const key of Reflect.ownKeys(descriptors)) {
-    const descriptor = descriptors[key];
-     // 取出每个属性的描述符对象，包含 value, writable, get, set 等字段。
-    if (descriptor.value) {
-      descriptor.value = deepClone(descriptor.value, hash);
+  // 遍历自身可枚举属性（不包括 Symbol 和不可枚举）
+  for (let key in obj) {
+    console.log('key',key,obj)
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      clone[key] = deepClone(obj[key], hash);
     }
   }
 
-  //     把处理后的属性描述符赋值到新对象 instance 上，保持原始属性的：
+  return clone;
+} 
+```
 
-// 可写性（writable）
-
-// 可配置性（configurable）
-
-// 是否可枚举（enumerable）
-
-// Symbol 键名
-  Object.defineProperties(target, descriptors);
+```js
+function deepClone(obj, map = new WeakMap()) {
+  // 基本类型
+  if (obj === null || typeof obj !== 'object') return obj;
+  
+  // 循环引用
+  if (map.has(obj)) return map.get(obj);
+  
+  // 处理特殊对象
+  const Constructor = obj.constructor;
+  switch (Constructor) {
+    case Date: return new Date(obj);
+    case RegExp: return new RegExp(obj.source, obj.flags);
+    case Map: 
+      const mapClone = new Map();
+      map.set(obj, mapClone);
+      obj.forEach((val, key) => {
+        mapClone.set(deepClone(key, map), deepClone(val, map));
+      });
+      return mapClone;
+    case Set:
+      const setClone = new Set();
+      map.set(obj, setClone);
+      obj.forEach(val => {
+        setClone.add(deepClone(val, map));
+      });
+      return setClone;
+  }
+  
+  // 创建同原型对象
+  const cloneObj = Array.isArray(obj) 
+    ? [] 
+    : Object.create(Object.getPrototypeOf(obj));
+  
+  map.set(obj, cloneObj);
+  
+  // 复制所有属性（包括 Symbol 和不可枚举的）
+  Reflect.ownKeys(obj).forEach(key => {
+    cloneObj[key] = deepClone(obj[key], map);
+  });
+  
+  return cloneObj;
 }
 
 ```
@@ -228,28 +173,23 @@ function cloneProperties(source, target, hash) {
 ```js
 
 // 下面是验证代码
-let obj = {
-  num: 0,
-  str: '',
-  boolean: true,
-  unf: undefined,
-  nul: null,
-  obj: { name: '我是一个对象', id: 1 },
-  arr: [0, 1, 2],
-  func: function () { console.log('我是一个函数') },
-  date: new Date(0),
-  reg: new RegExp('/我是一个正则/ig'),
-  [Symbol('1')]: 1,
+const original = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'Beijing',
+    zip: '100000'
+  },
+  hobbies: [
+    {
+      name: 'reading',
+      id: 1
+    }
+  ]
 };
-Object.defineProperty(obj, 'innumerable', {
-  enumerable: false, value: '不可枚举属性' }
-);
-obj = Object.create(obj, Object.getOwnPropertyDescriptors(obj))
-obj.loop = obj    // 设置loop成循环引用的属性
-let cloneObj = deepClone(obj)
-cloneObj.arr.push(4)
-console.log('obj', obj)
-console.log('cloneObj', cloneObj)
+
+// 添加循环引用测试
+original.self = original;
 ```
 
 #### **自定义深拷贝函数的优点：**

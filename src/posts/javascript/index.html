@@ -24,6 +24,8 @@
   // 支持数组和普通对象
   const clone = Array.isArray(obj) ? [] : {};
 
+  console.log('clone',clone)
+
   // 记录克隆结果
   hash.set(obj, clone);
 
@@ -37,11 +39,35 @@
 
   return clone;
 }
-const obj = {
-    a:{
-        b:1
+// 测试
+const original = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'Beijing',
+    zip: '100000'
+  },
+  hobbies: [
+    {
+      name: 'reading',
+      id: 1
     }
-}
+  ]
+};
+
+// 添加循环引用测试
+original.self = original;
+
+const copy = deepClone(original);
+copy.hobbies.push({
+  name: 'gaming',
+  id: 2
+})
+console.log(copy !== original); // true
+console.log(copy.address !== original.address); // true
+console.log(copy.self === copy); // true 循环引用正确处理
+console.log(original,'original')
+console.log(copy,'copy')
 
 // const c = deepClone(obj)
 // obj.a.b = 'cccc'

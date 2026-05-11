@@ -321,5 +321,6 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "[less]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "liveServer.settings.port": 5501
   }
