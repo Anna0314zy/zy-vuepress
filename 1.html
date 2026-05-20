@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dragon Flow Text</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e7dece;
+      font-family: Georgia, serif;
+      display: flex;
+      justify-content: center;
+      padding: 60px 0;
+    }
+
+    .page {
+      width: 900px;
+      min-height: 1200px;
+      padding: 80px 90px;
+      background: #efe7d8;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /*
+      ========================
+      文本
+      ========================
+    */
+
+    .content {
+      position: relative;
+      z-index: 2;
+
+      font-size: 22px;
+      line-height: 2;
+      color: #1d1d1d;
+      text-align: justify;
+    }
+
+    .content::first-letter {
+      float: left;
+      font-size: 120px;
+      line-height: 0.85;
+      padding-right: 14px;
+      padding-top: 10px;
+      font-family: "Times New Roman", serif;
+      font-weight: bold;
+    }
+
+    /*
+      ========================
+      龙路径占位
+      shape-outside 实现文字环绕
+      ========================
+    */
+
+    .dragon-path {
+      float: left;
+
+      width: 480px;
+      height: 700px;
+
+      /*
+        真正决定文字绕开的区域
+      */
+      shape-outside: polygon(
+        34% 0%,
+        55% 5%,
+        70% 12%,
+        84% 24%,
+        88% 38%,
+        80% 48%,
+        66% 58%,
+        56% 68%,
+        60% 78%,
+        76% 88%,
+        92% 100%,
+        74% 100%,
+        58% 90%,
+        40% 80%,
+        30% 65%,
+        18% 48%,
+        10% 30%,
+        16% 16%
+      );
+
+      clip-path: polygon(
+        34% 0%,
+        55% 5%,
+        70% 12%,
+        84% 24%,
+        88% 38%,
+        80% 48%,
+        66% 58%,
+        56% 68%,
+        60% 78%,
+        76% 88%,
+        92% 100%,
+        74% 100%,
+        58% 90%,
+        40% 80%,
+        30% 65%,
+        18% 48%,
+        10% 30%,
+        16% 16%
+      );
+
+      margin-right: 30px;
+      margin-bottom: 20px;
+
+      position: relative;
+    }
+
+    /*
+      ========================
+      SVG 龙
+      ========================
+    */
+
+    .dragon-svg {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /*
+      ========================
+      龙身体动画
+      ========================
+    */
+
+    .dragon-body {
+      stroke-dasharray: 12 10;
+
+      animation:
+        dragonMove 8s linear infinite,
+        dragonFloat 4s ease-in-out infinite;
+    }
+
+    /*
+      龙头沿路径移动
+    */
+
+    .dragon-head {
+      animation:
+        dragonTravel 8s linear infinite;
+      transform-origin: center;
+    }
+
+    /*
+      让部分龙覆盖文字
+    */
+
+    .dragon-over {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /*
+      ========================
+      动画
+      ========================
+    */
+
+    @keyframes dragonMove {
+      from {
+        stroke-dashoffset: 0;
+      }
+
+      to {
+        stroke-dashoffset: -500;
+      }
+    }
+
+    @keyframes dragonFloat {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    @keyframes dragonTravel {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
+    }
+
+    /*
+      ========================
+      PRE 标签文本
+      ========================
+    */
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: inherit;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- 文字绕开区域 -->
+    <div class="dragon-path"></div>
+
+    <!-- 底层龙 -->
+    <svg
+      class="dragon-svg"
+      width="480"
+      height="700"
+      viewBox="0 0 480 700"
+    >
+
+      <!-- 主路径 -->
+      <path
+        id="dragonLine"
+        d="
+          M180 20
+          C300 60, 380 140, 390 220
+          C400 300, 300 350, 250 430
+          C210 500, 260 560, 360 650
+        "
+        fill="none"
+        stroke="#111"
+        stroke-width="22"
+        stroke-linecap="round"
+        class="dragon-body"
+      />
+
+      <!-- 鳞片纹理 -->
+      <path
+        d="
+          M180 20
+          C300 60, 380 140, 390 220
+          C400 300, 300 350, 250 430
+          C210 500, 260 560, 360 650
+        "
+        fill="none"
+        stroke="rgba(255,255,255,.35)"
+        stroke-width="2"
+        stroke-dasharray="4 16"
+      />
+
+      <!-- 龙头 -->
+      <g
+        class="dragon-head"
+        style="
+          offset-path: path('M180 20 C300 60, 380 140, 390 220 C400 300, 300 350, 250 430 C210 500, 260 560, 360 650');
+        "
+      >
+        <circle
+          cx="0"
+          cy="0"
+          r="18"
+          fill="#111"
+        />
+
+        <circle
+          cx="6"
+          cy="-4"
+          r="3"
+          fill="#ffdf6b"
+        />
+
+        <path
+          d="M18 2 L40 0"
+          stroke="crimson"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </g>
+
+    </svg>
+
+    <!-- 上层覆盖龙 -->
+    <svg
+      class="dragon-over"
+      width="900"
+      height="1200"
+      viewBox="0 0 900 1200"
+    >
+
+      <path
+        d="
+          M390 320
+          C470 340, 520 390, 560 450
+        "
+        fill="none"
+        stroke="#111"
+        stroke-width="28"
+        stroke-linecap="round"
+      />
+
+    </svg>
+
+    <!-- 文本 -->
+    <div class="content">
+
+<pre>
+It was the third candle the abbess had confiscated,
+and Sable had nodded gravely each time and stolen
+another from the chapel stores.
+
+She kept reading by its unsteady light, hunched beneath
+her wool blanket in the scriptorium where the novices
+slept on straw pallets between the copying desks.
+
+It was the bestiary that held her.
+
+Not the psalter.
+Not the gospels.
+Not the lives of saints with their wooden sufferings.
+
+The bestiary.
+
+Some brother at Lindisfarne had painted it two centuries ago,
+and his creatures had a quality she could not name,
+a weight to them,
+as if they had been observed from life rather than copied.
+
+His lions looked hungry.
+His basilisks looked bored.
+
+And his dragon,
+coiled in the lower margin of the forty-seventh leaf,
+looked like it was breathing.
+
+She had watched it for six nights before she was certain.
+
+The movement was slight,
+a swelling of the ribs,
+a settling,
+barely more than the flicker the candlelight threw across the page.
+
+On the seventh night she held her breath
+and placed a finger beside its painted flank.
+
+The parchment was warm.
+</pre>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
